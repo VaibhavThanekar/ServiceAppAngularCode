@@ -1,0 +1,97 @@
+table{
+    width: 100% !important;
+   }
+     /* overflow-wrap: break-word; */
+     /* word-wrap: break-word; */
+   
+     /* word-break: break-word; */
+   /* .mat-column-customerName {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 100% !important;
+     width: 150% !important;
+   
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   } */
+
+   .button_bg {
+    background-color: transparent!important;
+    background-repeat: no-repeat!important;
+    border: none!important;
+    cursor: pointer!important;
+    overflow: hidden!important;
+    outline: none!important;
+    color: #26A69A!important;
+}
+.button_bg:hover{
+  color: red!important;
+}
+
+/* .overlay {
+  position: fixed!important;
+  top: 0!important;
+  left: 0;
+  width: 100vw!important;
+  height: 100vh!important;
+  background-color: rgba(128,128,128,0.5)!important;
+  display: none!important;
+}
+
+.modal {
+  position: fixed!important;; 
+  top: 50vh!important;;
+  left: 50vw!important;;
+  transform: translate(-50%,-50%)!important;;
+  height: 400px; 
+  width: 600px;
+  background-color: white!important;
+} */
+
+   .hide_element{
+    display: none;
+  }
+
+   .mat-column-customerName{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+   
+ .mat-column-customerAddress{
+    width: 150px!important;
+    min-width: 250px !important;
+  }
+
+  .mat-column-servicePersonName{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ .mat-column-timeOfVisit{
+    width: 120px !important;
+    max-width: 60px !important;
+    min-width: 120px !important;
+ }
+
+ .mat-column-serviceLocation{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+.mat-column-currentStatus{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+.mat-column-otherStatus{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}

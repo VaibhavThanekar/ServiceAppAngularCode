@@ -1,0 +1,193 @@
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <app-header></app-header>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="card col-lg-12 pl-0 pr-0">
+                        <div class="card-header card-header-c">
+                            <div>Add Product</div>
+                        </div>
+
+                        <form [formGroup]="prdouctForm" #addProducts="ngForm" class="user p-5">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <!-- <input type="text" class="form-control form-control-user" id="txtProductName"
+                                        placeholder="Product Name" formControlName="productName"
+                                        [ngClass]="{'is-invalid':submitted && prdouctForm.controls.productName.errors}" >
+
+                                    <div *ngIf="submitted && prdouctForm.controls.productName.errors" class=" text-danger">
+                                        <div *ngIf="submitted && prdouctForm.controls.productName.errors.required">
+                                            Enter product name
+                                        </div>
+                                    </div> -->
+
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Product Name</mat-label>
+                                        <input matInput aria-label="Product Name" formControlName="productName"  id="txtCustomerName" >
+
+                                        <mat-error *ngIf="valid.productName.errors?.required">
+                                            <span class="text-danger">Enter product name</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <!-- <input type="number" class="form-control form-control-user"  id="txtProductPrice"
+                                        placeholder="Product Price" formControlName="productPrice" 
+                                        [ngClass]="{'is-invalid':submitted && prdouctForm.controls.productPrice.errors}" >
+                                    
+                                    <div *ngIf="submitted && prdouctForm.controls.productPrice.errors" class=" text-danger">
+                                        <div *ngIf="submitted && prdouctForm.controls.productPrice.errors.required">
+                                            Enter product price
+                                        </div>
+                                        <div *ngIf="submitted && prdouctForm.controls.productPrice.errors.maxlength">
+                                            Enter valid product price
+                                        </div>
+                                    </div> -->
+
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Product Price</mat-label>
+                                        <input matInput type="number" aria-label="Mobile Number" formControlName="productPrice">
+                                        <mat-error class="text-danger" *ngIf="valid.productPrice.errors?.required">
+                                            Enter product price
+                                        </mat-error>
+                                        <mat-error class="text-danger" *ngIf="valid.productPrice.errors?.maxlength">
+                                            Enter valid product price
+                                        </mat-error>
+                                        
+                                    </mat-form-field> 
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Select Activation</mat-label>
+                                        <mat-select formControlName="productIsDeleted">
+                                          <mat-option [value]="false">Activate</mat-option>
+                                          <mat-option [value]="true">Deactivate</mat-option>
+                                         
+                                        </mat-select>
+                                        <mat-error class="text-danger" *ngIf="valid.productIsDeleted.errors?.required">
+                                            Select activation of product
+                                        </mat-error>
+                                      </mat-form-field>
+
+                                    <!-- <select class="combobox form-control form-control-user" placeholder="Select Activation"
+                                    formControlName="productIsDeleted" [ngClass]="{'is-invalid':submitted && prdouctForm.controls.productIsDeleted.errors}" 
+                                     >
+                                        <option value="" selected>Please select</option>
+                                        <option value="false">Activate</option>
+                                        <option value="true">Deactivate</option>
+                                      </select>
+
+                                      <div *ngIf="submitted && prdouctForm.controls.productIsDeleted.errors" class=" text-danger">
+                                        <div *ngIf="submitted && prdouctForm.controls.productIsDeleted.errors.required">
+                                            Select activation of product
+                                        </div>
+                                    </div> -->
+                                  </div>
+                            </div>
+                            <div class="form-group">
+
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Prdouct Description</mat-label>
+                                    <input matInput aria-label="Prdouct Description" formControlName="productDescription" >
+
+                                    <!-- <mat-error class="text-danger" *ngIf="valid.customerComplaint.errors?.required">
+                                        Enter complaint
+                                    </mat-error> -->
+                                </mat-form-field>
+                                
+                                <!-- <input type="text" class="form-control form-control-user" id="txtProductDescription"
+                                    placeholder="Prdouct Description"  formControlName="productDescription" 
+                                    [ngClass]="{'is-invalid':submitted && prdouctForm.controls.productDescription.errors}" > -->
+                                    
+                            </div>
+
+                            <div class="form-group row justify-content-md-center pt-3">
+                                <div class="col-sm-2 ">
+                                    <button class="btn btn-primary btn-user btn-block" type="submit" id="btnSave" 
+                                    (click)="addProduct(addProducts.value)">{{editMode? 'Update' : 'Save'}}</button>
+                                    <!-- <div class="btn btn-primary btn-user btn-block" type="submit"  id="btnSave">Save</div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="btn btn-primary btn-user btn-block" id="btnCancel" (click)="resetForm()">Cancel</div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="mat-elevation-z8">
+                                <mat-form-field class="mt-2 col-md-4">
+                                    <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Search">
+                                </mat-form-field>
+
+                            <table mat-table matSort [dataSource]="dataSource">
+                                <ng-container matColumnDef="Id">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                                </ng-container>
+                              
+                                <ng-container matColumnDef="productName">
+                                  <th mat-header-cell *matHeaderCellDef> Product Name </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="productDescription">
+                                    <th mat-header-cell *matHeaderCellDef> Product Description </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.productDescription}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="productPrice">
+                                    <th mat-header-cell *matHeaderCellDef> Product Price </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.productPrice}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="createdDate">
+                                    <th mat-header-cell *matHeaderCellDef> Created Date </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="actions">
+                                    <th mat-header-cell *matHeaderCellDef> Action </th>   
+                                    <td mat-cell *matCellDef="let element"> 
+                                      <!-- <button mat-raised-button >Edit</button>  -->
+                                      <!-- <button mat-raised-button class="ml-2 text-danger" >Delete</button>  -->
+                                      <div class="button">
+                                        <button mat-button (click)="updateProduct(element.id)"><i class="fa fa-edit"></i></button>
+                                        <button mat-button class="ml-2" (click)="deleteProduct(element.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                      </div>
+                                      
+                                    </td>
+                                  </ng-container>
+                              
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                              </table>
+                              <!-- <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>  -->
+                              <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+           
+          </div>
+        </div>
+         <!-- Footer -->
+        <app-footer></app-footer>
+
+     </div>
+    
+</div>
+
+ 

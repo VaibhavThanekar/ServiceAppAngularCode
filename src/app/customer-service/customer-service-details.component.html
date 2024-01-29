@@ -1,0 +1,280 @@
+
+<div id="wrapper">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <app-header></app-header>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="card col-lg-12 pl-0 pr-0">
+                        <div class="card-header card-header-c">
+                            <div>Customer Service Details</div>
+                        </div>
+                        <!-- [formGroup]="customerServiceDetailsForm" -->
+                        <form  #customerServiceDetails="ngForm" class="user p-5">
+                            <div class="mat-elevation-z8">
+                                <mat-form-field class="mt-2 col-md-4">
+                                    <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Search">
+                                </mat-form-field>
+                        <div class="table-responsive">
+                            <table mat-table matSort [dataSource]="dataSource">
+                              <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>   
+                                <td mat-cell *matCellDef="let element"> 
+                                  <div>
+                                    <button mat-button class="button_bg" data-toggle="modal" data-target="#exampleModal"  (click)="selectedItem(element.id)"><i class="fa fa-edit"></i></button>
+                                  </div>
+                                </td>
+                              </ng-container>
+                              <!-- data-toggle="modal" data-target="#exampleModal" -->
+                                <!-- <ng-container matColumnDef="Id">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                                </ng-container> -->
+                              
+                                <ng-container matColumnDef="customerName">
+                                  <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="mobileNumber">
+                                    <th mat-header-cell *matHeaderCellDef> Mobile No </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.mobileNumber}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="customerAddress">
+                                    <th mat-header-cell *matHeaderCellDef> Customer Address </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.customerAddress}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="servicePersonName">
+                                    <th mat-header-cell *matHeaderCellDef>Service Person </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.servicePersonName}} </td>
+                                  </ng-container>
+
+                                  <!-- <ng-container matColumnDef="visitedDate">
+                                    <th mat-header-cell *matHeaderCellDef> Visited Date </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.visitedDate}} </td>
+                                  </ng-container> -->
+
+                                  <ng-container matColumnDef="timeOfVisit">
+                                    <th mat-header-cell *matHeaderCellDef> Time Of Visit </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.timeOfVisit}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="isProductInWarranty">
+                                    <th mat-header-cell *matHeaderCellDef> InWarranty</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.isProductInWarranty}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="customerComplaint">
+                                    <th mat-header-cell *matHeaderCellDef>  Complaint </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.customerComplaint}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="serviceLocation">
+                                    <th mat-header-cell *matHeaderCellDef> Service Location </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.serviceLocation}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="serviceCost">
+                                    <th mat-header-cell *matHeaderCellDef> Cost </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.serviceCost}} </td>
+                                  </ng-container> -->
+
+                                  <!-- <ng-container matColumnDef="isSMSSentToCustomer">
+                                    <th mat-header-cell *matHeaderCellDef>  SMS To Customer </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.isSMSSentToCustomer}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="isSMSSentToManager">
+                                    <th mat-header-cell *matHeaderCellDef>  SMS To Manager </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.isSMSSentToManager}} </td>
+                                  </ng-container> -->
+
+                                   <ng-container matColumnDef="currentStatus">
+                                    <th mat-header-cell *matHeaderCellDef>  Current Status </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.currentStatus}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="otherStatus">
+                                    <th mat-header-cell *matHeaderCellDef>  Other Status </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.otherStatus}} </td>
+                                  </ng-container>
+
+                                  
+                                  <!-- <ng-container matColumnDef="actions">
+                                    <th mat-header-cell *matHeaderCellDef> Action </th>   
+                                    <td mat-cell *matCellDef="let element"> 
+                                      <div class="button">
+                                        <button mat-button (click)="updateProduct(element.id)"><i class="fa fa-edit"></i></button>
+                                        <button mat-button class="ml-2" (click)="deleteProduct(element.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                      </div>
+                                      
+                                    </td>
+                                  </ng-container> -->
+                              
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                              </table>
+                            </div>
+                              <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- <button type="button" class="btn btn-info btn-lg" (click)="openModal()">click to open</button>
+                   
+                    <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}"
+                    data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                    <div class="modal-header">
+                                          <h4 class="modal-title">Model Title</h4>
+                                          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                <div class="modal-body">
+                                          <p>Model body text</p>
+                                        </div>
+                                    <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+                                        </div>
+                            </div>
+                          
+                    </div>
+                    </div> -->
+
+
+                    <!-- Button trigger modal -->
+                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                      Launch demo modal
+                    </button> -->
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+                    data-backdrop="static" data-keyboard="false" [ngStyle]="{'display':display}">
+                      <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header card-header-c">
+                            <h5 class="modal-title" id="exampleModalLabel">Customer Service Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form [formGroup]="customerServiceForm" #customerService="ngForm" class="user p-5" 
+                               #formDirective="ngForm">
+                            <div class="form-group row">
+                                <div class="col-md-8 mb-3 mb-sm-0">
+                                    
+                                      <mat-form-field class="example-full-width">
+                                        <mat-label>Customer Name</mat-label>
+                                        <input matInput aria-label="Customer Name" formControlName="customerName"  id="txtCustomerName" readonly>                                 
+                                      </mat-form-field>                                    
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Mobile Number</mat-label>
+                                        <input matInput type="number" aria-label="Mobile Number" formControlName="mobileNumber" readonly> 
+                                    </mat-form-field>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Address</mat-label>
+                                    <input matInput aria-label="Address" formControlName="customerAddress" readonly> 
+                                </mat-form-field>
+                               
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Service Person</mat-label>
+                                        <input matInput aria-label="Service Person" formControlName="servicePerson"  id="txtServicePerson" readonly>   
+                                    </mat-form-field>
+                                
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-label>Time of visit</mat-label>
+                                        <input matInput aria-label="Time of visit" formControlName="timeOfVisit" readonly>  
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Select Warranty</mat-label>
+                                        <input matInput aria-label="Select Warranty" formControlName="isProductInWarranty" readonly>  
+                                      </mat-form-field> 
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Complaint</mat-label>
+                                        <input matInput aria-label="Complaint" formControlName="customerComplaint" readonly> 
+                                    </mat-form-field>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Chagers as per location</mat-label>
+                                        <input matInput aria-label="Chagers as per location" formControlName="serviceChargeLocation" readonly>
+                                      </mat-form-field>
+                                    
+                                </div>
+
+                                <div class="col-md-2">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Charge</mat-label>
+                                        <input matInput aria-label="Charge" formControlName="serviceChargeCost" readonly>
+                                    </mat-form-field>
+                                   
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Current Status</mat-label>
+                                        <input matInput aria-label="Current Status" formControlName="currentStatus"  [(ngModel)]="selectedStatus" readonly> 
+                                      </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- *ngIf="selectedStatus == 4" -->
+                            <div class="form-group" *ngIf="selectedStatus == 'Other'"  >
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Other Status</mat-label>
+                                    <input matInput aria-label="Other Status" formControlName="otherStatus" readonly> 
+                                </mat-form-field>
+                            </div>
+   
+                        </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+         <!-- Footer -->
+        <app-footer></app-footer>
+
+     </div>
+    
+</div>
+
+ 

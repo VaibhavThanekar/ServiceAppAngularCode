@@ -1,0 +1,157 @@
+
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="container-fluid">
+                <div class="row p-3 pt-5">
+                    <div class="card col-md-10 offset-md-1 align-self-center pl-0 pr-0">
+                        <div class="card-header card-header-c">
+                            <div>Customer Service</div>
+                        </div>
+                        <form [formGroup]="customerServiceForm" #customerService="ngForm" class="user p-5" 
+                               #formDirective="ngForm">
+                            <div class="form-group row">
+                                <div class="col-md-8 mb-3 mb-sm-0">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Customer Name</mat-label>
+                                        <input matInput aria-label="Customer Name" formControlName="customerName"  id="txtCustomerName" >
+
+                                        <mat-error *ngIf="valid.customerName.errors?.required">
+                                            <span class="text-danger">Enter customer name</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Mobile Number</mat-label>
+                                        <input matInput type="number" aria-label="Mobile Number" formControlName="mobileNumber">
+                                        <mat-error class="text-danger" *ngIf="valid.mobileNumber.errors?.required">
+                                            Enter mobile name
+                                        </mat-error>
+                                        <mat-error class="text-danger" *ngIf="valid.mobileNumber.errors?.pattern">
+                                            Enter 10 digit mobile number
+                                        </mat-error>
+                                        
+                                    </mat-form-field> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Address</mat-label>
+                                    <input matInput aria-label="Address" formControlName="customerAddress">
+
+                                    <mat-error class="text-danger" *ngIf="valid.customerAddress.errors?.required">
+                                        Enter customer address
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Service Person</mat-label>
+                                        <mat-select formControlName="servicePersonId">
+                                            <mat-option *ngFor="let servicePersons of servicePersonsList" [value]="servicePersons.id"> {{servicePersons.name}}</mat-option>
+                                        </mat-select>
+                                        <mat-error class="text-danger" *ngIf="valid.servicePersonId.errors?.required">
+                                            Select service person
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-label>Time of visit</mat-label>
+                                        <input matInput [ngxMatTimepicker]="picker" [format]="24"  placeholder="16:00" formControlName="timeOfVisit">  
+                                        <ngx-mat-timepicker #picker></ngx-mat-timepicker>  
+
+                                        <mat-error class="text-danger" *ngIf="valid.timeOfVisit.errors?.required">
+                                            Enter time of visit
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-3">
+                                     <mat-form-field class="example-full-width">
+                                        <mat-label>Select Warranty</mat-label>
+                                        <mat-select formControlName="isProductInWarranty">
+                                          <mat-option [value]="false">Non Warranty</mat-option>
+                                          <mat-option [value]="true">In Warranty</mat-option>
+                                         
+                                        </mat-select>
+                                        <mat-error class="text-danger" *ngIf="valid.isProductInWarranty.errors?.required">
+                                            Select product warranty
+                                        </mat-error>
+                                      </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Complaint</mat-label>
+                                        <input matInput aria-label="Complaint" formControlName="customerComplaint" >
+
+                                        <mat-error class="text-danger" *ngIf="valid.customerComplaint.errors?.required">
+                                            Enter complaint
+                                        </mat-error>
+                                    </mat-form-field>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Chagers as per location</mat-label>
+                                        <mat-select formControlName="serviceCharge" (selectionChange)="selectedCharge($event.value)" >
+                                          <mat-option *ngFor="let serviceCharges of serviceChargesList" [value]="serviceCharges">{{serviceCharges.location}}</mat-option>
+                                        </mat-select>
+                                        <mat-error class="text-danger" *ngIf="valid.serviceCharge.errors?.required">
+                                            Select service charge
+                                        </mat-error>
+                                      </mat-form-field>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Charge</mat-label>
+                                        <input matInput aria-label="Charge" formControlName="serviceChargeCost" readonly>
+                                    </mat-form-field>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Current Status</mat-label>
+                                        <mat-select  formControlName="currentStatusId" [(ngModel)]="selectedStatus" >
+                                          <mat-option *ngFor="let currentStatus of currentStatusList" [value]="currentStatus.id">{{currentStatus.status}}</mat-option>
+                                        </mat-select>
+
+                                        <mat-error class="text-danger" *ngIf="valid.currentStatusId.errors?.required">
+                                            Select current status
+                                        </mat-error>
+                                      </mat-form-field>
+                                     </div>
+                            </div>
+
+                            <div class="form-group" *ngIf="selectedStatus == 4">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Other Status</mat-label>
+                                    <input matInput aria-label="Other Status" formControlName="otherStatus">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group row justify-content-md-center pt-4">
+                                <div class="col-md-2 mb-3 mb-md-0">
+                                    <button class="btn btn-primary btn-user btn-block" type="button" [disabled]="!customerService.valid" id="btnSave" (click)="addCustomerService(customerService.value)" >Save</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="btn btn-primary btn-user btn-block" id="btnCancel" (click)="resetForm()">Cancel</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+          </div>
+        </div>
+     </div>
+</div>
+
+ 
