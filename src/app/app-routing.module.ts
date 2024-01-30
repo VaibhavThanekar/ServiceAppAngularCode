@@ -8,7 +8,7 @@ import { CustomerServiceDetailsComponent } from './customer-service/customer-ser
 const routes: Routes = [
 {path:'dashboard', component:DashboardComponent},
 {path:'product', component:ProductComponent},
-{path:'customer-service', component:CustomerServiceComponent},
+{path:'CustomerService', component:CustomerServiceComponent},
 {path:'CustomerServiceDetails', component:CustomerServiceDetailsComponent}
 ];
 

@@ -144,3 +144,16 @@ form.user .btn-user {
     flex-shrink: 0;
     color: var(--mat-fab-foreground-color, inherit);
 }
+
+.button_bg {
+    background-color: transparent!important;
+    background-repeat: no-repeat!important;
+    border: none!important;
+    cursor: pointer!important;
+    overflow: hidden!important;
+    outline: none!important;
+    color: #26A69A!important;
+}
+.button_bg:hover{
+  color: red!important;
+}

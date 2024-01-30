@@ -24,7 +24,8 @@
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Mobile Number</mat-label>
-                                        <input matInput type="number" aria-label="Mobile Number" formControlName="mobileNumber">
+                                        <!-- <input matInput type="text" aria-label="Mobile Number" formControlName="mobileNumber" ng-model="mobileNumberDigit" pattern="[0-9]*" maxlength="10"> -->
+                                        <input matInput type="number" aria-label="Mobile Number" formControlName="mobileNumber" onKeyPress="if(this.value.length==10) return false;"  />
                                         <mat-error class="text-danger" *ngIf="valid.mobileNumber.errors?.required">
                                             Enter mobile name
                                         </mat-error>

@@ -18,7 +18,7 @@ table{
      hyphens: auto;
    } */
 
-   .button_bg {
+   /* .button_bg {
     background-color: transparent!important;
     background-repeat: no-repeat!important;
     border: none!important;
@@ -29,7 +29,7 @@ table{
 }
 .button_bg:hover{
   color: red!important;
-}
+} */
 
 /* .overlay {
   position: fixed!important;
