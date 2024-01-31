@@ -24,6 +24,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CustomerServiceService } from './services/customer-service.service';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { CustomerServiceDetailsComponent } from './customer-service/customer-service-details.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './services/login.service';
 
 
 @NgModule({
@@ -36,7 +38,7 @@ import { CustomerServiceDetailsComponent } from './customer-service/customer-ser
     ProductComponent,
     CustomerServiceComponent,
     CustomerServiceDetailsComponent,
-    
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,7 @@ import { CustomerServiceDetailsComponent } from './customer-service/customer-ser
     provideClientHydration(),
     ProductService,
     CustomerServiceService,
+    LoginService,
    { provide: MatFormFieldModule,useValue :{ appearance: 'fill' }}
 
   ],

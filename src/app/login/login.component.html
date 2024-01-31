@@ -1,0 +1,48 @@
+<div class="bg-img">
+    <div class="content">
+        <header>Login Form</header>
+        <form [formGroup]="loginForm" #loginFrm="ngForm">
+            <mat-form-field class="field">
+                <input matInput aria-label="Email" formControlName="emailId"  id="txtEmailId"
+                  required>
+                <mat-icon matPrefix><span class="fa fa-user"></span></mat-icon>
+                <!-- pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" -->
+                <mat-error *ngIf="valid.emailId.errors?.required">
+                    <span class="text-danger">Enter email id</span>
+                </mat-error>
+
+                <mat-error *ngIf="valid.emailId.errors?.email" >
+                    <span class="text-danger"> Please enter a valid email address</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field space">
+                <input matInput type="password"  class="password"  aria-label="Password" formControlName="password"  id="txtPassword" >
+                <mat-icon matPrefix><span class="fa fa-lock"></span></mat-icon>
+
+                <mat-error *ngIf="valid.password.errors?.required">
+                    <span class="text-danger">Enter Password</span>
+                </mat-error>
+            </mat-form-field>
+            
+            <div class="pass space_2">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <div class="field ">
+                <input type="submit" value="LOGIN" id="btnLogin" (click)="checkLogin(loginFrm.value)">
+            </div>
+            <!-- <div class="login">Or login with</div>
+            <div class="link">
+                <div class="facebook">
+                    <i class="fab fa-facebook-f"><span>Facebook</span></i>
+                </div>
+                <div class="instagram">
+                    <i class="fab fa-instagram"><span>Instagram</span></i>
+                </div>
+            </div> -->
+            <div class="signup mt-3">Don't have account?
+                <a href="#">SignUp Now</a>
+            </div>
+        </form>
+    </div>
+</div>
