@@ -1,5 +1,19 @@
+<ngx-spinner
+bdColor="rgba(0,0,0,0.8)"
+size="medium"
+color="white"
+type="square-loader" [fullScreen] = "true"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner> -->
+
+<!-- <ngx-spinner bdColor = "rgba(0,0,0,0.8)" size = "medium" color = "white" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner> -->
 <div class="bg-img">
+  
     <div class="content">
+        
         <header>Login Form</header>
         <form [formGroup]="loginForm" #loginFrm="ngForm">
             <mat-form-field class="field">
@@ -43,6 +57,10 @@
             <div class="signup mt-3">Don't have account?
                 <a href="#">SignUp Now</a>
             </div>
+
+            
         </form>
+
+        
     </div>
 </div>

@@ -26,6 +26,7 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { CustomerServiceDetailsComponent } from './customer-service/customer-service-details.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './services/login.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -57,6 +58,8 @@ import { LoginService } from './services/login.service';
     MatAutocompleteModule,
     ReactiveFormsModule,
     NgxMatTimepickerModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule
   
   ],
   providers: [

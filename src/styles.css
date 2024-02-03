@@ -153,6 +153,7 @@ form.user .btn-user {
     overflow: hidden!important;
     outline: none!important;
     color: #26A69A!important;
+    /* #30d0c1 */
 }
 .button_bg:hover{
   color: red!important;

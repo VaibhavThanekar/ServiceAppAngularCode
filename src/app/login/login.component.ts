@@ -3,6 +3,7 @@ import { UserMaster } from '../models/user';
 import { LoginService } from '../services/login.service';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { Router } from "@angular/router";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent {
   _emailID:string;
   _password:string;
 
-  constructor(private formBuilder: FormBuilder, private loginService:LoginService, private router: Router){
+  constructor(private formBuilder: FormBuilder, private loginService:LoginService, private router: Router,private spinner: NgxSpinnerService){
     this.loginForm = this.formBuilder.group({
       emailId: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -46,7 +47,15 @@ export class LoginComponent {
           this.userDetails = data;
           if(this.userDetails[0].isDeleted != true){
             // alert('Login Successful')
-            this.router.navigate(['/dashboard'])
+            this.spinner.show();
+            setTimeout(() => {
+              
+              /** spinner ends after 5 seconds */
+              this.spinner.hide();
+              this.router.navigate(['/dashboard'])
+            }, 5000);
+
+            // this.router.navigate(['/dashboard'])
           }
           else{
             alert('User does not exist')
@@ -55,7 +64,6 @@ export class LoginComponent {
       else{
         alert('Invalid EmailId or Password')
       }
-        // console.log(this.userDetails);
       })
     } 
   }
