@@ -5,13 +5,15 @@ import { ProductComponent } from './product/product.component';
 import { CustomerServiceComponent } from './customer-service/customer-service.component';
 import { CustomerServiceDetailsComponent } from './customer-service/customer-service-details.component';
 import { LoginComponent } from './login/login.component';
+import { ServiceChargeComponent } from './customer-service/service-charge.component';
 
 const routes: Routes = [
 {path:'login', component:LoginComponent},
 {path:'dashboard', component:DashboardComponent},
 {path:'product', component:ProductComponent},
 {path:'CustomerService', component:CustomerServiceComponent},
-{path:'CustomerServiceDetails', component:CustomerServiceDetailsComponent}
+{path:'CustomerServiceDetails', component:CustomerServiceDetailsComponent},
+{path:'ServiceCharge', component:ServiceChargeComponent}
 ];
 
 @NgModule({

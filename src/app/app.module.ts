@@ -27,6 +27,7 @@ import { CustomerServiceDetailsComponent } from './customer-service/customer-ser
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './services/login.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ServiceChargeComponent } from './customer-service/service-charge.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CustomerServiceComponent,
     CustomerServiceDetailsComponent,
     LoginComponent,
+    ServiceChargeComponent,
   ],
   imports: [
     BrowserModule,
