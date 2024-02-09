@@ -158,3 +158,26 @@ form.user .btn-user {
 .button_bg:hover{
   color: red!important;
 }
+
+.button_pdf{
+    background-color: #C62828!important;
+    color: white!important;
+    background-repeat: no-repeat!important;
+    border: none!important;
+}
+
+.button_pdf:hover, .button_pdf:active{
+    background-color: #B71C1C!important;
+  }
+
+
+  .button_excel{
+    background-color: #2E7D32!important;
+    color: white!important;
+    background-repeat: no-repeat!important;
+    border: none!important;
+}
+
+.button_excel:hover, .button_excel:active{
+    background-color: #1B5E20!important;
+  }

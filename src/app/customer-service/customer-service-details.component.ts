@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomerServiceService } from '../services/customer-service.service'
 import { CustomerServiceDetails } from '../models/customer-service';
-
+import * as XLSX from 'xlsx';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-customer-service-details',
@@ -31,6 +32,7 @@ export class CustomerServiceDetailsComponent {
   posts: any;
   display = "none";
   public selectedStatus: string;
+  myDate = new Date();
 
   constructor(private customereDetailsService: CustomerServiceService, private formBuilder: FormBuilder) {
     this.customerServiceForm = this.formBuilder.group({
@@ -61,6 +63,41 @@ export class CustomerServiceDetailsComponent {
   onCloseHandled() {
     this.display = "none";
   }
+
+  // @ViewChild('TABLE') table: ElementRef;
+  // exportAsExcel()
+  //   {
+  //     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);//converts a DOM TABLE element to a worksheet
+  //     const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  //     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  //     /* save to file */
+  //     XLSX.writeFile(wb, 'SheetJS.xlsx');
+
+  //   }
+
+  currentDate = formatDate(this.myDate, 'yyyy-MM-dd', 'en-US').toString();
+  fileName = "CustomerDetails_"+ this.currentDate +".xlsx"
+  exportAsExcel()
+  {
+    let data = document.getElementById("tblCustomerDetails");
+    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(data)
+    
+    ws['!cols'] = [];
+    ws['!cols'][0] = { hidden: true };
+    /* here 12 is your column number (n-1) */
+    // delete (ws['O1'])
+    
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+
+  }
+
+  
+
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
