@@ -139,9 +139,7 @@ export class ServiceChargeComponent implements AfterViewInit{
       this.dataSource = new MatTableDataSource(this.posts);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
-      console.log(data);
-      
+      // console.log(data);
     })
   }
 

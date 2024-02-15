@@ -28,6 +28,9 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './services/login.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ServiceChargeComponent } from './customer-service/service-charge.component';
+import { CustomerSalesComponent } from './customer-sales/customer-sales.component';
+import { CustomerSalesService } from './services/customer-sales.service';
+
 
 
 @NgModule({
@@ -42,6 +45,7 @@ import { ServiceChargeComponent } from './customer-service/service-charge.compon
     CustomerServiceDetailsComponent,
     LoginComponent,
     ServiceChargeComponent,
+    CustomerSalesComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +71,7 @@ import { ServiceChargeComponent } from './customer-service/service-charge.compon
   providers: [
     provideClientHydration(),
     ProductService,
+    CustomerSalesService,
     CustomerServiceService,
     LoginService,
    { provide: MatFormFieldModule,useValue :{ appearance: 'fill' }}

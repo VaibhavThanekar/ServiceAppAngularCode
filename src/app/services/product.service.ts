@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import {ProductMaster} from '../models/product'
 import { json } from 'stream/consumers';
+import { Constants } from '../models/commonMaster';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { json } from 'stream/consumers';
 })
 export class ProductService {
 
-  readonly apiURL = "http://localhost:5153/api/ProductMaster/";
+  readonly apiURL = Constants.BASE_URL + "ProductMaster/";
 
   constructor(private http:HttpClient) { }
 

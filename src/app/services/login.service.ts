@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserMaster } from '../models/user';
+import { Constants } from '../models/commonMaster';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  readonly apiURL = "http://localhost:5153/api/UserMaster/";
+  readonly apiURL = Constants.BASE_URL + "UserMaster/";
   constructor(private http:HttpClient) { }
 
   // http://localhost:5153/api/UserMaster/GetUserDetailsForLogin?emailId=thanekarvaibhav%40gmail.com&password=Vaibhav%4059

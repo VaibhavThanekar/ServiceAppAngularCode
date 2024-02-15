@@ -16,3 +16,9 @@ export interface UserMaster
     modifiedDate:string;
     isDeleted:boolean;
   }
+
+  export interface UserName
+  {
+    id:number;
+    name:string;
+  }

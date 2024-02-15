@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import {ServiceCharge} from '../models/service-charge'
 import { json } from 'stream/consumers';
+import { Constants } from '../models/commonMaster';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceChargeService {
 
-  readonly apiURL = "http://localhost:5153/api/ServiceCharge/";
+  readonly apiURL = Constants.BASE_URL + "ServiceCharge/";
 
   constructor(private http:HttpClient) { }
 

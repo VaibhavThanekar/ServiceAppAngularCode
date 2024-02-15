@@ -8,3 +8,8 @@ export interface ProductMaster {
     createdBy:number;
     modifiedBy:number;
   }
+
+  export interface ProductNameList{
+    id: number;
+    productName: string;
+  }

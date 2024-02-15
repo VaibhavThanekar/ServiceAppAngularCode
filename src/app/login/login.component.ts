@@ -52,7 +52,7 @@ export class LoginComponent {
               
               /** spinner ends after 5 seconds */
               this.spinner.hide();
-              this.router.navigate(['/dashboard'])
+              this.router.navigate(['/Dashboard'])
             }, 5000);
 
             // this.router.navigate(['/dashboard'])

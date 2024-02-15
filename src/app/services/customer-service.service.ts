@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import {Customer, CustomerNames} from '../models/customer'
+import {Constants} from '../models/commonMaster'
 import {ServicePersonList, ServiceChargeList, CurrentStatusList, CustomerService, CustomerServiceDetails} from '../models/customer-service'
 import { json } from 'stream/consumers';
 import {Observable} from 'rxjs';
@@ -12,8 +13,8 @@ import {map} from 'rxjs/operators';
 })
 export class CustomerServiceService {
 
-  readonly customerApiURL = "http://localhost:5153/api/Customer/";
-  readonly customerServiceApiURL = "http://localhost:5153/api/CustomerService/";
+  readonly customerApiURL =  Constants.BASE_URL + "Customer/";
+  readonly customerServiceApiURL = Constants.BASE_URL + "CustomerService/";
 
   constructor(private http:HttpClient) { }
 
