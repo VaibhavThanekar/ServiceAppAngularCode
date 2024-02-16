@@ -75,10 +75,10 @@
                                 <div class="col-md-3">
                                      <mat-form-field class="example-full-width">
                                         <mat-label>Duration Of Sale</mat-label>
-                                        <mat-select formControlName="durationOfSale">
+                                        <mat-select formControlName="durationOfSaleId">
                                           <mat-option *ngFor="let durations of durationList" [value]="durations.id">{{durations.duration}}</mat-option>
                                         </mat-select>
-                                        <mat-error class="text-danger" *ngIf="valid.durationOfSale.errors?.required">
+                                        <mat-error class="text-danger" *ngIf="valid.durationOfSaleId.errors?.required">
                                             Select duration of sale
                                         </mat-error>
                                       </mat-form-field>
@@ -90,11 +90,10 @@
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Select Product</mat-label>
-                                        <mat-select formControlName="product"  >
-                                            <!-- <mat-option [value]="true">Test</mat-option> -->
-                                          <mat-option *ngFor="let productNames of productNameList" [value]="productNames">{{productNames.productName}}</mat-option>
+                                        <mat-select formControlName="productId"  >
+                                          <mat-option *ngFor="let productNames of productNameList" [value]="productNames.id">{{productNames.productName}}</mat-option>
                                         </mat-select>
-                                        <mat-error class="text-danger" *ngIf="valid.product.errors?.required">
+                                        <mat-error class="text-danger" *ngIf="valid.productId.errors?.required">
                                             Select Product
                                         </mat-error>
                                       </mat-form-field>
@@ -111,27 +110,17 @@
                             <div class="form-group">
                                 <mat-form-field class="example-full-width">
                                     <mat-label>Customer Visit Comment</mat-label>
-                                    <input matInput aria-label="Customer Visit Comment">
+                                    <input matInput aria-label="Customer Visit Comment" formControlName="comment">
                                 </mat-form-field>
                             </div>
-
-                            <!-- <div class="form-group" *ngIf="selectedStatus == 4">
-                                <mat-form-field class="example-full-width">
-                                    <mat-label>Other Status</mat-label>
-                                    <input matInput aria-label="Other Status" formControlName="otherStatus">
-                                </mat-form-field>
-                            </div> -->
 
                             <div class="form-group row justify-content-md-center pt-4">
                                 <div class="col-md-2 mb-3 mb-md-0">
                                     <button class="btn btn-primary btn-user btn-block" type="button" 
-                                    >Save</button>
-                                    <!-- [disabled]="!customerSales.valid" id="btnSave" 
-                                    (click)="addCustomerService(customerSales.value)" -->
+                                    [disabled]="!customerSales.valid" id="btnSave" (click)="addCustomerSales(customerSales.value)">Save</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <div class="btn btn-primary btn-user btn-block" id="btnCancel" >Cancel</div>
-                                    <!-- (click)="resetForm()" -->
+                                    <div class="btn btn-primary btn-user btn-block" id="btnCancel" (click)="resetForm()">Cancel</div>
                                 </div>
                             </div>
                         </form>

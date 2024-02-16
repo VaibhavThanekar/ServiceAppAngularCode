@@ -9,20 +9,21 @@ import {DurationList, Constants} from '../models/commonMaster'
 import { json } from 'stream/consumers';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import { CustomerSales, CustomerSalesDetails } from '../models/customer-sales';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerSalesService {
   readonly productApiURL = Constants.BASE_URL + "ProductMaster/";
-  readonly customerServiceApiURL = Constants.BASE_URL + "CustomerService/";
+  readonly customerSalesApiURL = Constants.BASE_URL + "CustomerSales/";
   readonly userApiURL = Constants.BASE_URL + "UserMaster/";
   readonly commonApiURL = Constants.BASE_URL + "CommonMaster/";
 
   constructor(private http:HttpClient) { }
 
   getServicePersons(){
-    return this.http.get<ServicePersonList[]>(this.customerServiceApiURL+"GetServicePersons");
+    return this.http.get<ServicePersonList[]>(this.customerSalesApiURL+"GetServicePersons");
   }
 
   getAllProductNames(){
@@ -32,6 +33,14 @@ export class CustomerSalesService {
    getAllDurationList(){
     return this.http.get<DurationList[]>(this.commonApiURL + "GetAllDurationList");
    }
+
+   saveCustomerSales(customerSales:CustomerSales){
+    return this.http.post(this.customerSalesApiURL+"AddCustomerSales", customerSales);
+  }
+
+  getAllCustomerSaleDetails(){
+    return this.http.get<CustomerSalesDetails[]>(this.customerSalesApiURL+"GetAllCustomerSaleDetails");
+  }
 
    getUserNamesFromDepartmentId(departmentId:number){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });

@@ -7,12 +7,14 @@ import { CustomerServiceDetailsComponent } from './customer-service/customer-ser
 import { LoginComponent } from './login/login.component';
 import { ServiceChargeComponent } from './customer-service/service-charge.component';
 import { CustomerSalesComponent } from './customer-sales/customer-sales.component';
+import { CustomerSalesDetailsComponent } from './customer-sales/customer-sales-details.component';
 
 const routes: Routes = [
 {path:'Login', component:LoginComponent},
 {path:'Dashboard', component:DashboardComponent},
 {path:'Product', component:ProductComponent},
 {path:'CustomerSales', component:CustomerSalesComponent},
+{path:'CustomerSalesDetails', component:CustomerSalesDetailsComponent},
 {path:'CustomerService', component:CustomerServiceComponent},
 {path:'CustomerServiceDetails', component:CustomerServiceDetailsComponent},
 {path:'ServiceCharge', component:ServiceChargeComponent}

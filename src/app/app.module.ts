@@ -30,6 +30,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ServiceChargeComponent } from './customer-service/service-charge.component';
 import { CustomerSalesComponent } from './customer-sales/customer-sales.component';
 import { CustomerSalesService } from './services/customer-sales.service';
+import { CustomerSalesDetailsComponent } from './customer-sales/customer-sales-details.component';
 
 
 
@@ -46,6 +47,7 @@ import { CustomerSalesService } from './services/customer-sales.service';
     LoginComponent,
     ServiceChargeComponent,
     CustomerSalesComponent,
+    CustomerSalesDetailsComponent,
   ],
   imports: [
     BrowserModule,
