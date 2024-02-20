@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ReminderMaster } from '../models/reminder';
+import { ReminderService } from '../services/reminder.service';
+
 
 @Component({
   selector: 'app-header',
@@ -7,10 +10,10 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 userName:any;
+public todaysReminder:ReminderMaster[] = [];
+reminderCount:number=0;
 
-constructor(){
-  
-}
+constructor(private reminderService:ReminderService){}
 
 ngOnInit() {
   this.userName = 'Vaibhav';
@@ -19,6 +22,15 @@ ngOnInit() {
   // this.userName =  sessionStorage.getItem('userName')?.toString();
   // console.log(this.userName.toString());
   // alert(this.userName);
+
+  this.getAllRemindersForToday();
+}
+
+getAllRemindersForToday(){
+  this.reminderService.getAllRemindersForToday().subscribe(data =>{
+    this.todaysReminder = data;
+    this.reminderCount = data.length;
+  })
 }
 
 }
