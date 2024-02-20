@@ -20,6 +20,12 @@ body {
     height: 45px;
 }
 
+.btn-block {
+    display: block;
+    width: 100%;
+    border-radius: 0%!important;
+  }
+
 
 .sidebar {
     width: 6.5rem;

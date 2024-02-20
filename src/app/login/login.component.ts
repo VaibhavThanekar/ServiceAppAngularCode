@@ -47,21 +47,29 @@ export class LoginComponent {
           this.userDetails = data;
           if(this.userDetails[0].isDeleted != true){
             // alert('Login Successful')
+            // sessionStorage.setItem('login', 'Success');
+            //   sessionStorage.setItem('emailId', this.userDetails[0].emailId);
+            //   sessionStorage.setItem('userName', this.userDetails[0].name);
+            //   sessionStorage.setItem('department', this.userDetails[0].department);
+            //   sessionStorage.setItem('role', this.userDetails[0].role);
             this.spinner.show();
             setTimeout(() => {
-              
               /** spinner ends after 5 seconds */
               this.spinner.hide();
-              this.router.navigate(['/Dashboard'])
+              // this.router.navigate(['/Dashboard'])
+              this.router.navigateByUrl('/Dashboard');
+
             }, 5000);
 
             // this.router.navigate(['/dashboard'])
           }
           else{
+            sessionStorage.setItem('login', 'Fail');
             alert('User does not exist')
           }
       }
       else{
+        sessionStorage.setItem('login', 'Fail');
         alert('Invalid EmailId or Password')
       }
       })

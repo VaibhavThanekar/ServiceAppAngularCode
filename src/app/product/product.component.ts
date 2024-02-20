@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {ProductMaster} from '../models/product'
 import { ProductService } from '../services/product.service'
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-product',
@@ -91,6 +92,7 @@ export class ProductComponent implements AfterViewInit {
     });
   }
 
+  @ViewChild('productName') inputProductName: MatInput;
   addProduct(product:ProductMaster){
     this.submitted = true;
     product.createdBy = 0;
@@ -115,9 +117,14 @@ export class ProductComponent implements AfterViewInit {
           }
         });
       }
-      
       else
       {
+              if(this.allProducts.some(x => x.productName.toLowerCase() === product.productName.toLowerCase()))
+              {
+                alert("Product name already exist");
+                return;
+                // this.inputProductName.focus();
+              }
                 this.productService.saveProduct(product).subscribe(result =>{
                   var resultData = Object.values(result)[0];
                   if(resultData = 'Product Saved Successfully !'){
@@ -129,16 +136,6 @@ export class ProductComponent implements AfterViewInit {
                   }
                 });
         }
-
-
-        // this.productService.saveProduct(product).subscribe(result =>{
-        //   var resultData = Object.values(result)[0];
-        //   if(resultData = 'Product Saved Successfully !'){
-        //     alert(resultData);
-        //     this.getAllProducts();
-        //    this.prdouctForm.reset();
-        //   }
-        // });
       }
     }
   }

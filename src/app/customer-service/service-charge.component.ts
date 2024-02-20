@@ -106,19 +106,24 @@ export class ServiceChargeComponent implements AfterViewInit{
           }
         });
       }
-      
       else
       {
+            if(this.allServiceCharges.some(x => x.location.toLowerCase() === charge.location.toLowerCase()))
+            {
+              alert("Location charge already exist");
+              return;
+            }
                 this.serviceChargeService.saveServiceCharge(charge).subscribe(result =>{
-                  var resultData = Object.values(result)[0];
-                  if(resultData = 'Service Charge Saved Successfully !'){
-                    alert(resultData);
-                    this.getAllServiceCharges();
-                  this.serviceChargeForm.reset();
-                  setTimeout(() => 
-                  this.formGroupDirective.resetForm(), 0)
-                  }
-                });
+                var resultData = Object.values(result)[0];
+                if(resultData = 'Service Charge Saved Successfully !')
+                {
+                  alert(resultData);
+                  this.getAllServiceCharges();
+                this.serviceChargeForm.reset();
+                setTimeout(() => 
+                this.formGroupDirective.resetForm(), 0)
+                }
+              });
         }
       }
     }

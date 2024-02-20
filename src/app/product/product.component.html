@@ -36,7 +36,7 @@
 
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Product Name</mat-label>
-                                        <input matInput aria-label="Product Name" formControlName="productName"  id="txtCustomerName" >
+                                        <input matInput aria-label="Product Name" formControlName="productName"  id="txtCustomerName" #productName>
 
                                         <mat-error *ngIf="valid.productName.errors?.required">
                                             <span class="text-danger">Enter product name</span>
@@ -59,7 +59,7 @@
 
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Product Price</mat-label>
-                                        <input matInput type="number" aria-label="Mobile Number" formControlName="productPrice">
+                                        <input matInput type="number" aria-label="Mobile Number" formControlName="productPrice" onKeyPress="if(this.value.length==8) return false;" >
                                         <mat-error class="text-danger" *ngIf="valid.productPrice.errors?.required">
                                             Enter product price
                                         </mat-error>

@@ -31,7 +31,7 @@ import { ServiceChargeComponent } from './customer-service/service-charge.compon
 import { CustomerSalesComponent } from './customer-sales/customer-sales.component';
 import { CustomerSalesService } from './services/customer-sales.service';
 import { CustomerSalesDetailsComponent } from './customer-sales/customer-sales-details.component';
-
+import { LocalStorageService } from 'ngx-webstorage';
 
 
 @NgModule({
@@ -75,6 +75,7 @@ import { CustomerSalesDetailsComponent } from './customer-sales/customer-sales-d
     ProductService,
     CustomerSalesService,
     CustomerServiceService,
+    LocalStorageService,
     LoginService,
    { provide: MatFormFieldModule,useValue :{ appearance: 'fill' }}
 

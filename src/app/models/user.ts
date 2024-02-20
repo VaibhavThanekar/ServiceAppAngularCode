@@ -3,7 +3,7 @@ export interface UserMaster
   {
     id:number;
     emailId:string;
-    userName:string;
+    name:string;
     departmentId:number;
     department:string;
     mobileNo:string;
