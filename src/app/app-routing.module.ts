@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { ServiceChargeComponent } from './customer-service/service-charge.component';
 import { CustomerSalesComponent } from './customer-sales/customer-sales.component';
 import { CustomerSalesDetailsComponent } from './customer-sales/customer-sales-details.component';
+import { CustomerModalComponent } from './common/customer-modal.component';
 
 const routes: Routes = [
 {path:'Login', component:LoginComponent},
@@ -17,7 +18,9 @@ const routes: Routes = [
 {path:'CustomerSalesDetails', component:CustomerSalesDetailsComponent},
 {path:'CustomerService', component:CustomerServiceComponent},
 {path:'CustomerServiceDetails', component:CustomerServiceDetailsComponent},
-{path:'ServiceCharge', component:ServiceChargeComponent}
+{path:'ServiceCharge', component:ServiceChargeComponent},
+{path:'CustomerModal', component:CustomerModalComponent},
+// {path:'', component:DashboardComponent, pathMatch: "full"},
 ];
 
 @NgModule({

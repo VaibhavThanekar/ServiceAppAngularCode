@@ -47,4 +47,10 @@ export class CustomerSalesService {
     let options = {  headers: headers }
     return this.http.get<UserName[]>(this.userApiURL+"GetUserNamesFromDepartmentId?departmentId=" + departmentId);
   }
+
+  getCustomerSaleDetailsFromID(id:number){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.get<CustomerSalesDetails[]>(this.customerSalesApiURL+"GetCustomerSaleDetailsFromID?Id=" + id);
+  }
 }

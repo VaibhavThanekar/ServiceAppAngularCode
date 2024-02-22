@@ -33,6 +33,7 @@ import { CustomerSalesService } from './services/customer-sales.service';
 import { CustomerSalesDetailsComponent } from './customer-sales/customer-sales-details.component';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ReminderService } from './services/reminder.service';
+import { CustomerModalComponent } from './common/customer-modal.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ReminderService } from './services/reminder.service';
     ServiceChargeComponent,
     CustomerSalesComponent,
     CustomerSalesDetailsComponent,
+    CustomerModalComponent,
   ],
   imports: [
     BrowserModule,

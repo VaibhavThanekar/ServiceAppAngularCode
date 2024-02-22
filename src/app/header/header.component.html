@@ -62,11 +62,40 @@
                     Alerts Center
                 </h6>
 
-                <a class="dropdown-item d-flex align-items-center" href="#"
-                *ngFor="let todayRemind of todaysReminder">
+                <div *ngFor="let todayRemind of todaysReminder">
+                    <a class="dropdown-item d-flex align-items-center" *ngIf="todayRemind.department == 'Sales'" 
+                    [routerLink]="" data-toggle="modal" data-target="#salesModal" (click)="openSalesModal(todayRemind.id)">
+                        <div class="mr-3">
+                            <div class="icon-circle badge-danger">
+                                <i class="fas fa-calendar-alt text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="hidden" id="txtReminderId" value="{{todayRemind.id}}">
+                            <div class="large text-danger font-weight-bold" >{{todayRemind.department}}</div>
+                            <span class="font-weight-bold">{{todayRemind.description}} </span>
+                        </div>
+                    </a>
+
+                    <a class="dropdown-item d-flex align-items-center" *ngIf="todayRemind.department == 'Service'" 
+                    [routerLink]="">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-info">
+                                <i class="fas fa-file-alt text-white"></i>
+                        </div>
+                        </div>
+                        <div>
+                            <input type="hidden" id="txtReminderId" value="{{todayRemind.id}}">
+                            <div class="large text-danger font-weight-bold" >{{todayRemind.department}}</div>
+                            <span class="font-weight-bold">{{todayRemind.description}} </span>
+                        </div>
+                    </a>
+                 </div>
+                 
+                <!-- <a class="dropdown-item d-flex align-items-center" 
+                *ngFor="let todayRemind of todaysReminder" [routerLink]="" data-toggle="modal" data-target="#salesModal" (click)="openSalesModal(todayRemind.id)">
                     <div class="mr-3">
                         <div class="icon-circle badge-danger" *ngIf="todayRemind.department == 'Sales'">
-                            <!-- <i class="fas fa-exclamation-triangle text-white"></i> -->
                             <i class="fas fa-calendar-alt text-white"></i>
                         </div>
                         <div class="icon-circle bg-info" *ngIf="todayRemind.department == 'Service'">
@@ -75,12 +104,12 @@
                     </div>
                     <div>
                         <input type="hidden" id="txtReminderId" value="{{todayRemind.id}}">
-                        <div class="large text-danger font-weight-bold" *ngIf="todayRemind.department == 'Sales'">{{todayRemind.department}}</div>
+                        <div class="large text-danger font-weight-bold" *ngIf="todayRemind.department == 'Sales'" >{{todayRemind.department}}</div>
                         <div class="large text-info font-weight-bold" *ngIf="todayRemind.department == 'Service'">{{todayRemind.department}}</div>
                         
                         <span class="font-weight-bold">{{todayRemind.description}} </span>
                     </div>
-                </a>
+                </a> -->
 
                 <!-- <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="mr-3">
@@ -233,8 +262,7 @@
         </li>
 
     </ul>
-
-    
-
 </nav>
+<app-customer-modal *ngIf="showChild"></app-customer-modal>
+<!-- <app-customer-modal *ngIf="showChild"></app-customer-modal>  -->
 <!-- End of Topbar -->
