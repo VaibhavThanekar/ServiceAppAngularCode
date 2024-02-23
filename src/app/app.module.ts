@@ -34,6 +34,8 @@ import { CustomerSalesDetailsComponent } from './customer-sales/customer-sales-d
 import { LocalStorageService } from 'ngx-webstorage';
 import { ReminderService } from './services/reminder.service';
 import { CustomerModalComponent } from './common/customer-modal.component';
+import { ReminderComponent } from './reminder/reminder.component';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { CustomerModalComponent } from './common/customer-modal.component';
     CustomerSalesComponent,
     CustomerSalesDetailsComponent,
     CustomerModalComponent,
+    ReminderComponent,
   ],
   imports: [
     BrowserModule,

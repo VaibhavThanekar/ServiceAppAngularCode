@@ -21,7 +21,6 @@ constructor(private formBuilder: FormBuilder, private reminderService:ReminderSe
 ngOnInit() {
   this.commonService.isModalClosed$.subscribe(data => {
     this.showChild = data;
-    console.log("data", data)
   })
 
   this.userName = 'Vaibhav';
@@ -41,9 +40,11 @@ getAllRemindersForToday(){
   })
 }
 
-  openSalesModal(id: any) 
+  openModal(id: any, dept:string) 
   {
     localStorage.setItem('id',id)
+    localStorage.setItem('deptModal', dept)
+    localStorage.setItem('isNoted', '1')
     this.showChild = true;
   }
 }

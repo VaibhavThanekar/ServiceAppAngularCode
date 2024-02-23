@@ -95,6 +95,7 @@ data-backdrop="static" data-keyboard="false" [ngStyle]="{'display':salesDisplay}
     </form>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-user btn-block col-sm-2 mt-2"  [disabled]="!isNoted" (click)="deactivateReminder()">Noted</button>
         <button type="button" class="btn btn-primary btn-user btn-block col-sm-2" data-dismiss="modal" (click)="onCloseHandled()">Close</button>
       </div>
     </div>

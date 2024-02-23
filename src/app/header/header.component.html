@@ -64,7 +64,7 @@
 
                 <div *ngFor="let todayRemind of todaysReminder">
                     <a class="dropdown-item d-flex align-items-center" *ngIf="todayRemind.department == 'Sales'" 
-                    [routerLink]="" data-toggle="modal" data-target="#salesModal" (click)="openSalesModal(todayRemind.id)">
+                    [routerLink]="" data-toggle="modal" data-target="#salesModal" (click)="openModal(todayRemind.id, todayRemind.department)">
                         <div class="mr-3">
                             <div class="icon-circle badge-danger">
                                 <i class="fas fa-calendar-alt text-white"></i>
@@ -78,7 +78,7 @@
                     </a>
 
                     <a class="dropdown-item d-flex align-items-center" *ngIf="todayRemind.department == 'Service'" 
-                    [routerLink]="">
+                    [routerLink]="" (click)="openModal(todayRemind.id, todayRemind.department)">
                         <div class="mr-3">
                             <div class="icon-circle bg-info">
                                 <i class="fas fa-file-alt text-white"></i>
