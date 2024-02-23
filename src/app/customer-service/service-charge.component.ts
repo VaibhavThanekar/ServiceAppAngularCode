@@ -46,9 +46,9 @@ export class ServiceChargeComponent implements AfterViewInit{
   } 
 
   deleteServiceCharge(id:number){
-   
+    let modifiedBy = 0;
       if(confirm('Are you sure to delete this service charge..?')){
-        this.serviceChargeService.deleteServiceCharge(id).subscribe(result =>{
+        this.serviceChargeService.deleteServiceCharge(id, modifiedBy).subscribe(result =>{
           var resultData = Object.values(result)[0];
           if(resultData = 'Service Charge Deleted Successfully !')
           {

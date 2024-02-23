@@ -55,9 +55,9 @@ export class ProductComponent implements AfterViewInit {
   } 
 
   deleteProduct(id:number){
-   
+    let modifiedBy = 0;
       if(confirm('Are you sure to delete this product..?')){
-        this.productService.deleteProduct(id).subscribe(result =>{
+        this.productService.deleteProduct(id, modifiedBy).subscribe(result =>{
           var resultData = Object.values(result)[0];
           if(resultData = 'Product Deleted Successfully !')
           {

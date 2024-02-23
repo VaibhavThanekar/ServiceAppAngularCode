@@ -29,11 +29,10 @@ export class ProductService {
     // // })
   }
 
-  deleteProduct(id:number){
+  deleteProduct(id:number, modifiedBy:number){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     let options = {  headers: headers }
-  //  return  this.http.delete(this.apiURL+"DeleteProduct?Id="+id);
-  return  this.http.post(this.apiURL+"DeleteProduct?Id="+ id,  headers);
+  return  this.http.post(this.apiURL+"DeleteProduct?Id=" + id + "&modifiedBy=" + modifiedBy,  headers);
   }
 
 

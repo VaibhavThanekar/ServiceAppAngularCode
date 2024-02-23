@@ -24,11 +24,10 @@ export class ServiceChargeService {
     
   }
 
-  deleteServiceCharge(id:number){
+  deleteServiceCharge(id:number, modifiedBy:number){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     let options = {  headers: headers }
-  //  return  this.http.delete(this.apiURL+"DeleteProduct?Id="+id);
-  return  this.http.post(this.apiURL+"DeleteServiceCharge?Id="+ id,  headers);
+    return  this.http.post(this.apiURL+"DeleteServiceCharge?Id="+ id + "&modifiedBy=" + modifiedBy,  headers);
   }
 
 

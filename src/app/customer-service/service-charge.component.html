@@ -61,7 +61,7 @@
 
                             <div class="form-group row justify-content-md-center pt-3">
                                 <div class="col-sm-2 ">
-                                    <button class="btn btn-primary btn-user btn-block" type="submit" id="btnSave" 
+                                    <button class="btn btn-primary btn-user btn-block" type="submit" id="btnSave" [disabled]="!serviceChargeForm.valid" 
                                     (click)="addServiceCharge(serviceCharge.value)">{{editMode? 'Update' : 'Save'}}</button>
                                 </div>
                                 <div class="col-sm-2">
