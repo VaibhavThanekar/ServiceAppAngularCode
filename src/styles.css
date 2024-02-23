@@ -12,7 +12,11 @@ body {
 /* form.user .form-control-user {
     padding: 1.4rem 1rem !important;
 } */
-
+.btn-primary:hover {
+    color: #fff;
+    background-color: #00897B!important;
+    border-color: #00897B!important;
+}
 .combobox {
     font-size: .8rem;
     border-radius: 10rem;
@@ -187,3 +191,29 @@ form.user .btn-user {
 .button_excel:hover, .button_excel:active{
     background-color: #1B5E20!important;
   }
+
+/* Scrollbar  */
+  /* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #26A69A; 
+    /* background: #00897B;  */
+    
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #00897B; 
+    /* background: #00796B;  */
+}
