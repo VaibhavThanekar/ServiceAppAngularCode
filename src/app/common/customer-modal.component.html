@@ -48,36 +48,44 @@ data-backdrop="static" data-keyboard="false" [ngStyle]="{'display':salesDisplay}
             </div>
             
             <div class="col-md-3">
-                <mat-form-field>
-                    <mat-label>Time of visit</mat-label>
-                    <input matInput aria-label="Time of visit" formControlName="timeOfVisit" readonly>  
-                </mat-form-field>
+              <mat-form-field>
+                  <mat-label>Visited Date</mat-label>
+                  <input matInput aria-label="Time of visit" formControlName="visitedDate" readonly>  
+              </mat-form-field>
             </div>
 
             <div class="col-md-3">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Duration Of Sale</mat-label>
-                    <input matInput aria-label="Duration Of Sale" formControlName="durationOfSale" readonly>  
-                  </mat-form-field> 
+              <mat-form-field>
+                <mat-label>Time of visit</mat-label>
+                <input matInput aria-label="Time of visit" formControlName="timeOfVisit" readonly>  
+              </mat-form-field>
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group row">
+          <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+                <mat-label>Duration Of Sale</mat-label>
+                <input matInput aria-label="Duration Of Sale" formControlName="durationOfSale" readonly>  
+              </mat-form-field> 
+          </div>
+          <div class="col-md-4">
                 <mat-form-field class="example-full-width">
                     <mat-label>Reminder Date</mat-label>
                     <input matInput aria-label="Reminder Date" formControlName="reminderDate" readonly> 
                 </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field class="example-full-width">
+                <mat-label>Product</mat-label>
+                <input matInput aria-label="Product" formControlName="product" readonly>
+              </mat-form-field>
+            
+        </div>
         </div>
         <div class="form-group row">
-            <div class="col-md-4">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Product</mat-label>
-                    <input matInput aria-label="Product" formControlName="product" readonly>
-                  </mat-form-field>
-                
-            </div>
-
-            <div class="col-md-2">
+          
+            <div class="col-md-6">
                 <mat-form-field class="example-full-width">
                     <mat-label>Remark</mat-label>
                     <input matInput aria-label="Remark" formControlName="remark" readonly>

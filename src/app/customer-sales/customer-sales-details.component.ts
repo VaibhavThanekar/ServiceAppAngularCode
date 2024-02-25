@@ -20,8 +20,8 @@ export class CustomerSalesDetailsComponent {
   allCustomers: any = []
 
   public displayedColumns: string[] = ['actions', 'customerName', 'mobileNumber', 'customerAddress', 'salesPerson',
-    'timeOfVisit', 'durationOfSale', 'reminderDate', 'product',
-    'remark'
+    'visitedDate', 'timeOfVisit', 'durationOfSale', 'reminderDate', 'product',
+    'remark', 'createdBy', 'createdDate'
   ];
 
   posts: any;
@@ -34,13 +34,15 @@ export class CustomerSalesDetailsComponent {
       mobileNumber: [''],
       customerAddress: [''],
       salesPerson: [''],
+      visitedDate:[''],
       timeOfVisit: [''],
       durationOfSale: [''],
       reminderDate: [''],
       product: [''],
       remark: [''],
-      comment: ['']
-
+      comment: [''],
+      createdBy: [''],
+      createdDate: [''],
     })
   }
 
@@ -95,6 +97,7 @@ export class CustomerSalesDetailsComponent {
       customerAddress: selectedCustomer?.customerAddress,
       salesPerson: selectedCustomer?.salesPerson,
       durationOfSale: selectedCustomer?.durationOfSale,
+      visitedDate: selectedCustomer?.visitedDate,
       timeOfVisit: selectedCustomer?.timeOfVisit,
       reminderDate: selectedCustomer?.reminderDate,
       product: selectedCustomer?.product,

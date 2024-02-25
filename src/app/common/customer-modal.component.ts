@@ -26,6 +26,7 @@ export class CustomerModalComponent {
       mobileNumber: [''],
       customerAddress: [''],
       salesPerson: [''],
+      visitedDate: [''],
       timeOfVisit: [''],
       durationOfSale: [''],
       reminderDate: [''],
@@ -62,12 +63,14 @@ export class CustomerModalComponent {
     this.customereSalesService.getCustomerSaleDetailsFromID(id).subscribe(data => {
       this.allCustomers = data;
 
+      console.log(data);
     this.customerSalesForm.patchValue({
       customerName: this.allCustomers[0]?.customerName,
       mobileNumber: this.allCustomers[0]?.mobileNumber,
       customerAddress: this.allCustomers[0]?.customerAddress,
       salesPerson: this.allCustomers[0]?.salesPerson,
       durationOfSale: this.allCustomers[0]?.durationOfSale,
+      visitedDate:  this.allCustomers[0]?.visitedDate,
       timeOfVisit: this.allCustomers[0]?.timeOfVisit,
       reminderDate: this.allCustomers[0]?.reminderDate,
       product: this.allCustomers[0]?.product,

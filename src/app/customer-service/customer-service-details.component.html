@@ -61,10 +61,10 @@
                                     <td mat-cell *matCellDef="let element"> {{element.servicePersonName}} </td>
                                   </ng-container>
 
-                                  <!-- <ng-container matColumnDef="visitedDate">
+                                  <ng-container matColumnDef="visitedDate">
                                     <th mat-header-cell *matHeaderCellDef> Visited Date </th>
                                     <td mat-cell *matCellDef="let element"> {{element.visitedDate}} </td>
-                                  </ng-container> -->
+                                  </ng-container>
 
                                   <ng-container matColumnDef="timeOfVisit">
                                     <th mat-header-cell *matHeaderCellDef> Time Of Visit </th>
@@ -110,7 +110,16 @@
                                     <th mat-header-cell *matHeaderCellDef>  Other Status </th>
                                     <td mat-cell *matCellDef="let element"> {{element.otherStatus}} </td>
                                   </ng-container>
+                                  
+                                  <ng-container matColumnDef="createdBy">
+                                    <th mat-header-cell *matHeaderCellDef>  Created By </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+                                  </ng-container>
 
+                                  <ng-container matColumnDef="createdDate">
+                                    <th mat-header-cell *matHeaderCellDef>  Created Date </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                                  </ng-container>
                                   
                                   <!-- <ng-container matColumnDef="actions">
                                     <th mat-header-cell *matHeaderCellDef> Action </th>   
@@ -182,7 +191,7 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form [formGroup]="customerServiceForm" #customerService="ngForm" class="user p-5" 
+                            <form [formGroup]="customerServiceForm" #customerService="ngForm" class="user pt-3 pb-3 pl-5 pr-5" 
                                #formDirective="ngForm">
                             <div class="form-group row">
                                 <div class="col-md-8 mb-3 mb-sm-0">
@@ -209,15 +218,22 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Service Person</mat-label>
                                         <input matInput aria-label="Service Person" formControlName="servicePerson"  id="txtServicePerson" readonly>   
                                     </mat-form-field>
                                 
                                 </div>
+
+                                <div class="col-md-2">
+                                  <mat-form-field>
+                                      <mat-label>Visited Date</mat-label>
+                                      <input matInput aria-label="Time of visit" formControlName="visitedDate" readonly>  
+                                  </mat-form-field>
+                              </div>
                                 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <mat-form-field>
                                         <mat-label>Time of visit</mat-label>
                                         <input matInput aria-label="Time of visit" formControlName="timeOfVisit" readonly>  

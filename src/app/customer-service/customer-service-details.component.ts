@@ -21,8 +21,8 @@ export class CustomerServiceDetailsComponent {
   allCustomers: any = []
 
   public displayedColumns: string[] = ['actions', 'customerName', 'mobileNumber', 'customerAddress', 'servicePersonName',
-    'timeOfVisit', 'isProductInWarranty', 'customerComplaint', 'serviceLocation',
-    'serviceCost', 'currentStatus', 'otherStatus'
+    'visitedDate', 'timeOfVisit', 'isProductInWarranty', 'customerComplaint', 'serviceLocation',
+    'serviceCost', 'currentStatus', 'otherStatus', 'createdBy', 'createdDate'
   ];
 
   // public displayedColumns: string[] =['Id', 'customerName', 'mobileNumber', 'customerAddress', 'servicePersonName',
@@ -41,12 +41,15 @@ export class CustomerServiceDetailsComponent {
       customerAddress: [''],
       servicePerson: [''],
       isProductInWarranty: [''],
+      visitedDate:[''],
       timeOfVisit: [''],
       customerComplaint: [''],
       serviceChargeLocation: [''],
       currentStatus: [''],
       serviceChargeCost: [''],
-      otherStatus: ['']
+      otherStatus: [''],
+      createdBy: [''],
+      createdDate: [''],
 
     })
   }
@@ -123,6 +126,7 @@ export class CustomerServiceDetailsComponent {
       customerAddress: selectedCustomer?.customerAddress,
       servicePerson: selectedCustomer?.servicePersonName,
       isProductInWarranty: selectedCustomer?.isProductInWarranty,
+      visitedDate:selectedCustomer?.visitedDate,
       timeOfVisit: selectedCustomer?.timeOfVisit,
       customerComplaint: selectedCustomer?.customerComplaint,
       serviceChargeLocation: selectedCustomer?.serviceLocation,
