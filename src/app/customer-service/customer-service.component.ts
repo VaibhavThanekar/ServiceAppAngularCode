@@ -20,7 +20,7 @@ export class CustomerServiceComponent {
   selectedCustomerId = new FormControl(0);
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
-
+  
   nameFilteredOptions: Observable<CustomerNames[]>;
   public allCustomerNames: CustomerNames[];
 
@@ -30,10 +30,11 @@ export class CustomerServiceComponent {
 
   public selectedStatus: number;
   public serviceChargeId: number;
+  createdBy:number = 0;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private formBuilder: FormBuilder, private customerService: CustomerServiceService) {
-
+    this.createdBy = Number(localStorage.getItem('userId'));
     this.customerServiceForm = this.formBuilder.group({
       customerName: ['', Validators.required],
       mobileNumber: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
@@ -65,8 +66,7 @@ export class CustomerServiceComponent {
     })
   }
   addCustomerService(_customerService: CustomerService) {
-    _customerService.createdBy = 0;
-    _customerService.modifiedBy = 0;
+    _customerService.createdBy = this.createdBy;
     _customerService.serviceChargeId = this.serviceChargeId;
     _customerService.mobileNumber = _customerService.mobileNumber.toString();
 

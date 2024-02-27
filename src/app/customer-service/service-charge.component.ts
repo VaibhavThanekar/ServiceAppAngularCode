@@ -19,6 +19,8 @@ export class ServiceChargeComponent implements AfterViewInit{
   submitted = false;
   editMode:boolean= false;
   selectedServiceChargeId:number=0;
+  modifiedBy:number = 0;
+  createdBy:number = 0;
 
   public allServiceCharges:ServiceCharge[] = [];
   dataSource!: MatTableDataSource<ServiceCharge>;
@@ -27,6 +29,9 @@ export class ServiceChargeComponent implements AfterViewInit{
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private serviceChargeService:ServiceChargeService, private formBuilder:FormBuilder){
+    this.createdBy = Number(localStorage.getItem('userId'));
+    this.modifiedBy = Number(localStorage.getItem('userId'));
+
      this.serviceChargeForm = this.formBuilder.group({
       location:['',Validators.required],
       cost:['',[Validators.required, Validators.maxLength(10)]],
@@ -46,9 +51,8 @@ export class ServiceChargeComponent implements AfterViewInit{
   } 
 
   deleteServiceCharge(id:number){
-    let modifiedBy = 0;
       if(confirm('Are you sure to delete this service charge..?')){
-        this.serviceChargeService.deleteServiceCharge(id, modifiedBy).subscribe(result =>{
+        this.serviceChargeService.deleteServiceCharge(id, this.modifiedBy).subscribe(result =>{
           var resultData = Object.values(result)[0];
           if(resultData = 'Service Charge Deleted Successfully !')
           {
@@ -76,16 +80,14 @@ export class ServiceChargeComponent implements AfterViewInit{
       id: selectedServiceCharge?.id,
       location:selectedServiceCharge?.location,
       cost:selectedServiceCharge?.cost,
-      isDeleted:selectedServiceCharge?.isDeleted,
-      createdBy:0,
-      modifiedBy:0,
+      isDeleted:selectedServiceCharge?.isDeleted
     });
   }
 
   addServiceCharge(charge:ServiceCharge){
     this.submitted = true;
-    charge.createdBy = 0;
-    charge.modifiedBy = 0;
+    charge.createdBy = this.createdBy;
+    charge.modifiedBy = this.modifiedBy;
     if(this.serviceChargeForm.invalid){
       return;
     }

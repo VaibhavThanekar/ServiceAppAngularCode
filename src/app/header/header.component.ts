@@ -23,12 +23,7 @@ ngOnInit() {
     this.showChild = data;
   })
 
-  this.userName = 'Vaibhav';
-  // this.userName = sessionStorage.getItem('userName');
- 
-  // this.userName =  sessionStorage.getItem('userName')?.toString();
-  // console.log(this.userName.toString());
-  // alert(this.userName);
+  this.userName = localStorage.getItem('userName');
 
   this.getAllRemindersForToday();
 }
@@ -42,7 +37,7 @@ getAllRemindersForToday(){
 
   openModal(id: any, dept:string) 
   {
-    localStorage.setItem('id',id)
+    localStorage.setItem('reminderId',id)
     localStorage.setItem('deptModal', dept)
     localStorage.setItem('isNoted', '1')
     this.showChild = true;

@@ -6,20 +6,24 @@ import { UserName } from '../models/user';
 import { DepartmentMaster } from '../models/departmentMaster';
 import { DurationList } from '../models/commonMaster';
 import { CustomerSales } from '../models/customer-sales';
+
 @Component({
   selector: 'app-customer-sales',
   templateUrl: './customer-sales.component.html',
   styleUrl: './customer-sales.component.css'
 })
+
 export class CustomerSalesComponent {
   customerSalesForm!: FormGroup;
   submitted = false;
   public productNameList: ProductNameList[];
   public salesPersonList: UserName[];
   public durationList: DurationList[];
+  createdBy:number = 0;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private formBuilder: FormBuilder, private salesService:CustomerSalesService){
+    this.createdBy = Number(localStorage.getItem('userId'));
 
     this.customerSalesForm = this.formBuilder.group({
       customerName: ['', Validators.required],
@@ -42,17 +46,12 @@ export class CustomerSalesComponent {
     return this.customerSalesForm.controls;
   }
 
-  // getAllProductNames(){
-  //   this.salesService.getAllProductNames().subscribe(data =>{
-  //    console.table(data);
-  //     this.allProductNames = data;
-  //   })
-  // }
-
   addCustomerSales(_customerSales: CustomerSales) {
-    _customerSales.createdBy = 0;
-    _customerSales.modifiedBy = 0;
-    // _customerService.serviceChargeId = this.serviceChargeId;
+    _customerSales.createdBy = this.createdBy;
+
+    console.log('_customerSales', _customerSales);
+    console.log('this.createdBy', this.createdBy);
+ 
     _customerSales.mobileNumber = _customerSales.mobileNumber.toString();
 
     if (this.customerSalesForm.invalid) {
@@ -92,9 +91,6 @@ export class CustomerSalesComponent {
     this.salesService.getAllDurationList().subscribe(data => {
       this.durationList = data;
     })
-
-    // this.customerService.getCurrentStatus().subscribe(data => {
-    //   this.currentStatusList = data;
-    // })
+ 
   }
 }

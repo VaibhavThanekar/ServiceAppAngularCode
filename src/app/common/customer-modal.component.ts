@@ -18,9 +18,14 @@ export class CustomerModalComponent {
   selectedID:any;
   selectedDept:any;
   isNoted:boolean=true;
+  modifiedBy:number = 0;
 
   constructor(private customereSalesService: CustomerSalesService, private formBuilder: FormBuilder,
     private reminderService: ReminderService, private commonService:CommonService) {
+
+    this.modifiedBy = Number(localStorage.getItem('userId'));
+    console.log("Modal", this.modifiedBy);
+    
     this.customerSalesForm = this.formBuilder.group({
       customerName: [''],
       mobileNumber: [''],
@@ -40,7 +45,7 @@ export class CustomerModalComponent {
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
      
-      this.selectedID = Number(localStorage.getItem('id'))
+      this.selectedID = Number(localStorage.getItem('reminderId'))
       this.selectedDept = localStorage.getItem('deptModal')
       if(Number(localStorage.getItem('isNoted')) == 0){
         this.isNoted = false;
@@ -89,14 +94,18 @@ export class CustomerModalComponent {
   }
 
   deactivateReminder(){
-    let modifiedBy = 0;
-    this.reminderService.deActivateReminderFromId(this.selectedID, modifiedBy).subscribe(data => {
+    this.reminderService.deActivateReminderFromId(this.selectedID, this.modifiedBy).subscribe(data => {
       var resultData = Object.values(data)[0];
       if(resultData = 'Reminder Updated Successfully !')
       {
         alert("Reminder disabled successfully..!");
-        localStorage.clear();
+
+      //  setTimeout(() => {
+        localStorage.removeItem('reminderId');
+        localStorage.removeItem('deptModal');
+        localStorage.removeItem('isNoted');
         window.location.reload();
+      // }, 1000);
       }
     })
   }

@@ -52,11 +52,20 @@ export class LoginComponent {
             //   sessionStorage.setItem('userName', this.userDetails[0].name);
             //   sessionStorage.setItem('department', this.userDetails[0].department);
             //   sessionStorage.setItem('role', this.userDetails[0].role);
+
+              localStorage.setItem('login', 'Success');
+              localStorage.setItem('userId', this.userDetails[0].id.toString());
+              localStorage.setItem('emailId', this.userDetails[0].emailId);
+              localStorage.setItem('userName', this.userDetails[0].name);
+              localStorage.setItem('department', this.userDetails[0].department);
+              localStorage.setItem('role', this.userDetails[0].role);
+
             this.spinner.show();
             setTimeout(() => {
               /** spinner ends after 5 seconds */
               this.spinner.hide();
               // this.router.navigate(['/Dashboard'])
+              
               this.router.navigateByUrl('/Dashboard');
 
             }, 5000);

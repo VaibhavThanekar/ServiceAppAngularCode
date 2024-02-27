@@ -37,7 +37,7 @@ export class ReminderComponent {
   }
 
   selectedItem(id: any, dept:string, isNoted:any) {
-    localStorage.setItem('id',id)
+    localStorage.setItem('reminderId',id)
     localStorage.setItem('deptModal',dept)
     localStorage.setItem('isNoted',isNoted)
     console.log('isNoted', isNoted)

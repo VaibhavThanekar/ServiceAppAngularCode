@@ -1,10 +1,18 @@
 
 <div id="wrapper">
+     <!-- Sidebar -->
+     <app-sidebar></app-sidebar>
+     <!-- End of Sidebar -->
+
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
+            <!-- Topbar -->
+            <app-header></app-header>
+            <!-- End of Topbar -->
+
             <div class="container-fluid">
-                <div class="row p-3 pt-5">
-                    <div class="card col-md-10 offset-md-1 align-self-center pl-0 pr-0 mat-elevation-z8">
+                <div class="row mat-elevation-z8">
+                    <div class="card col-lg-12 pl-0 pr-0">
                         <div class="card-header card-header-c">
                             <div>Customer Sales</div>
                         </div>
@@ -63,7 +71,7 @@
                                 <div class="col-md-3">
                                     <mat-form-field>
                                         <mat-label>Time of visit</mat-label>
-                                        <input matInput [ngxMatTimepicker]="picker" [format]="24"  placeholder="16:00" formControlName="timeOfVisit">  
+                                        <input matInput [ngxMatTimepicker]="picker" [format]="12"  placeholder="05:00" formControlName="timeOfVisit">  
                                         <ngx-mat-timepicker #picker></ngx-mat-timepicker>  
 
                                         <mat-error class="text-danger" *ngIf="valid.timeOfVisit.errors?.required">
@@ -129,6 +137,9 @@
                 <br>
           </div>
         </div>
+        <!-- Footer -->
+        <app-footer></app-footer>
+
      </div>
 </div>
 

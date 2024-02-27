@@ -20,6 +20,8 @@ export class ProductComponent implements AfterViewInit {
   submitted = false;
   editMode:boolean= false;
   selectedProductId:number=0;
+  modifiedBy:number = 0;
+  createdBy:number = 0;
 
   public allProducts:ProductMaster[] = [];
   dataSource!: MatTableDataSource<ProductMaster>;
@@ -28,6 +30,9 @@ export class ProductComponent implements AfterViewInit {
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private productService:ProductService, private formBuilder:FormBuilder){
+    this.createdBy = Number(localStorage.getItem('userId'));
+    this.modifiedBy = Number(localStorage.getItem('userId'));
+
      this.prdouctForm = this.formBuilder.group({
       productName:['',Validators.required],
       productPrice:['',[Validators.required, Validators.maxLength(10)]],
@@ -55,9 +60,8 @@ export class ProductComponent implements AfterViewInit {
   } 
 
   deleteProduct(id:number){
-    let modifiedBy = 0;
       if(confirm('Are you sure to delete this product..?')){
-        this.productService.deleteProduct(id, modifiedBy).subscribe(result =>{
+        this.productService.deleteProduct(id, this.modifiedBy).subscribe(result =>{
           var resultData = Object.values(result)[0];
           if(resultData = 'Product Deleted Successfully !')
           {
@@ -86,17 +90,15 @@ export class ProductComponent implements AfterViewInit {
       productName:selectedProduct?.productName,
       productDescription:selectedProduct?.productDescription,
       productPrice:selectedProduct?.productPrice,
-      productIsDeleted:selectedProduct?.isDeleted,
-      createdBy:0,
-      modifiedBy:0,
+      productIsDeleted:selectedProduct?.isDeleted 
     });
   }
 
   @ViewChild('productName') inputProductName: MatInput;
   addProduct(product:ProductMaster){
     this.submitted = true;
-    product.createdBy = 0;
-    product.modifiedBy = 0;
+    product.modifiedBy = this.modifiedBy;
+
     if(this.prdouctForm.invalid){
       return;
     }
@@ -123,8 +125,9 @@ export class ProductComponent implements AfterViewInit {
               {
                 alert("Product name already exist");
                 return;
-                // this.inputProductName.focus();
               }
+              
+                product.createdBy = this.createdBy;
                 this.productService.saveProduct(product).subscribe(result =>{
                   var resultData = Object.values(result)[0];
                   if(resultData = 'Product Saved Successfully !'){
