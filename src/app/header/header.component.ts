@@ -17,7 +17,8 @@ reminderCount:number=0;
 showChild=false;
 
 
-constructor(private formBuilder: FormBuilder, private reminderService:ReminderService, private commonService:CommonService){}
+constructor(private formBuilder: FormBuilder, private reminderService:ReminderService, 
+  private commonService:CommonService, private router:Router){}
 ngOnInit() {
   this.commonService.isModalClosed$.subscribe(data => {
     this.showChild = data;
@@ -41,5 +42,12 @@ getAllRemindersForToday(){
     localStorage.setItem('deptModal', dept)
     localStorage.setItem('isNoted', '1')
     this.showChild = true;
+  }
+
+
+  logout():void
+  {
+    localStorage.clear();
+    this.router.navigateByUrl('/Login');
   }
 }

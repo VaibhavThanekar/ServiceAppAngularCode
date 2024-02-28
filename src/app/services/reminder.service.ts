@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserMaster } from '../models/user';
-import { ReminderMaster } from '../models/reminder';
+import { ReminderMaster, ReminderMasterList } from '../models/reminder';
 import { Constants } from '../models/commonMaster';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class ReminderService {
   constructor(private http:HttpClient) { }
 
   getAllReminders(){
-    return this.http.get<ReminderMaster[]>(this.apiURL+"GetAllReminders");
+    return this.http.get<ReminderMasterList[]>(this.apiURL+"GetAllReminders");
   }
   
   getAllRemindersForToday(){

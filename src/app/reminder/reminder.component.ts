@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ReminderMaster } from '../models/reminder';
+import { ReminderMaster, ReminderMasterList } from '../models/reminder';
 import { ReminderService } from '../services/reminder.service';
 import { CommonService } from '../services/common.service';
 
@@ -15,12 +15,13 @@ import { CommonService } from '../services/common.service';
 })
 export class ReminderComponent {
   reminderDetails!: FormGroup;
-  dataSource!: MatTableDataSource<ReminderMaster>;
+  dataSource!: MatTableDataSource<ReminderMasterList>;
   allReminders: any = [];
   posts: any;
   showChild=false;
 
-  public displayedColumns: string[] = ['actions', 'description', 'department', 'reminderDateTime', 'isActive',];
+  public displayedColumns: string[] = ['actions', 'customerName', 'description', 'department', 'visitedDate',
+   'reminderDateTime', 'isActive', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate',];
 
   constructor(private reminderService:ReminderService,private commonService:CommonService){}
 
@@ -37,10 +38,11 @@ export class ReminderComponent {
   }
 
   selectedItem(id: any, dept:string, isNoted:any) {
+     console.log('id', id)
     localStorage.setItem('reminderId',id)
     localStorage.setItem('deptModal',dept)
     localStorage.setItem('isNoted',isNoted)
-    console.log('isNoted', isNoted)
+    // console.log('isNoted', isNoted)
     this.showChild = true;
 
   }

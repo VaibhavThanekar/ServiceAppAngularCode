@@ -44,7 +44,6 @@ export class CustomerModalComponent {
 
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
-     
       this.selectedID = Number(localStorage.getItem('reminderId'))
       this.selectedDept = localStorage.getItem('deptModal')
       if(Number(localStorage.getItem('isNoted')) == 0){
@@ -90,7 +89,10 @@ export class CustomerModalComponent {
   onCloseHandled() {
     this.commonService.updateModal(false);
     this.salesDisplay = "none";
-    localStorage.clear();
+    localStorage.removeItem('reminderId')
+    localStorage.removeItem('deptModal')
+    localStorage.removeItem('isNoted')
+    // localStorage.clear();
   }
 
   deactivateReminder(){
