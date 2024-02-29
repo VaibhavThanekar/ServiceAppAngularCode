@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {ServiceCharge} from '../models/service-charge'
+import {ServiceCharge, ServiceChargeDetails} from '../models/service-charge'
 import { ProductService } from '../services/product.service'
 import { ServiceChargeService } from '../services/service-charge.service';
 
@@ -22,15 +22,19 @@ export class ServiceChargeComponent implements AfterViewInit{
   modifiedBy:number = 0;
   createdBy:number = 0;
 
-  public allServiceCharges:ServiceCharge[] = [];
-  dataSource!: MatTableDataSource<ServiceCharge>;
+  public allServiceCharges:ServiceChargeDetails[] = [];
+  dataSource!: MatTableDataSource<ServiceChargeDetails>;
   posts:any;
-  public displayedColumns: string[] =['Id', 'serviceLocation', 'serviceCharges', 'createdDate', 'actions'];
+  public displayedColumns: string[] =['actions', 'serviceLocation', 'serviceCharges', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate', ];
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private serviceChargeService:ServiceChargeService, private formBuilder:FormBuilder){
-    this.createdBy = Number(localStorage.getItem('userId'));
-    this.modifiedBy = Number(localStorage.getItem('userId'));
+    
+    if (typeof localStorage !== 'undefined')
+    {
+      this.createdBy = Number(localStorage.getItem('userId'));
+      this.modifiedBy = Number(localStorage.getItem('userId'));
+    }
 
      this.serviceChargeForm = this.formBuilder.group({
       location:['',Validators.required],
@@ -58,8 +62,8 @@ export class ServiceChargeComponent implements AfterViewInit{
           {
             alert(resultData);
             this.serviceChargeForm.reset();
-            
-            setTimeout(() => this.formGroupDirective.resetForm(), 0)
+            setTimeout(() => 
+            this.formGroupDirective.resetForm(), 0)
 
             this.getAllServiceCharges();
           }

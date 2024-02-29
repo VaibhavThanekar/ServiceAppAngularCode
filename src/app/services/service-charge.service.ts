@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
-import {ServiceCharge} from '../models/service-charge'
+import {ServiceCharge, ServiceChargeDetails} from '../models/service-charge'
 import { json } from 'stream/consumers';
 import { Constants } from '../models/commonMaster';
 
@@ -15,7 +15,7 @@ export class ServiceChargeService {
   constructor(private http:HttpClient) { }
 
   getAllServiceCharges(){
-   return this.http.get<ServiceCharge[]>(this.apiURL+"GetAllServiceCharges");
+   return this.http.get<ServiceChargeDetails[]>(this.apiURL+"GetAllServiceCharges");
   }
 
   saveServiceCharge(serviceCharge:ServiceCharge){

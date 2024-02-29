@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
-import {ProductMaster} from '../models/product'
+import {ProductMaster, ProductMasterDetails} from '../models/product'
 import { json } from 'stream/consumers';
 import { Constants } from '../models/commonMaster';
 
@@ -16,7 +16,7 @@ export class ProductService {
   constructor(private http:HttpClient) { }
 
   getAllProducts(){
-   return this.http.get<ProductMaster[]>(this.apiURL+"GetAllProducts");
+   return this.http.get<ProductMasterDetails[]>(this.apiURL+"GetAllProducts");
   }
 
   saveProduct(product:ProductMaster){

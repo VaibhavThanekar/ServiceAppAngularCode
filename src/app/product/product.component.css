@@ -1,0 +1,51 @@
+table{
+    width: 100% !important;
+   }
+
+.mat-column-actions{
+    width: 100px !important;
+    max-width: 60px !important;
+    min-width: 100px !important;
+  }
+
+  .mat-column-productName{
+    width: 150 !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ .mat-column-productDescription{
+    width: 250px !important;
+    max-width: 60px !important;
+    min-width: 250px !important;
+ }
+
+ .mat-column-productPrice{
+    width: 120px !important;
+    max-width: 60px !important;
+    min-width: 120px !important;
+  }
+
+.mat-column-createdBy{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ .mat-column-createdDate{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+.mat-column-modifiedBy{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ .mat-column-modifiedDate{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}

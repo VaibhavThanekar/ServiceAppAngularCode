@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {ProductMaster} from '../models/product'
+import {ProductMaster, ProductMasterDetails} from '../models/product'
 import { ProductService } from '../services/product.service'
 import { MatInput } from '@angular/material/input';
 
@@ -23,15 +23,18 @@ export class ProductComponent implements AfterViewInit {
   modifiedBy:number = 0;
   createdBy:number = 0;
 
-  public allProducts:ProductMaster[] = [];
-  dataSource!: MatTableDataSource<ProductMaster>;
+  public allProducts:ProductMasterDetails[] = [];
+  dataSource!: MatTableDataSource<ProductMasterDetails>;
   posts:any;
-  public displayedColumns: string[] =['Id', 'productName', 'productDescription', 'productPrice', 'createdDate', 'actions'];
+  public displayedColumns: string[] =['actions', 'productName', 'productPrice', 'productDescription', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate', ];
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private productService:ProductService, private formBuilder:FormBuilder){
-    this.createdBy = Number(localStorage.getItem('userId'));
-    this.modifiedBy = Number(localStorage.getItem('userId'));
+    if (typeof localStorage !== 'undefined')
+    {
+      this.createdBy = Number(localStorage.getItem('userId'));
+      this.modifiedBy = Number(localStorage.getItem('userId'));
+    }
 
      this.prdouctForm = this.formBuilder.group({
       productName:['',Validators.required],
@@ -67,8 +70,8 @@ export class ProductComponent implements AfterViewInit {
           {
             alert(resultData);
             this.prdouctForm.reset();
-            
-            setTimeout(() => this.formGroupDirective.resetForm(), 0)
+            setTimeout(() => 
+            this.formGroupDirective.resetForm(), 0)
 
             this.getAllProducts();
           }
