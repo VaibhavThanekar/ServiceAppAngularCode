@@ -19,13 +19,16 @@ showChild=false;
 
 constructor(private formBuilder: FormBuilder, private reminderService:ReminderService, 
   private commonService:CommonService, private router:Router){}
-ngOnInit() {
+  ngOnInit() {
   this.commonService.isModalClosed$.subscribe(data => {
     this.showChild = data;
   })
-
+  
+  if(typeof localStorage !== 'undefined') 
+  {
   this.userName = localStorage.getItem('userName');
-
+  }
+  
   this.getAllRemindersForToday();
 }
 

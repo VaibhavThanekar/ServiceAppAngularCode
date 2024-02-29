@@ -53,6 +53,7 @@ export class LoginComponent {
             //   sessionStorage.setItem('department', this.userDetails[0].department);
             //   sessionStorage.setItem('role', this.userDetails[0].role);
 
+            
               localStorage.setItem('login', 'Success');
               localStorage.setItem('userId', this.userDetails[0].id.toString());
               localStorage.setItem('emailId', this.userDetails[0].emailId);
