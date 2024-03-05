@@ -35,7 +35,11 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { ReminderService } from './services/reminder.service';
 import { CustomerModalComponent } from './common/customer-modal.component';
 import { ReminderComponent } from './reminder/reminder.component';
-
+import { CustomerSalesReportComponent } from './reports/customer-sales-report.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, NativeDateModule, DateAdapter, NativeDateAdapter } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MY_FORMATS } from './models/commonMaster';
 
 @NgModule({
   declarations: [
@@ -53,6 +57,8 @@ import { ReminderComponent } from './reminder/reminder.component';
     CustomerSalesDetailsComponent,
     CustomerModalComponent,
     ReminderComponent,
+    CustomerSalesReportComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -71,9 +77,13 @@ import { ReminderComponent } from './reminder/reminder.component';
     MatAutocompleteModule,
     ReactiveFormsModule,
     NgxMatTimepickerModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     BrowserAnimationsModule,
-    NgxSpinnerModule
-  
+    NgxSpinnerModule,
+    NativeDateModule,
+    MatNativeDateModule,
+    
   ],
   providers: [
     provideClientHydration(),
@@ -83,8 +93,10 @@ import { ReminderComponent } from './reminder/reminder.component';
     LocalStorageService,
     LoginService,
     ReminderService,
-   { provide: MatFormFieldModule,useValue :{ appearance: 'fill' }}
-
+   { provide: MatFormFieldModule,useValue :{ appearance: 'fill' }},
+  //  { provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+  {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+  {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
   bootstrap: [AppComponent]
 })

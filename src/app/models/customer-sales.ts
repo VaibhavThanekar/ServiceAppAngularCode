@@ -41,3 +41,12 @@ export interface CustomerSales
     modifiedBy:number;
     modifiedDate:string;
   }
+
+  export interface CustomerSalesDetailsReportParm
+  {
+    fromDate:string;
+    toDate:string;
+    salesPersonId:number;
+    productId:number
+  }
+

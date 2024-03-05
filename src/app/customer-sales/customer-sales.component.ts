@@ -6,7 +6,7 @@ import { UserName } from '../models/user';
 import { DepartmentMaster } from '../models/departmentMaster';
 import { DurationList } from '../models/commonMaster';
 import { CustomerSales } from '../models/customer-sales';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 @Component({
   selector: 'app-customer-sales',
   templateUrl: './customer-sales.component.html',
@@ -23,8 +23,11 @@ export class CustomerSalesComponent {
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private formBuilder: FormBuilder, private salesService:CustomerSalesService){
-    this.createdBy = Number(localStorage.getItem('userId'));
-
+    
+    if (typeof localStorage !== 'undefined') {
+      this.createdBy = Number(localStorage.getItem('userId'));
+    }
+    
     this.customerSalesForm = this.formBuilder.group({
       customerName: ['', Validators.required],
       mobileNumber: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
@@ -67,6 +70,7 @@ export class CustomerSalesComponent {
           alert(resultData);
           setTimeout(() => 
           this.formGroupDirective.resetForm(), 0)
+          window.location.reload();
         }
       });
       }

@@ -9,7 +9,7 @@ import {DurationList, Constants} from '../models/commonMaster'
 import { json } from 'stream/consumers';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import { CustomerSales, CustomerSalesDetails } from '../models/customer-sales';
+import { CustomerSales, CustomerSalesDetails, CustomerSalesDetailsReportParm } from '../models/customer-sales';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +52,12 @@ export class CustomerSalesService {
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     let options = {  headers: headers }
     return this.http.get<CustomerSalesDetails[]>(this.customerSalesApiURL+"GetCustomerSaleDetailsFromID?Id=" + id);
+  }
+
+  getCustomerSaleDetailsReport(fromDate:string, toDate:string, salesPersonId?:number, productId?:number){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.get<CustomerSalesDetails[]>(this.customerSalesApiURL+"GetCustomerSaleDetailsReport?FromDate=" + fromDate +
+    '&ToDate='+ toDate +'&SalesPersonId='+ salesPersonId + '&ProductId=' + productId);
   }
 }
