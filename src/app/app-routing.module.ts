@@ -11,6 +11,7 @@ import { CustomerSalesDetailsComponent } from './customer-sales/customer-sales-d
 import { CustomerModalComponent } from './common/customer-modal.component';
 import { ReminderComponent } from './reminder/reminder.component';
 import { CustomerSalesReportComponent } from './reports/customer-sales-report.component';
+import { CustomerServiceReportComponent } from './reports/customer-service-report.component';
 
 const routes: Routes = [
 {path:'Login', component:LoginComponent},
@@ -23,8 +24,8 @@ const routes: Routes = [
 {path:'ServiceCharge', component:ServiceChargeComponent},
 {path:'CustomerModal', component:CustomerModalComponent},
 {path:'Reminder', component:ReminderComponent},
-
 {path:'CustomerSalesReport', component:CustomerSalesReportComponent},
+{path:'CustomerServiceReport', component:CustomerServiceReportComponent},
 ];
 
 @NgModule({

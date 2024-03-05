@@ -43,6 +43,13 @@ export class CustomerServiceService {
     return this.http.post(this.customerServiceApiURL+"AddCustomerService", customerService);
   }
 
+  getCustomerServiceDetailsReport(fromDate:string, toDate:string, servicePersonId?:number){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.get<CustomerServiceDetails[]>(this.customerServiceApiURL+"GetCustomerServiceDetailsReport?FromDate=" + fromDate +
+    '&ToDate='+ toDate +'&ServicePersonId='+ servicePersonId);
+  }
+
   
   // getAllCustomerNames():Observable<CustomerNames[]>{
   //   return this.http.get<CustomerNames[]>(this.apiURL+"GetAllCustomerNames");

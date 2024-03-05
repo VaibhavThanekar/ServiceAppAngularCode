@@ -40,6 +40,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, NativeDateModule, DateAdapter, NativeDateAdapter } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from './models/commonMaster';
+import { CustomerServiceReportComponent } from './reports/customer-service-report.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { MY_FORMATS } from './models/commonMaster';
     CustomerModalComponent,
     ReminderComponent,
     CustomerSalesReportComponent,
+    CustomerServiceReportComponent,
     
   ],
   imports: [

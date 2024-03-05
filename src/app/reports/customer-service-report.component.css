@@ -1,0 +1,103 @@
+table{
+    width: 100% !important;
+   }
+
+   .mat-column-customerName{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+   
+ .mat-column-customerAddress{
+    width: 150px!important;
+    min-width: 250px !important;
+  }
+
+  .mat-column-servicePersonName{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ .mat-column-visitedDate{
+  width: 120px !important;
+  max-width: 60px !important;
+  min-width: 120px !important;
+}
+
+ .mat-column-timeOfVisit{
+    width: 120px !important;
+    max-width: 60px !important;
+    min-width: 120px !important;
+ }
+
+ .mat-column-durationOfSale{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+
+.mat-column-serviceLocation{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+  .mat-column-customerComplaint{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+  }
+  
+.mat-column-currentStatus{
+  width: 200px !important;
+  max-width: 60px !important;
+  min-width: 200px !important;
+}
+
+.mat-column-otherStatus{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+  .mat-column-createdBy{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ .mat-column-createdDate{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+/* .mat-calendar-controls {
+  color: red!important;
+  background-color: blue!important;
+  border: 2px black !important;
+} */
+
+/* .mat-calendar{
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0px 3px 14px 2px rgba(0, 0, 0, 0.12)!important;
+}
+.mat-calendar-content {
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+   0px 3px 14px 2px rgba(0, 0, 0, 0.12)!important;
+}
+
+
+.mat-datepicker-content .mat-calendar {
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+   0px 3px 14px 2px rgba(0, 0, 0, 0.12)!important;
+}
+
+.mat-calendar-content {
+  padding: 0 8px 8px 8px;
+  outline: auto!important;
+} */
+
+

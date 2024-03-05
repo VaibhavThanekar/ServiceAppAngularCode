@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CustomerSalesService } from '../services/customer-sales.service'
-import { CustomerSalesDetails, CustomerSalesDetailsReportParm } from '../models/customer-sales';
+import { CustomerServiceService } from '../services/customer-service.service'
+import { CustomerServiceDetails, CustomerServiceDetailsReportParm, ServicePersonList } from '../models/customer-service';
 import * as XLSX from 'xlsx';
 import { formatDate } from '@angular/common';
 import { ProductNameList } from '../models/product';
@@ -15,38 +15,38 @@ import moment from 'moment';
 import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
-  selector: 'app-customer-sales-report',
-  templateUrl: './customer-sales-report.component.html',
-  styleUrl: './customer-sales-report.component.css'
+  selector: 'app-customer-service-report',
+  templateUrl: './customer-service-report.component.html',
+  styleUrl: './customer-service-report.component.css'
 })
-export class CustomerSalesReportComponent {
-  customerSalesReportForm!: FormGroup;
-  dataSource!: MatTableDataSource<CustomerSalesDetails>;
+
+export class CustomerServiceReportComponent {
+  customerServiceReportForm!: FormGroup;
+  dataSource!: MatTableDataSource<CustomerServiceDetails>;
   allCustomers: any = []
   public productNameList: ProductNameList[];
-  public salesPersonList: UserName[];
-  parm:CustomerSalesDetailsReportParm;
+  public servicePersonsList: ServicePersonList[];
+  // parm:CustomerSalesDetailsReportParm;
   isShow:boolean=false;
   fromDate:string;
   toDate:string;
   submitted = false;
 
-  public displayedColumns: string[] = ['sn', 'customerName', 'mobileNumber', 'customerAddress', 'product','salesPerson',
-    'visitedDate', 'timeOfVisit', 'durationOfSale', 'reminderDate',
-    'remark', 'createdBy', 'createdDate'
+  public displayedColumns: string[] = ['sn', 'customerName', 'mobileNumber', 'customerAddress', 'servicePersonName',
+  'visitedDate', 'timeOfVisit', 'isProductInWarranty', 'customerComplaint', 'serviceLocation',
+  'serviceCost', 'currentStatus', 'otherStatus', 'createdBy', 'createdDate'
   ];
 
   posts: any;
   display = "none";
   myDate = new Date();
 
-  constructor(private formBuilder: FormBuilder,private salesService:CustomerSalesService,
+  constructor(private formBuilder: FormBuilder,private customerServiceService:CustomerServiceService,
     private spinner: NgxSpinnerService) {
-    this.customerSalesReportForm = this.formBuilder.group({
+    this.customerServiceReportForm = this.formBuilder.group({
       fromDate:['', Validators.required],
       toDate:['', Validators.required],
-      salesPersonId: [0],
-      productId: [0],
+      servicePersonId: [0]
       })
   }
 
@@ -56,75 +56,72 @@ export class CustomerSalesReportComponent {
   }
 
   get valid() {
-    return this.customerSalesReportForm.controls;
+    return this.customerServiceReportForm.controls;
   }
 
   private loadDropdowns() {
-
-    this.salesService.getAllProductNames().subscribe(data =>{
-       this.productNameList = data;
-     })
-
-     this.salesService.getUserNamesFromDepartmentId(DepartmentMaster.Sales).subscribe(data =>{
-       this.salesPersonList = data;
+     this.customerServiceService.getServicePersons().subscribe(data =>{
+       this.servicePersonsList = data;
      })
   }
 
-  searchReport(_customerSales: CustomerSalesDetailsReportParm){
-    if (this.customerSalesReportForm.invalid) {
+  searchReport(_customerService: CustomerServiceDetailsReportParm){
+    if (this.customerServiceReportForm.invalid) {
       this.submitted = false
       return;
     } 
     else
     {
-      this.spinner.show();
+        this.spinner.show();
         setTimeout(() => {
           /** spinner ends after 5 seconds */
           this.spinner.hide();
 
-        this.dataSource = new MatTableDataSource();
-        _customerSales.fromDate = moment(this.fromDate).format("YYYY-MM-DD");
-        _customerSales.toDate = moment(this.toDate).format("YYYY-MM-DD");
-        if(_customerSales.salesPersonId == undefined || _customerSales.productId){
-          _customerSales.salesPersonId = 0;
-          _customerSales.productId = 0;
-        }
+          this.dataSource = new MatTableDataSource();
+          _customerService.fromDate = moment(this.fromDate).format("YYYY-MM-DD");
+          _customerService.toDate = moment(this.toDate).format("YYYY-MM-DD");
+          if(_customerService.servicePersonId == undefined){
+            _customerService.servicePersonId = 0;
+          }
+          this.customerServiceService.getCustomerServiceDetailsReport(_customerService.fromDate, _customerService.toDate, _customerService.servicePersonId,).subscribe(data => {
+            this.allCustomers = data;
+            if(data.length > 0){
+              this.isShow = true;
+              this.posts = data;
+              this.dataSource = new MatTableDataSource(this.posts);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            }
+            else{
+              this.isShow = false;
+              alert('No records found for this filter');
+            }
+          })
 
-        this.salesService.getCustomerSaleDetailsReport(_customerSales.fromDate, _customerSales.toDate, _customerSales.salesPersonId, _customerSales.productId).subscribe(data => {
-          this.allCustomers = data;
-          if(data.length > 0){
-            this.isShow = true;
-            console.log(data);
-            this.posts = data;
-            this.dataSource = new MatTableDataSource(this.posts);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          }
-          else{
-            this.isShow = false;
-            alert('No records found for this filter');
-          }
-        })
-      }, 2000);
+        }, 2000);
+
+    
     }
   }
 
   clearFields(){
-    this.customerSalesReportForm.reset();
+    this.customerServiceReportForm.reset();
     this.dataSource = new MatTableDataSource();
     this.isShow = false;
+    
 
+    // this.dataSource = new MatTableDataSource();
+    // this.isShow = false;
     // // this.customerSalesReportForm.reset();
-    // this.customerSalesReportForm = this.formBuilder.group({
+    // this.customerServiceReportForm = this.formBuilder.group({
     //   fromDate:[''],
     //   toDate:[''],
-    //   salesPersonId: [0],
-    //   productId: [0],
+    //   salesPersonId: [0]
     //   })
   }
 
   currentDate = formatDate(this.myDate, 'yyyy-MM-dd', 'en-US').toString();
-  fileName = "CustomerSalesDetailsReport_"+ this.currentDate +".xlsx"
+  fileName = "CustomerServiceDetailsReport_"+ this.currentDate +".xlsx"
   exportAsExcel()
   {
     let data = document.getElementById("tblCustomerDetails");
@@ -153,7 +150,7 @@ export class CustomerSalesReportComponent {
   }
 
   getAllCustomerSalesDetails() {
-    this.salesService.getAllCustomerSaleDetails().subscribe(data => {
+    this.customerServiceService.getAllCustomerServiceDetails().subscribe(data => {
       this.allCustomers = data;
       this.posts = data;
       this.dataSource = new MatTableDataSource(this.posts);

@@ -63,6 +63,14 @@
     modifiedDate:string;
   }
 
+  export interface CustomerServiceDetailsReportParm
+  {
+    fromDate:string;
+    toDate:string;
+    servicePersonId:number;
+  }
+
+
 
   
 
