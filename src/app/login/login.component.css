@@ -8,7 +8,7 @@
 
 .bg-img {
     /* background: url(https://images.pexels.com/photos/461940/pexels-photo-461940.jpeg); */
-    background-image:  url("/assets/img/LoginBG_1.jpeg");
+    background-image:  url("/assets/img/LoginBG_1.jpg");
     height: 100vh;
     background-size: cover;
     background-position: center;
@@ -119,9 +119,11 @@
 }
 
 input[type="submit"] {
-    background: linear-gradient(to right, #0000ff 0%, #6666ff 100%);
-    border: 1px solid linear-gradient(to right, #0000ff 0%, #6666ff 100%);
-    ;
+    /* background: linear-gradient(to right, #0000ff 0%, #6666ff 100%);
+    border: 1px solid linear-gradient(to right, #0000ff 0%, #6666ff 100%); */
+    
+    background: linear-gradient(to right, #00695C 0%, #00695C 100%);
+    border: 1px solid linear-gradient(to right, #00695C 0%, #00695C 100%);
     color: #fff;
     font-size: 18px;
     letter-spacing: 1px;
@@ -131,7 +133,10 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background: linear-gradient(to left, #0000ff 0%, #6666ff 100%);
+    /* background: linear-gradient(to left, #00695C 0%, #00695C 100%); */
+    /* background: linear-gradient(to left, #49bbad 0%, #a0efe5 100%); */
+    background: linear-gradient(to left, #80CBC4 0%, #80CBC4 100%);
+    
 }
 
 .login {
@@ -200,4 +205,17 @@ input[type="submit"]:hover {
 
 .signup a:hover {
     text-decoration: underline;
+}
+
+.content[_ngcontent-ng-c4261123998] {
+    /* background-color: rgb(0, 105, 92); */
+
+    /* background-color: rgb(0, 137, 123); */
+    background-color:  rgb(0, 124, 118);
+    box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.40);
+    /* box-shadow: rgba(0, 0, 0, 0.75) 1.95px 1.95px 2.6px; */
+}
+
+.bg-img[_ngcontent-ng-c4261123998]::after {
+    background: rgba(0, 0, 0, 0.20);
 }
