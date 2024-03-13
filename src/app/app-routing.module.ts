@@ -12,8 +12,11 @@ import { CustomerModalComponent } from './common/customer-modal.component';
 import { ReminderComponent } from './reminder/reminder.component';
 import { CustomerSalesReportComponent } from './reports/customer-sales-report.component';
 import { CustomerServiceReportComponent } from './reports/customer-service-report.component';
+// import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+// {path:'', redirectTo: '/Home', pathMatch: 'full'},
+// {path:'Home',  component:HomeComponent},
 {path:'Login', component:LoginComponent},
 {path:'Dashboard', component:DashboardComponent},
 {path:'Product', component:ProductComponent},

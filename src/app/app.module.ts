@@ -8,7 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProductComponent } from './product/product.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 // import { DataTablesModule } from 'angular-datatables';
 import {MatTableModule} from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -41,6 +41,8 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, NativeDateModul
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from './models/commonMaster';
 import { CustomerServiceReportComponent } from './reports/customer-service-report.component';
+import { tokenInterceptor } from './token.interceptor';
+// import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,7 @@ import { CustomerServiceReportComponent } from './reports/customer-service-repor
     ReminderComponent,
     CustomerSalesReportComponent,
     CustomerServiceReportComponent,
+    // HomeComponent,
     
   ],
   imports: [
@@ -99,6 +102,7 @@ import { CustomerServiceReportComponent } from './reports/customer-service-repor
   //  { provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
   {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  { provide: HTTP_INTERCEPTORS, useClass: tokenInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

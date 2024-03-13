@@ -10,6 +10,7 @@ export interface UserMaster
     password:string;
     roleId:number;
     role:string;
+    token:string;
     createdBy:number;
     createdDate:string;
     modifiedBy:number;

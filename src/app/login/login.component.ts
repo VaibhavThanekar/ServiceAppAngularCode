@@ -12,7 +12,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  public userDetails: UserMaster[];
+  public userDetails: any;
   submitted = false;
   _emailID:string;
   _password:string;
@@ -42,10 +42,10 @@ export class LoginComponent {
       this._emailID = _userMaster.emailId.trim();
       this._password =  _userMaster.password.trim();
 
-      this.loginService.getUserDetailsForLogin( this._emailID, this._password).subscribe(data => {
-        if(data && data.length > 0){
-          this.userDetails = data;
-          if(this.userDetails[0].isDeleted != true){
+      this.loginService.getUserDetailsForLogin( this._emailID, this._password).subscribe((data:any) => {
+        if(data){
+          if(!data.isDeleted)
+          {
             // alert('Login Successful')
             // sessionStorage.setItem('login', 'Success');
             //   sessionStorage.setItem('emailId', this.userDetails[0].emailId);
@@ -55,11 +55,12 @@ export class LoginComponent {
 
             
               localStorage.setItem('login', 'Success');
-              localStorage.setItem('userId', this.userDetails[0].id.toString());
-              localStorage.setItem('emailId', this.userDetails[0].emailId);
-              localStorage.setItem('userName', this.userDetails[0].name);
-              localStorage.setItem('department', this.userDetails[0].department);
-              localStorage.setItem('role', this.userDetails[0].role);
+              localStorage.setItem('userId', data.id.toString());
+              localStorage.setItem('emailId', data.emailId);
+              localStorage.setItem('userName', data.name);
+              localStorage.setItem('department', data.department);
+              localStorage.setItem('role', data.role);
+              localStorage.setItem('token', data.token);
 
             this.spinner.show();
             setTimeout(() => {
