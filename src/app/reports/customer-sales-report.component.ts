@@ -94,7 +94,6 @@ export class CustomerSalesReportComponent {
           this.allCustomers = data;
           if(data.length > 0){
             this.isShow = true;
-            console.log(data);
             this.posts = data;
             this.dataSource = new MatTableDataSource(this.posts);
             this.dataSource.paginator = this.paginator;
@@ -168,7 +167,6 @@ export class CustomerSalesReportComponent {
 
   dateFilter(date: Date | any): boolean {
     if (date && !(date instanceof Date)) {
-      console.log(date);
       const strValue = date.toString().trim();
       // Check for YYYY/MM/DD format:
       return /^\d{4}-\d{2}-\d{2}$/.test(strValue);

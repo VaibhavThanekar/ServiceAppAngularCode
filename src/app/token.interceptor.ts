@@ -10,14 +10,9 @@ export class tokenInterceptor implements HttpInterceptor {
 
   constructor(private _cs:CommonService , private router : Router) {
      this.token =this._cs.getToken()
-    // this.token = localStorage.getItem('token');
-    console.log(this.token);
    }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(this._cs.getToken(),'token');
-    
-
     if (!request.url.includes('/Login') && this._cs.getToken()) {
       request = request.clone({ 
         setHeaders: {
@@ -26,9 +21,6 @@ export class tokenInterceptor implements HttpInterceptor {
       });
     }
     return next.handle(request).pipe(catchError((error:any)=>{
-      console.log(error);
-      console.log(error.status);
-      
       if (error instanceof HttpErrorResponse && (error.status === 0 || error.status === 401)) {
         localStorage.clear()
         this.router.navigateByUrl('/Login');

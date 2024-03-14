@@ -7,6 +7,7 @@ import { DepartmentMaster } from '../models/departmentMaster';
 import { DurationList } from '../models/commonMaster';
 import { CustomerSales } from '../models/customer-sales';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { CommonService } from '../services/common.service';
 @Component({
   selector: 'app-customer-sales',
   templateUrl: './customer-sales.component.html',
@@ -20,9 +21,10 @@ export class CustomerSalesComponent {
   public salesPersonList: UserName[];
   public durationList: DurationList[];
   createdBy:number = 0;
+  customerID:number = 0;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private formBuilder: FormBuilder, private salesService:CustomerSalesService){
+  constructor(private formBuilder: FormBuilder, private salesService:CustomerSalesService, private commonService:CommonService){
     
     if (typeof localStorage !== 'undefined') {
       this.createdBy = Number(localStorage.getItem('userId'));
@@ -51,10 +53,6 @@ export class CustomerSalesComponent {
 
   addCustomerSales(_customerSales: CustomerSales) {
     _customerSales.createdBy = this.createdBy;
-
-    console.log('_customerSales', _customerSales);
-    console.log('this.createdBy', this.createdBy);
- 
     _customerSales.mobileNumber = _customerSales.mobileNumber.toString();
 
     if (this.customerSalesForm.invalid) {
@@ -65,12 +63,16 @@ export class CustomerSalesComponent {
       
       if (this.customerSalesForm.valid) {
         this.salesService.saveCustomerSales(_customerSales).subscribe(result => {
-        var resultData = Object.values(result)[0];
+        var splitResult = Object.values(result)[0].split(',');
+        var resultData = splitResult[0];
+        this.customerID = splitResult[1];
         if (resultData = 'Sales Information Saved Successfully !') {
-          alert(resultData);
-          setTimeout(() => 
-          this.formGroupDirective.resetForm(), 0)
-          window.location.reload();
+          this.commonService.SendMessageToCustomer('Sales',this.customerID, _customerSales.customerName, _customerSales.mobileNumber, '0').subscribe(result =>{
+            alert(resultData);
+            setTimeout(() => 
+            this.formGroupDirective.resetForm(), 0)
+            window.location.reload();
+          });
         }
       });
       }

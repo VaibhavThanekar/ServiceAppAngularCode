@@ -7,6 +7,8 @@ import { CustomerServiceService } from '../services/customer-service.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ServicePersonList, ServiceChargeList, CurrentStatusList, CustomerService } from '../models/customer-service'
 import { MatSelectChange } from '@angular/material/select';
+import { CommonService } from '../services/common.service';
+import { DepartmentMaster } from '../models/departmentMaster';
 
 @Component({
   selector: 'app-customer-service',
@@ -31,9 +33,11 @@ export class CustomerServiceComponent {
   public selectedStatus: number;
   public serviceChargeId: number;
   createdBy:number = 0;
+  customerID:number = 0;
+  serviceCostAmount:string;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerServiceService) {
+  constructor(private formBuilder: FormBuilder, private customerService: CustomerServiceService, private commonService:CommonService) {
     this.createdBy = Number(localStorage.getItem('userId'));
     this.customerServiceForm = this.formBuilder.group({
       customerName: ['', Validators.required],
@@ -69,6 +73,7 @@ export class CustomerServiceComponent {
     _customerService.createdBy = this.createdBy;
     _customerService.serviceChargeId = this.serviceChargeId;
     _customerService.mobileNumber = _customerService.mobileNumber.toString();
+  
 
     if (this.customerServiceForm.invalid) {
       this.submitted = false
@@ -78,11 +83,15 @@ export class CustomerServiceComponent {
       
       if (this.customerServiceForm.valid) {
          this.customerService.saveCustomerService(_customerService).subscribe(result => {
-        var resultData = Object.values(result)[0];
+        var splitResult = Object.values(result)[0].split(',');
+        var resultData = splitResult[0];
+        this.customerID = splitResult[1];
         if (resultData = 'Service Information Saved Successfully !') {
-          alert(resultData);
-          setTimeout(() => 
-          this.formGroupDirective.resetForm(), 0)
+          this.commonService.SendMessageToCustomer('Service',this.customerID, _customerService.customerName, _customerService.mobileNumber, this.serviceCostAmount).subscribe(result =>{
+            alert(resultData);
+            setTimeout(() => 
+            this.formGroupDirective.resetForm(), 0)
+          });
         }
       });
       }
@@ -91,6 +100,7 @@ export class CustomerServiceComponent {
 
   selectedCharge(value: ServiceChargeList) {
     this.serviceChargeId = value.id;
+    this.serviceCostAmount = value.cost.toString();
     this.customerServiceForm.patchValue({
       serviceChargeCost: value.cost.toString()
     });

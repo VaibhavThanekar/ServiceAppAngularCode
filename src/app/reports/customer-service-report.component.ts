@@ -165,7 +165,6 @@ export class CustomerServiceReportComponent {
 
   dateFilter(date: Date | any): boolean {
     if (date && !(date instanceof Date)) {
-      console.log(date);
       const strValue = date.toString().trim();
       // Check for YYYY/MM/DD format:
       return /^\d{4}-\d{2}-\d{2}$/.test(strValue);

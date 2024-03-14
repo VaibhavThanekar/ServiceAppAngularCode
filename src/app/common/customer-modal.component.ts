@@ -24,7 +24,6 @@ export class CustomerModalComponent {
     private reminderService: ReminderService, private commonService:CommonService) {
 
     this.modifiedBy = Number(localStorage.getItem('userId'));
-    console.log("Modal", this.modifiedBy);
     
     this.customerSalesForm = this.formBuilder.group({
       customerName: [''],
@@ -67,7 +66,6 @@ export class CustomerModalComponent {
     this.customereSalesService.getCustomerSaleDetailsFromID(id).subscribe(data => {
       this.allCustomers = data;
 
-      console.log(data);
     this.customerSalesForm.patchValue({
       customerName: this.allCustomers[0]?.customerName,
       mobileNumber: this.allCustomers[0]?.mobileNumber,
