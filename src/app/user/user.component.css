@@ -1,0 +1,69 @@
+.mat-column-actions{
+    width: 100px !important;
+    max-width: 60px !important;
+    min-width: 100px !important;
+ }
+.mat-column-name{
+    width: 200px !important;
+    max-width: 60px !important;
+    min-width: 200px !important;
+ }
+   
+ .mat-column-emailId{
+    width: 150px!important;
+    min-width: 150px !important;
+  }
+
+  .mat-column-mobileNo{
+    width: 120px !important;
+    max-width: 60px !important;
+    min-width: 120px !important;
+ }
+
+ .mat-column-password{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+ .mat-column-department{
+    width: 120px !important;
+    max-width: 60px !important;
+    min-width: 120px !important;
+ }
+
+ .mat-column-role{
+  width: 120px !important;
+  max-width: 60px !important;
+  min-width: 120px !important;
+}
+
+.mat-column-remarks{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+.mat-column-createdBy{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+.mat-column-createdDate{
+width: 150px !important;
+max-width: 60px !important;
+min-width: 150px !important;
+}
+
+.mat-column-modifiedBy{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+  }
+  
+  .mat-column-modifiedDate{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+  }

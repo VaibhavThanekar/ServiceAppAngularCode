@@ -1,0 +1,221 @@
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <app-header></app-header>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <div class="row mat-elevation-z8">
+                    <div class="card col-lg-12 pl-0 pr-0">
+                        <div class="card-header card-header-c">
+                            <div>User Master</div>
+                        </div>
+
+                        <form [formGroup]="userForm" #userMaster="ngForm" class="user p-5">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>User Name</mat-label>
+                                        <input matInput aria-label="User Name" formControlName="name">
+
+                                        <mat-error *ngIf="valid.name.errors?.required">
+                                            <span class="text-danger">Enter user name</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Email Id</mat-label>
+                                        <input matInput aria-label="Email Id" formControlName="emailId">
+
+                                        <mat-error *ngIf="valid.emailId.errors?.required">
+                                            <span class="text-danger">Enter email id</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Mobile No</mat-label>
+                                            <input matInput type="number" aria-label="Mobile No" formControlName="mobileNo" onKeyPress="if(this.value.length==10) return false;" >
+                                            <mat-error class="text-danger" *ngIf="valid.mobileNo.errors?.required">
+                                                Enter mobile number
+                                            </mat-error>
+                                        </mat-form-field> 
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Password</mat-label>
+                                            <input matInput  aria-label="Password" formControlName="password">
+                                            <mat-error class="text-danger" *ngIf="valid.password.errors?.required">
+                                                Enter password
+                                            </mat-error>
+                                        </mat-form-field> 
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Select Department</mat-label>
+                                            <mat-select  formControlName="departmentId" [(ngModel)]="selectedDepartment" >
+                                              <mat-option *ngFor="let userDepartment of departmentList" [value]="userDepartment.id">{{userDepartment.department}}</mat-option>
+                                            </mat-select>
+    
+                                            <mat-error class="text-danger" *ngIf="valid.departmentId.errors?.required">
+                                                Select department         
+                                            </mat-error>
+                                          </mat-form-field>
+                                    </div>
+                               
+                                
+
+                                <div class="col-sm-3">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Select Role</mat-label>
+                                        <mat-select  formControlName="roleId" [(ngModel)]="selectedRole" >
+                                          <mat-option *ngFor="let userRole of roleList" [value]="userRole.id">{{userRole.role}}</mat-option>
+                                        </mat-select>
+
+                                        <mat-error class="text-danger" *ngIf="valid.roleId.errors?.required">
+                                            Select role         
+                                        </mat-error>
+                                      </mat-form-field>
+                                  </div>
+                            </div>
+                        
+                            <div class="form-group row">
+                            <div class="col-md-12">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Remark</mat-label>
+                                    <input matInput aria-label="Remark" formControlName="remarks">
+                                    
+                                </mat-form-field> 
+                            </div>
+                            </div>
+
+                            <div class="form-group row justify-content-md-center pt-3">
+                                <div class="col-sm-2 ">
+                                    <button class="btn btn-primary btn-user btn-block" type="submit" id="btnSave" [disabled]="!userMaster.valid" 
+                                    (click)="addUser(userForm.value)">{{editMode? 'Update' : 'Save'}}</button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="btn btn-primary btn-user btn-block" id="btnCancel" (click)="resetForm()">Cancel</div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="mat-elevation-z8">
+                                <mat-form-field class="mt-2 col-md-4">
+                                    <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Search">
+                                </mat-form-field>
+                            <div class="table-responsive">
+                            <table mat-table matSort [dataSource]="dataSource">
+                              <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>   
+                                <td mat-cell *matCellDef="let element"> 
+                                  <div class="button">
+                                    <button mat-button class="button_bg" (click)="updateUser(element.id)"><i class="fa fa-edit"></i></button>
+                                    <button mat-button class="ml-2 button_bg" (click)="deleteUser(element.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                  </div>
+                                  
+                                </td>
+                              </ng-container>
+
+                                <!-- <ng-container matColumnDef="Id">
+                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                                </ng-container> -->
+                              
+                                <ng-container matColumnDef="name">
+                                  <th mat-header-cell *matHeaderCellDef> User Name </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                                </ng-container>
+
+                                <!-- <ng-container matColumnDef="productDescription">
+                                    <th mat-header-cell *matHeaderCellDef> Product Description </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.productDescription}} </td>
+                                  </ng-container> -->
+
+                                  <ng-container matColumnDef="emailId">
+                                    <th mat-header-cell *matHeaderCellDef> Email Id </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.emailId}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="mobileNo">
+                                    <th mat-header-cell *matHeaderCellDef> Mobile No</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="password">
+                                    <th mat-header-cell *matHeaderCellDef> Password </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.password}} </td>
+                                  </ng-container>
+
+
+                                  <ng-container matColumnDef="department">
+                                    <th mat-header-cell *matHeaderCellDef> Department </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="role">
+                                    <th mat-header-cell *matHeaderCellDef> Role </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="remarks">
+                                    <th mat-header-cell *matHeaderCellDef> Remark </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.remarks}} </td>
+                                  </ng-container>
+                                  <ng-container matColumnDef="createdBy">
+                                    <th mat-header-cell *matHeaderCellDef> Created By </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="createdDate">
+                                    <th mat-header-cell *matHeaderCellDef> Created Date </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="modifiedBy">
+                                    <th mat-header-cell *matHeaderCellDef> Modified By </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.modifiedBy}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="modifiedDate">
+                                    <th mat-header-cell *matHeaderCellDef> Modified Date </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.modifiedDate}} </td>
+                                  </ng-container>
+                              
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                              </table>
+                              </div>
+                              <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+           
+          </div>
+        </div>
+         <!-- Footer -->
+        <app-footer></app-footer>
+
+     </div>
+    
+</div>
+
+ 

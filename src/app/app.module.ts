@@ -42,6 +42,8 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MY_FORMATS } from './models/commonMaster';
 import { CustomerServiceReportComponent } from './reports/customer-service-report.component';
 import { tokenInterceptor } from './token.interceptor';
+import { UserService } from './services/user.service';
+import { UserComponent } from './user/user.component';
 // import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -62,6 +64,7 @@ import { tokenInterceptor } from './token.interceptor';
     ReminderComponent,
     CustomerSalesReportComponent,
     CustomerServiceReportComponent,
+    UserComponent,
     // HomeComponent,
     
   ],
@@ -98,6 +101,7 @@ import { tokenInterceptor } from './token.interceptor';
     LocalStorageService,
     LoginService,
     ReminderService,
+    UserService,
    { provide: MatFormFieldModule,useValue :{ appearance: 'fill' }},
   //  { provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

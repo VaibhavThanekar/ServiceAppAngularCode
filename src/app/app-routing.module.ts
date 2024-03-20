@@ -12,6 +12,7 @@ import { CustomerModalComponent } from './common/customer-modal.component';
 import { ReminderComponent } from './reminder/reminder.component';
 import { CustomerSalesReportComponent } from './reports/customer-sales-report.component';
 import { CustomerServiceReportComponent } from './reports/customer-service-report.component';
+import { UserComponent } from './user/user.component';
 // import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
 {path:'ServiceCharge', component:ServiceChargeComponent},
 {path:'CustomerModal', component:CustomerModalComponent},
 {path:'Reminder', component:ReminderComponent},
+{path:'User', component:UserComponent},
 {path:'CustomerSalesReport', component:CustomerSalesReportComponent},
 {path:'CustomerServiceReport', component:CustomerServiceReportComponent},
 ];

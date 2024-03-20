@@ -22,7 +22,9 @@ export class tokenInterceptor implements HttpInterceptor {
     }
     return next.handle(request).pipe(catchError((error:any)=>{
       if (error instanceof HttpErrorResponse && (error.status === 0 || error.status === 401)) {
-        localStorage.clear()
+        if (typeof localStorage !== 'undefined') {
+          localStorage.clear();
+        }
         this.router.navigateByUrl('/Login');
       }
       return throwError(error);
