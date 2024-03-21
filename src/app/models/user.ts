@@ -5,11 +5,11 @@ export interface UserMaster
     emailId:string;
     name:string;
     departmentId:number;
-    // department:string;
+    department:string;
     mobileNo:string;
     password:string;
     roleId:number;
-    // role:string;
+    role:string;
     token:string;
     remarks:string;
     createdBy:number;

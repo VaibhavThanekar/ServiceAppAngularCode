@@ -24,8 +24,8 @@ export class tokenInterceptor implements HttpInterceptor {
       if (error instanceof HttpErrorResponse && (error.status === 0 || error.status === 401)) {
         if (typeof localStorage !== 'undefined') {
           localStorage.clear();
+          this.router.navigateByUrl('/Login');
         }
-        this.router.navigateByUrl('/Login');
       }
       return throwError(error);
     }));

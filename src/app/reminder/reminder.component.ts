@@ -19,6 +19,9 @@ export class ReminderComponent {
   allReminders: any = [];
   posts: any;
   showChild=false;
+  userRole:any;
+  department:any;
+  userName:any;
 
   public displayedColumns: string[] = ['actions', 'customerName', 'description', 'department', 'visitedDate',
    'reminderDateTime', 'isActive', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate',];
@@ -29,6 +32,11 @@ export class ReminderComponent {
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
+    if (typeof localStorage !== 'undefined') {
+      this.userRole =  localStorage.getItem('role');
+      this.department =  localStorage.getItem('department');
+      this.userName =  localStorage.getItem('userName');
+    }   
 
     this.commonService.isModalClosed$.subscribe(data => {
       this.showChild = data;
@@ -48,9 +56,14 @@ export class ReminderComponent {
 
   getAllRemindersForToday(){
     this.reminderService.getAllReminders().subscribe(data =>{
-    this.allReminders = data;
-    this.posts = data;
-    this.dataSource = new MatTableDataSource(this.posts);
+      this.allReminders = data;
+      this.posts = data;
+
+      // if(this.department == 'Sales'){
+    //   this.posts = data.find(x=> x.createdBy == this.userName);
+    //   this.dataSource = new MatTableDataSource(this.posts);
+    // }
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   })

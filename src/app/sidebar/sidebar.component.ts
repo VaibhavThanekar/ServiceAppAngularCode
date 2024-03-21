@@ -7,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  userRole:any;
+  department:any;
+  constructor(){ }
 
+  ngOnInit(){
+    if (typeof localStorage !== 'undefined') {
+      this.userRole =  localStorage.getItem('role');
+      this.department =  localStorage.getItem('department');
+    }    
+  }
 }
