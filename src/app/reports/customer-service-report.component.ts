@@ -89,7 +89,10 @@ export class CustomerServiceReportComponent {
               this.isShow = true;
               this.posts = data;
               this.dataSource = new MatTableDataSource(this.posts);
-              this.dataSource.paginator = this.paginator;
+              // this.dataSource.paginator = this.paginator;
+              // this.dataSource.sort = this.sort;
+            
+              setTimeout(() => this.dataSource.paginator = this.paginator);
               this.dataSource.sort = this.sort;
             }
             else{
@@ -141,23 +144,23 @@ export class CustomerServiceReportComponent {
   }
 
 
+  
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
-
   ngAfterViewInit() {
     // this.getAllCustomerSalesDetails();
     // this.searchReport();
   }
 
-  getAllCustomerSalesDetails() {
-    this.customerServiceService.getAllCustomerServiceDetails().subscribe(data => {
-      this.allCustomers = data;
-      this.posts = data;
-      this.dataSource = new MatTableDataSource(this.posts);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
-  }
+  // getAllCustomerSalesDetails() {
+  //   this.customerServiceService.getAllCustomerServiceDetails().subscribe(data => {
+  //     this.allCustomers = data;
+  //     this.posts = data;
+  //     this.dataSource = new MatTableDataSource(this.posts);
+  //     this.dataSource.paginator = this.paginator;
+  //     this.dataSource.sort = this.sort;
+  //   })
+  // }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

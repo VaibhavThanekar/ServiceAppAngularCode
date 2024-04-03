@@ -85,8 +85,12 @@ export class CustomerSalesReportComponent {
         this.dataSource = new MatTableDataSource();
         _customerSales.fromDate = moment(this.fromDate).format("YYYY-MM-DD");
         _customerSales.toDate = moment(this.toDate).format("YYYY-MM-DD");
-        if(_customerSales.salesPersonId == undefined || _customerSales.productId){
+
+        if(_customerSales.salesPersonId == undefined){
           _customerSales.salesPersonId = 0;
+        }
+
+        if(_customerSales.productId == undefined){
           _customerSales.productId = 0;
         }
 
@@ -95,8 +99,11 @@ export class CustomerSalesReportComponent {
           if(data.length > 0){
             this.isShow = true;
             this.posts = data;
-            this.dataSource = new MatTableDataSource(this.posts);
-            this.dataSource.paginator = this.paginator;
+             this.dataSource = new MatTableDataSource(this.posts);
+            // this.dataSource.paginator = this.paginator;
+            // this.dataSource.sort = this.sort;
+            
+            setTimeout(() => this.dataSource.paginator = this.paginator);
             this.dataSource.sort = this.sort;
           }
           else{
@@ -147,19 +154,20 @@ export class CustomerSalesReportComponent {
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
+    // this.loadDropdowns();
     // this.getAllCustomerSalesDetails();
     // this.searchReport();
   }
 
-  getAllCustomerSalesDetails() {
-    this.salesService.getAllCustomerSaleDetails().subscribe(data => {
-      this.allCustomers = data;
-      this.posts = data;
-      this.dataSource = new MatTableDataSource(this.posts);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
-  }
+  // getAllCustomerSalesDetails() {
+  //   this.salesService.getAllCustomerSaleDetails().subscribe(data => {
+  //     this.allCustomers = data;
+  //     this.posts = data;
+  //     this.dataSource = new MatTableDataSource(this.posts);
+  //     this.dataSource.paginator = this.paginator;
+  //     this.dataSource.sort = this.sort;
+  //   })
+  // }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

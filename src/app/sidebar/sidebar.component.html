@@ -46,7 +46,7 @@
     <li class="nav-item" *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser' && department == 'Sales'">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSales"
             aria-expanded="true" aria-controls="collapseSales">
-            <i class="fas fa-tablet-alt pr-1"></i>
+            <i class="fas fa-laptop"></i>
             <span>Sales</span>
         </a>
         <div id="collapseSales" class="collapse" aria-labelledby="headingSales" data-parent="#accordionSidebar">
@@ -60,7 +60,7 @@
     <li class="nav-item"  *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser' || userRole =='SuperUser' && department == 'Service'">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseService"
             aria-expanded="true" aria-controls="collapseService">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-users"></i>
             <span>Service</span>
         </a>
         <div id="collapseService" class="collapse" aria-labelledby="headingService" data-parent="#accordionSidebar">
@@ -76,7 +76,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
         aria-expanded="true" aria-controls="collapseReports">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-chart-line"></i>
             <span>Reports</span>
         </a>
         
@@ -102,7 +102,7 @@
      <li class="nav-item" *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser' && department == 'Sales' || department == 'Service'">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
+            <i class="fas fa-cogs"></i>
             <span>Masters</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
@@ -113,6 +113,23 @@
                 <a class="collapse-item"  routerLink="/Reminder" *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser' && department == 'Sales' || department == 'Service'">Reminder</a>
                 <a class="collapse-item"  routerLink="/ServiceCharge" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">Service Charge</a>
                 <a class="collapse-item"  routerLink="/User" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">User</a>
+                <a class="collapse-item"  routerLink="/Settings" *ngIf="userRole =='ITAdmin'">Settings</a>
+            </div>
+        </div>
+    </li>
+
+     <!-- Nav Item - Utilities Collapse Menu -->
+     <li class="nav-item" *ngIf="userRole =='ITAdmin'">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
+            aria-expanded="true" aria-controls="collapseAdmin">
+            <i class="fas fa-user-cog"></i>
+            <span>Admin Settings</span>
+        </a>
+        <div id="collapseAdmin" class="collapse" aria-labelledby="headingAdmins"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Admin Utilities:</h6>
+                <a class="collapse-item"  routerLink="/Settings" *ngIf="userRole =='ITAdmin'">Settings</a>
             </div>
         </div>
     </li>

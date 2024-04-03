@@ -45,6 +45,8 @@ import { tokenInterceptor } from './token.interceptor';
 import { UserService } from './services/user.service';
 import { UserComponent } from './user/user.component';
 // import { HomeComponent } from './home/home.component';
+import { SettingsComponent } from './settings/settings.component';
+// import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { UserComponent } from './user/user.component';
     CustomerSalesReportComponent,
     CustomerServiceReportComponent,
     UserComponent,
+    // HomeComponent,
+    SettingsComponent,
     // HomeComponent,
     
   ],
