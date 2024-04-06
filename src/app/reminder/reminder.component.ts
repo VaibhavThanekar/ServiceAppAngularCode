@@ -64,6 +64,7 @@ export class ReminderComponent {
     //   this.dataSource = new MatTableDataSource(this.posts);
     // }
 
+    this.dataSource = new MatTableDataSource(this.posts);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   })

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Constants } from '../models/commonMaster';
 import { Settings, SettingsDetails } from '../models/settings';
+import { DashboardDetails } from '../models/dashboardDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +44,8 @@ export class CommonService {
    updateSetting(settings:Settings){
     return this.http.post(this.settingsURL+"UpdateSetting", settings);
   }
+
+  getDashboardDetails(){
+    return this.http.get<DashboardDetails[]>(this.settingsURL + "GetDashboardDetails");
+   }
 }
