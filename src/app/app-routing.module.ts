@@ -15,6 +15,7 @@ import { CustomerServiceReportComponent } from './reports/customer-service-repor
 import { UserComponent } from './user/user.component';
 // import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
+import { UserSettingComponent } from './user/user-setting.component';
 
 const routes: Routes = [
 // {path:'', redirectTo: '/Home', pathMatch: 'full'},
@@ -33,6 +34,7 @@ const routes: Routes = [
 {path:'CustomerSalesReport', component:CustomerSalesReportComponent},
 {path:'CustomerServiceReport', component:CustomerServiceReportComponent},
 {path:'Settings', component:SettingsComponent},
+{path:'UserSettings', component:UserSettingComponent},
 ];
 
 @NgModule({

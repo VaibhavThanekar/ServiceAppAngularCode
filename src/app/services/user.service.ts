@@ -33,6 +33,12 @@ export class UserService {
     return this.http.post(this.apiUserURL+"UpdateUser", userMaster);
   }
 
+  updateUserPassword(id:number, password:any, modifiedBy:number){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.post(this.apiUserURL+"UpdateUserPassword?userId=" + id + "&password=" + password + "&modifiedBy=" + modifiedBy, headers);
+  }
+
   deleteUser(id:number, modifiedBy:number){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     let options = {  headers: headers }

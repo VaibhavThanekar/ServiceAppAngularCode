@@ -46,6 +46,7 @@ import { UserService } from './services/user.service';
 import { UserComponent } from './user/user.component';
 // import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
+import { UserSettingComponent } from './user/user-setting.component';
 // import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -69,6 +70,7 @@ import { SettingsComponent } from './settings/settings.component';
     UserComponent,
     // HomeComponent,
     SettingsComponent,
+    UserSettingComponent,
     // HomeComponent,
     
   ],
