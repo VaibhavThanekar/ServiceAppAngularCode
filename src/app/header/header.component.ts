@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { ReminderMaster } from '../models/reminder';
 import { ReminderService } from '../services/reminder.service';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../services/common.service';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+
 
 @Component({
   selector: 'app-header',
@@ -15,11 +17,14 @@ userName:any;
 public todaysReminder:ReminderMaster[] = [];
 reminderCount:number=0;
 showChild=false;
+showMyClass = false;
+
 
 
 constructor(private formBuilder: FormBuilder, private reminderService:ReminderService, 
-  private commonService:CommonService, private router:Router){}
+  private commonService:CommonService, private router:Router, private el: ElementRef){}
   ngOnInit() {
+    // this.commonService.btnToggle.next(false);
   this.commonService.isModalClosed$.subscribe(data => {
     this.showChild = data;
   })
@@ -52,5 +57,10 @@ getAllRemindersForToday(){
   {
     localStorage.clear();
     this.router.navigateByUrl('/Login');
+  }
+
+  hideShowSidebar():void{
+    this.showMyClass = !this.showMyClass;
+    this.commonService.btnToggle.next(this.showMyClass);
   }
 }

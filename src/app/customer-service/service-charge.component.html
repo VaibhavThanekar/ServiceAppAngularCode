@@ -60,7 +60,7 @@
                             </div>
 
                             <div class="form-group row justify-content-md-center pt-3">
-                                <div class="col-sm-2 ">
+                                <div class="col-sm-2 mb-3 mb-md-0">
                                     <button class="btn btn-primary btn-user btn-block" type="submit" id="btnSave" [disabled]="!serviceChargeForm.valid" 
                                     (click)="addServiceCharge(serviceCharge.value)">{{editMode? 'Update' : 'Save'}}</button>
                                 </div>
@@ -75,6 +75,7 @@
                                     <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Search">
                                 </mat-form-field>
 
+                            <div class="table-responsive">
                             <table mat-table matSort [dataSource]="dataSource">
                               <ng-container matColumnDef="actions">
                                 <th mat-header-cell *matHeaderCellDef> Action </th>   
@@ -132,6 +133,7 @@
                               </table>
                               <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
                             </div>
+                          </div>
                         </form>
                     </div>
                 </div>

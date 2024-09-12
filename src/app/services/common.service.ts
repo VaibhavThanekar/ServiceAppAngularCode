@@ -12,7 +12,8 @@ export class CommonService {
   token:any;
   closeModal = new BehaviorSubject<boolean>(false);
   isModalClosed$ =this.closeModal.asObservable()
-  
+  btnToggle = new BehaviorSubject<boolean>(false);
+
   readonly apiWAURL = Constants.BASE_URL + "WAMessages/";
   readonly settingsURL = Constants.BASE_URL + "CommonMaster/";
   constructor(private http:HttpClient) { }

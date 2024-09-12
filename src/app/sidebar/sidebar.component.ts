@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,12 +10,18 @@ import { Component } from '@angular/core';
 export class SidebarComponent {
   userRole:any;
   department:any;
-  constructor(){ }
+  showSideBar=false;
+
+  constructor(private commonService:CommonService){
+    this.commonService.btnToggle.subscribe((val:any) => {
+      this.showSideBar = val; 
+    })
+   }
 
   ngOnInit(){
     if (typeof localStorage !== 'undefined') {
       this.userRole =  localStorage.getItem('role');
       this.department =  localStorage.getItem('department');
-    }    
-  }
+    } 
+    }
 }

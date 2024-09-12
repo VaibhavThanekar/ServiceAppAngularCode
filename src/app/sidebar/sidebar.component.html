@@ -1,5 +1,5 @@
  <!-- Sidebar -->
- <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+ <ul [ngClass]="{'toggled' : showSideBar}" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" >
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -43,7 +43,7 @@
         </div>
     </li> -->
 
-    <li class="nav-item" *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser' && department == 'Sales'">
+    <li class="nav-item" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Sales' || department == 'IT' || department == 'Administration')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSales"
             aria-expanded="true" aria-controls="collapseSales">
             <i class="fas fa-laptop"></i>
@@ -57,7 +57,7 @@
         </div>
     </li>
 
-    <li class="nav-item"  *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser' || userRole =='SuperUser' && department == 'Service'">
+    <li class="nav-item"  *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser' || userRole =='SuperUser') && (department == 'Service' || department == 'IT' || department == 'Administration')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseService"
             aria-expanded="true" aria-controls="collapseService">
             <i class="fas fa-users"></i>
@@ -83,8 +83,8 @@
         <div id="collapseReports" class="collapse" aria-labelledby="headingReports"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item"  routerLink="/CustomerSalesReport" *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser' && department == 'Sales'">Customer Sales </a>
-                <a class="collapse-item"  routerLink="/CustomerServiceReport" *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser' && department == 'Service'">Customer Service</a>
+                <a class="collapse-item"  routerLink="/CustomerSalesReport" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Sales' || department == 'IT' || department == 'Administration')">Customer Sales </a>
+                <a class="collapse-item"  routerLink="/CustomerServiceReport" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Service' || department == 'IT' || department == 'Administration')">Customer Service</a>
                 
             </div>
         </div>
@@ -99,7 +99,7 @@
     </div>
 
      <!-- Nav Item - Utilities Collapse Menu -->
-     <li class="nav-item" *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser' && department == 'Sales' || department == 'Service'">
+     <li class="nav-item" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Sales' || department == 'Service' || department == 'IT' || department == 'Administration')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-cogs"></i>
@@ -110,7 +110,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Master Utilities:</h6>
                 <a class="collapse-item"  routerLink="/Product" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">Product</a>
-                <a class="collapse-item"  routerLink="/Reminder" *ngIf="userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser' && department == 'Sales' || department == 'Service'">Reminder</a>
+                <a class="collapse-item"  routerLink="/Reminder" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Sales' || department == 'Service' || department == 'IT' || department == 'Administration')">Reminder</a>
                 <a class="collapse-item"  routerLink="/ServiceCharge" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">Service Charge</a>
                 <a class="collapse-item"  routerLink="/User" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">User</a>
                 <a class="collapse-item"  routerLink="/Settings" *ngIf="userRole =='ITAdmin'">Settings</a>

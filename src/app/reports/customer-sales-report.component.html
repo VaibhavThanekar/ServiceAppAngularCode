@@ -91,11 +91,11 @@ type="ball-atom" [fullScreen] = "true" >
                             </div>
 
                             <div class="row form-group justify-content-end">
-                              <div class="col-md-2">
+                              <div class="col-md-2 mb-3 mb-md-0">
                                 <!-- <button class="btn btn-primary btn-user btn-block button_excel" type="button"  id="btnExcel" (click)="exportAsExcel()" *ngIf="isShow">Export To Excel</button> -->
                                 <button class="btn btn-primary btn-user btn-block" type="button"  id="btnClear" (click)="clearFields()">Clear</button>
                               </div>
-                              <div class="col-md-2 mb-3 mb-md-0 ">
+                              <div class="col-md-2 ">
                                 <button class="btn btn-primary btn-user btn-block" type="button" [disabled]="!customerSalesReportForm.valid" id="btnSearch" (click)="searchReport(customerSalesReportForm.value)">Search</button>
                               </div>
                             </div>
