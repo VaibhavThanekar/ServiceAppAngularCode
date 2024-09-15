@@ -2,7 +2,7 @@
  <ul [ngClass]="{'toggled' : showSideBar}" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" >
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center"  routerLink="/Dashboard">
         <!-- <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div> -->
@@ -110,7 +110,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Master Utilities:</h6>
                 <a class="collapse-item"  routerLink="/Product" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">Product</a>
-                <a class="collapse-item"  routerLink="/Reminder" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Sales' || department == 'Service' || department == 'IT' || department == 'Administration')">Reminder</a>
+                <a class="collapse-item"  routerLink="/Reminder" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Sales' || department == 'IT' || department == 'Administration')">Reminder</a>
                 <a class="collapse-item"  routerLink="/ServiceCharge" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">Service Charge</a>
                 <a class="collapse-item"  routerLink="/User" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">User</a>
                 <a class="collapse-item"  routerLink="/Settings" *ngIf="userRole =='ITAdmin'">Settings</a>

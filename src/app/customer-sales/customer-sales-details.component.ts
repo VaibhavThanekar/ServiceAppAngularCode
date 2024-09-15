@@ -8,6 +8,7 @@ import { CustomerSalesService } from '../services/customer-sales.service'
 import { CustomerSalesDetails } from '../models/customer-sales';
 import * as XLSX from 'xlsx';
 import { formatDate } from '@angular/common';
+import { DepartmentMaster } from '../models/departmentMaster';
 
 @Component({
   selector: 'app-customer-sales-details',
@@ -27,6 +28,9 @@ export class CustomerSalesDetailsComponent {
   posts: any;
   display = "none";
   myDate = new Date();
+  userId:any;
+  userRole:any;
+  department:any
 
   constructor(private customereSalesService: CustomerSalesService, private formBuilder: FormBuilder) {
     this.customerSalesForm = this.formBuilder.group({
@@ -79,12 +83,16 @@ export class CustomerSalesDetailsComponent {
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
-    this.getAllCustomerSalesDetails();
+    if (typeof localStorage !== 'undefined') {
+      this.userRole =  localStorage.getItem('role');
+      this.department =  localStorage.getItem('department');
+      this.userId =  localStorage.getItem('userId');
+    }  
+    
+    this.getAllCustomerSalesDetails(this.department, this.userId);
   }
 
   selectedItem(id: any) {
-    // console.log(id);
-    // console.log(this.allCustomers);
     let selectedCustomer = this.allCustomers.find((p: any) => {
       return p.id == id
     });
@@ -107,8 +115,8 @@ export class CustomerSalesDetailsComponent {
     // console.log(selectedCustomer);
   }
 
-  getAllCustomerSalesDetails() {
-    this.customereSalesService.getAllCustomerSaleDetails().subscribe(data => {
+  getAllCustomerSalesDetails(department:any, userId:number) {
+    this.customereSalesService.getAllCustomerSaleDetails(department, userId).subscribe(data => {
       this.allCustomers = data;
       this.posts = data;
       this.dataSource = new MatTableDataSource(this.posts);

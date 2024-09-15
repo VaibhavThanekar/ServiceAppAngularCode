@@ -39,6 +39,9 @@ export class CustomerSalesReportComponent {
   posts: any;
   display = "none";
   myDate = new Date();
+  userId:any;
+  department:any
+  userName:any
 
   constructor(private formBuilder: FormBuilder,private salesService:CustomerSalesService,
     private spinner: NgxSpinnerService) {
@@ -59,6 +62,7 @@ export class CustomerSalesReportComponent {
     return this.customerSalesReportForm.controls;
   }
 
+  selections: Array<any>;
   private loadDropdowns() {
 
     this.salesService.getAllProductNames().subscribe(data =>{
@@ -66,8 +70,21 @@ export class CustomerSalesReportComponent {
      })
 
      this.salesService.getUserNamesFromDepartmentId(DepartmentMaster.Sales).subscribe(data =>{
-       this.salesPersonList = data;
+      if(this.department == 'Sales'){
+        this.salesPersonList = data.filter((x:any) => x.id == this.userId);
+      }
+      else{
+        this.salesPersonList = data;
+      }
      })
+  }
+
+  ngAfterViewInit() {
+    if (typeof localStorage !== 'undefined') {
+      this.department =  localStorage.getItem('department');
+      this.userId =  localStorage.getItem('userId');
+      this.userName = localStorage.getItem('userName');
+    }  
   }
 
   searchReport(_customerSales: CustomerSalesDetailsReportParm){
@@ -92,6 +109,10 @@ export class CustomerSalesReportComponent {
 
         if(_customerSales.productId == undefined){
           _customerSales.productId = 0;
+        }
+
+        if(this.department == 'Sales'){
+          _customerSales.salesPersonId = this.userId;
         }
 
         this.salesService.getCustomerSaleDetailsReport(_customerSales.fromDate, _customerSales.toDate, _customerSales.salesPersonId, _customerSales.productId).subscribe(data => {
@@ -152,12 +173,6 @@ export class CustomerSalesReportComponent {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
-
-  ngAfterViewInit() {
-    // this.loadDropdowns();
-    // this.getAllCustomerSalesDetails();
-    // this.searchReport();
-  }
 
   // getAllCustomerSalesDetails() {
   //   this.salesService.getAllCustomerSaleDetails().subscribe(data => {

@@ -18,7 +18,9 @@ public todaysReminder:ReminderMaster[] = [];
 reminderCount:number=0;
 showChild=false;
 showMyClass = false;
-
+userId:any;
+userRole:any;
+department:any
 
 
 constructor(private formBuilder: FormBuilder, private reminderService:ReminderService, 
@@ -34,11 +36,11 @@ constructor(private formBuilder: FormBuilder, private reminderService:ReminderSe
   this.userName = localStorage.getItem('userName');
   }
   
-  this.getAllRemindersForToday();
+  
 }
 
-getAllRemindersForToday(){
-  this.reminderService.getAllRemindersForToday().subscribe(data =>{
+getAllRemindersForToday(department:any, userId:number){
+  this.reminderService.getAllRemindersForToday(department, userId).subscribe(data =>{
     this.todaysReminder = data;
     this.reminderCount = data.length;
   })
@@ -52,6 +54,15 @@ getAllRemindersForToday(){
     this.showChild = true;
   }
 
+  ngAfterViewInit() {
+    if (typeof localStorage !== 'undefined') {
+      this.userRole =  localStorage.getItem('role');
+      this.department =  localStorage.getItem('department');
+      this.userId =  localStorage.getItem('userId');
+    }  
+
+    this.getAllRemindersForToday(this.department, this.userId);
+  }
 
   logout():void
   {

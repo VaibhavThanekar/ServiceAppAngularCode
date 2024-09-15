@@ -33,6 +33,9 @@ export class CustomerServiceDetailsComponent {
   display = "none";
   public selectedStatus: string;
   myDate = new Date();
+  userId:any;
+  userRole:any;
+  department:any
 
   constructor(private customereDetailsService: CustomerServiceService, private formBuilder: FormBuilder) {
     this.customerServiceForm = this.formBuilder.group({
@@ -99,16 +102,17 @@ export class CustomerServiceDetailsComponent {
 
   }
 
-  
-
-
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
   ngAfterViewInit() {
-    this.getAllCustomerServiceDetails();
-    // // this.dataSource.paginator = this.paginator;
-    // // this.dataSource.sort = this.sort;
+    if (typeof localStorage !== 'undefined') {
+      this.userRole =  localStorage.getItem('role');
+      this.department =  localStorage.getItem('department');
+      this.userId =  localStorage.getItem('userId');
+    }  
+    
+    this.getAllCustomerServiceDetails(this.department, this.userId);
   }
 
   selectedItem(id: any) {
@@ -137,8 +141,8 @@ export class CustomerServiceDetailsComponent {
     // console.log(selectedCustomer);
   }
 
-  getAllCustomerServiceDetails() {
-    this.customereDetailsService.getAllCustomerServiceDetails().subscribe(data => {
+  getAllCustomerServiceDetails(department:any, userId:number) {
+    this.customereDetailsService.getAllCustomerServiceDetails(department, userId).subscribe(data => {
       //  console.table(data);
 
       this.allCustomers = data;

@@ -22,6 +22,7 @@ export class ReminderComponent {
   userRole:any;
   department:any;
   userName:any;
+  userId:any;
 
   public displayedColumns: string[] = ['actions', 'customerName', 'description', 'department', 'visitedDate',
    'reminderDateTime', 'isActive', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate',];
@@ -36,13 +37,14 @@ export class ReminderComponent {
       this.userRole =  localStorage.getItem('role');
       this.department =  localStorage.getItem('department');
       this.userName =  localStorage.getItem('userName');
+      this.userId =  localStorage.getItem('userId');
     }   
 
     this.commonService.isModalClosed$.subscribe(data => {
       this.showChild = data;
     })
 
-    this.getAllRemindersForToday();
+    this.getAllRemindersForToday(this.department, this.userId);
   }
 
   selectedItem(id: any, dept:string, isNoted:any) {
@@ -54,15 +56,10 @@ export class ReminderComponent {
 
   }
 
-  getAllRemindersForToday(){
-    this.reminderService.getAllReminders().subscribe(data =>{
-      this.allReminders = data;
-      this.posts = data;
-
-      // if(this.department == 'Sales'){
-    //   this.posts = data.find(x=> x.createdBy == this.userName);
-    //   this.dataSource = new MatTableDataSource(this.posts);
-    // }
+  getAllRemindersForToday(department:any, userId:number){
+    this.reminderService.getAllReminders(department, userId).subscribe(data =>{
+    this.allReminders = data;
+    this.posts = data;
 
     this.dataSource = new MatTableDataSource(this.posts);
     this.dataSource.paginator = this.paginator;

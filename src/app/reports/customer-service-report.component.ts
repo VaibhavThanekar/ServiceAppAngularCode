@@ -13,6 +13,7 @@ import { UserName } from '../models/user';
 import { DepartmentMaster } from '../models/departmentMaster';
 import moment from 'moment';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Console } from 'node:console';
 
 @Component({
   selector: 'app-customer-service-report',
@@ -25,12 +26,15 @@ export class CustomerServiceReportComponent {
   dataSource!: MatTableDataSource<CustomerServiceDetails>;
   allCustomers: any = []
   public productNameList: ProductNameList[];
-  public servicePersonsList: ServicePersonList[];
+  public servicePersonsList: ServicePersonList[] | undefined;
   // parm:CustomerSalesDetailsReportParm;
   isShow:boolean=false;
   fromDate:string;
   toDate:string;
   submitted = false;
+  userId:any;
+  department:any
+  userName:any
 
   public displayedColumns: string[] = ['sn', 'customerName', 'mobileNumber', 'customerAddress', 'servicePersonName',
   'visitedDate', 'timeOfVisit', 'isProductInWarranty', 'customerComplaint', 'serviceLocation',
@@ -61,7 +65,13 @@ export class CustomerServiceReportComponent {
 
   private loadDropdowns() {
      this.customerServiceService.getServicePersons().subscribe(data =>{
-       this.servicePersonsList = data;
+      if(this.department == 'Service'){
+        this.servicePersonsList = data.filter((x:any) => x.id == this.userId);
+      }
+      else{
+        this.servicePersonsList = data;
+      }
+      //  this.servicePersonsList = this.servicePersonsList.filter((x:any) => x.id == this.userId);
      })
   }
 
@@ -83,6 +93,11 @@ export class CustomerServiceReportComponent {
           if(_customerService.servicePersonId == undefined){
             _customerService.servicePersonId = 0;
           }
+
+          if(this.department == 'Service'){
+            _customerService.servicePersonId = this.userId;
+          }
+
           this.customerServiceService.getCustomerServiceDetailsReport(_customerService.fromDate, _customerService.toDate, _customerService.servicePersonId,).subscribe(data => {
             this.allCustomers = data;
             if(data.length > 0){
@@ -147,9 +162,13 @@ export class CustomerServiceReportComponent {
   
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
+  
   ngAfterViewInit() {
-    // this.getAllCustomerSalesDetails();
-    // this.searchReport();
+    if (typeof localStorage !== 'undefined') {
+      this.department =  localStorage.getItem('department');
+      this.userId =  localStorage.getItem('userId');
+      this.userName = localStorage.getItem('userName');
+    }  
   }
 
   // getAllCustomerSalesDetails() {

@@ -38,8 +38,10 @@ export class CustomerSalesService {
     return this.http.post(this.customerSalesApiURL+"AddCustomerSales", customerSales);
   }
 
-  getAllCustomerSaleDetails(){
-    return this.http.get<CustomerSalesDetails[]>(this.customerSalesApiURL+"GetAllCustomerSaleDetails");
+  getAllCustomerSaleDetails(department:any, userId:number){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.get<CustomerSalesDetails[]>(this.customerSalesApiURL+"GetAllCustomerSaleDetails?department="+department+"&userId="+userId);
   }
 
    getUserNamesFromDepartmentId(departmentId:number){

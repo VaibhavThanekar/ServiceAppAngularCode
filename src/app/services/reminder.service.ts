@@ -12,12 +12,16 @@ export class ReminderService {
   readonly apiURL = Constants.BASE_URL + "ReminderMaster/";
   constructor(private http:HttpClient) { }
 
-  getAllReminders(){
-    return this.http.get<ReminderMasterList[]>(this.apiURL+"GetAllReminders");
+  getAllReminders(department:any, userId:number){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.get<ReminderMasterList[]>(this.apiURL+"GetAllReminders?department="+department+"&userId="+userId);
   }
-  
-  getAllRemindersForToday(){
-    return this.http.get<ReminderMaster[]>(this.apiURL+"GetAllRemindersForToday");
+
+  getAllRemindersForToday(department:any, userId:number){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.get<ReminderMaster[]>(this.apiURL+"GetAllRemindersForToday?department="+department+"&userId="+userId);
   }
 
   deActivateReminderFromId(id:number, modifiedBy:number){

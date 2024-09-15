@@ -22,6 +22,9 @@ export class CustomerSalesComponent {
   public durationList: DurationList[];
   createdBy:number = 0;
   customerID:number = 0;
+  userId:any;
+  department:any
+  userName:any
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private formBuilder: FormBuilder, private salesService:CustomerSalesService, private commonService:CommonService){
@@ -83,6 +86,13 @@ export class CustomerSalesComponent {
     this.customerSalesForm.reset();
   } 
 
+  ngAfterViewInit() {
+    if (typeof localStorage !== 'undefined') {
+      this.department =  localStorage.getItem('department');
+      this.userId =  localStorage.getItem('userId');
+      this.userName = localStorage.getItem('userName');
+    }  
+  }
 
   private loadDropdowns() {
 
@@ -91,7 +101,12 @@ export class CustomerSalesComponent {
      })
 
      this.salesService.getUserNamesFromDepartmentId(DepartmentMaster.Sales).subscribe(data =>{
-       this.salesPersonList = data;
+      if(this.department == 'Sales'){
+        this.salesPersonList = data.filter((x:any) => x.id == this.userId);
+      }
+      else{
+        this.salesPersonList = data;
+      }
      })
 
     this.salesService.getAllDurationList().subscribe(data => {

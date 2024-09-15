@@ -34,8 +34,10 @@ export class CustomerServiceService {
     return this.http.get<CurrentStatusList[]>(this.customerServiceApiURL+"GetCurrentStatus");
   }
 
-  getAllCustomerServiceDetails(){
-    return this.http.get<CustomerServiceDetails[]>(this.customerServiceApiURL+"GetAllCustomerServiceDetails");
+  getAllCustomerServiceDetails(department:any, userId:number){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.get<CustomerServiceDetails[]>(this.customerServiceApiURL+"GetAllCustomerServiceDetails?department="+department+"&userId="+userId);
   }
 
   saveCustomerService(customerService:CustomerService){

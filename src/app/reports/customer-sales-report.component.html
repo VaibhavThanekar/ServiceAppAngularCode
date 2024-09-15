@@ -52,14 +52,14 @@ type="ball-atom" [fullScreen] = "true" >
                               </mat-error>
                               </mat-form-field>
 
-                              <div class="col-md-4 ">
+                              <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
                                   <mat-label>Sales Person</mat-label>
                                   <mat-select formControlName="salesPersonId">
                                       <mat-option *ngFor="let salesPerson of salesPersonList" [value]="salesPerson.id"> {{salesPerson.name}}</mat-option>
                                   </mat-select>
                               </mat-form-field>
-                              </div>
+                            </div>
 
                               <div class="col-md-4 ">
                                 <mat-form-field class="example-full-width">

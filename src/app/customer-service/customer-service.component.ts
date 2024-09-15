@@ -35,6 +35,9 @@ export class CustomerServiceComponent {
   createdBy:number = 0;
   customerID:number = 0;
   serviceCostAmount:string;
+  userId:any;
+  department:any
+  userName:any
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private formBuilder: FormBuilder, private customerService: CustomerServiceService, private commonService:CommonService) {
@@ -62,6 +65,14 @@ export class CustomerServiceComponent {
 
   get valid() {
     return this.customerServiceForm.controls;
+  }
+
+  ngAfterViewInit() {
+    if (typeof localStorage !== 'undefined') {
+      this.department =  localStorage.getItem('department');
+      this.userId =  localStorage.getItem('userId');
+      this.userName = localStorage.getItem('userName');
+    }  
   }
 
   getAllCustomerNames() {
@@ -120,7 +131,12 @@ export class CustomerServiceComponent {
   private loadDropdowns() {
 
     this.customerService.getServicePersons().subscribe(data => {
-      this.servicePersonsList = data;
+      if(this.department == 'Service'){
+        this.servicePersonsList = data.filter((x:any) => x.id == this.userId);
+      }
+      else{
+        this.servicePersonsList = data;
+      }
     })
 
     this.customerService.getServiceCharges().subscribe(data => {
