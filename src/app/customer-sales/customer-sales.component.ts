@@ -25,6 +25,7 @@ export class CustomerSalesComponent {
   userId:any;
   department:any
   userName:any
+  userMoblieNo:any;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private formBuilder: FormBuilder, private salesService:CustomerSalesService, private commonService:CommonService){
@@ -70,7 +71,7 @@ export class CustomerSalesComponent {
         var resultData = splitResult[0];
         this.customerID = splitResult[1];
         if (resultData = 'Sales Information Saved Successfully !') {
-          this.commonService.SendMessageToCustomer('Sales',this.customerID, _customerSales.customerName, _customerSales.mobileNumber, '0').subscribe(result =>{
+          this.commonService.SendMessageToCustomer('Sales',this.customerID, _customerSales.customerName, _customerSales.mobileNumber, '0', this.userMoblieNo).subscribe(result =>{
             alert(resultData);
             setTimeout(() => 
             this.formGroupDirective.resetForm(), 0)
@@ -91,6 +92,7 @@ export class CustomerSalesComponent {
       this.department =  localStorage.getItem('department');
       this.userId =  localStorage.getItem('userId');
       this.userName = localStorage.getItem('userName');
+      this.userMoblieNo = localStorage.getItem('mobileNumber')
     }  
   }
 

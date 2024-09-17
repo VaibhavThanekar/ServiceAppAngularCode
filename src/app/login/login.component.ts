@@ -57,12 +57,13 @@ export class LoginComponent {
               localStorage.setItem('login', 'Success');
               localStorage.setItem('userId', data.id.toString());
               localStorage.setItem('emailId', data.emailId);
+              localStorage.setItem('mobileNumber', data.mobileNo);
               localStorage.setItem('userName', data.name);
               localStorage.setItem('password', data.password);
               localStorage.setItem('department', data.department);
               localStorage.setItem('role', data.role);
               localStorage.setItem('token', data.token);
-
+               
             this.spinner.show();
             setTimeout(() => {
               /** spinner ends after 5 seconds */

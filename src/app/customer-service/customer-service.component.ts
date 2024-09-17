@@ -38,6 +38,7 @@ export class CustomerServiceComponent {
   userId:any;
   department:any
   userName:any
+  userMoblieNo:any;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private formBuilder: FormBuilder, private customerService: CustomerServiceService, private commonService:CommonService) {
@@ -72,6 +73,7 @@ export class CustomerServiceComponent {
       this.department =  localStorage.getItem('department');
       this.userId =  localStorage.getItem('userId');
       this.userName = localStorage.getItem('userName');
+      this.userMoblieNo = localStorage.getItem('mobileNumber')
     }  
   }
 
@@ -98,7 +100,7 @@ export class CustomerServiceComponent {
         var resultData = splitResult[0];
         this.customerID = splitResult[1];
         if (resultData = 'Service Information Saved Successfully !') {
-          this.commonService.SendMessageToCustomer('Service',this.customerID, _customerService.customerName, _customerService.mobileNumber, this.serviceCostAmount).subscribe(result =>{
+          this.commonService.SendMessageToCustomer('Service',this.customerID, _customerService.customerName, _customerService.mobileNumber, this.serviceCostAmount, this.userMoblieNo).subscribe(result =>{
             alert(resultData);
             setTimeout(() => 
             this.formGroupDirective.resetForm(), 0)

@@ -32,10 +32,10 @@ export class CommonService {
     return this.token;
   }
 
-  SendMessageToCustomer(department:string,  id:number, name:string, mobile:string, amount:string){
+  SendMessageToCustomer(department:string,  id:number, name:string, mobile:string, amount:string, userMobileNo:string){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     let options = {  headers: headers }
-    return this.http.post(this.apiWAURL+"SendMessageToCustomer?department="+department+"&id="+id+"&name="+name+"&mobile="+mobile+"&amount="+amount, headers);
+    return this.http.post(this.apiWAURL+"SendMessageToCustomer?department="+department+"&id="+id+"&name="+name+"&mobile="+mobile+"&amount="+amount+"&userMobileNo="+userMobileNo, headers);
   }
 
   getAllSettingDetails(){
