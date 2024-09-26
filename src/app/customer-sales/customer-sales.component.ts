@@ -26,8 +26,11 @@ export class CustomerSalesComponent {
   department:any
   userName:any
   userMoblieNo:any;
+  fileName:any;
+  filePath:any;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
+  srcResult: any;
   constructor(private formBuilder: FormBuilder, private salesService:CustomerSalesService, private commonService:CommonService){
     
     if (typeof localStorage !== 'undefined') {
@@ -43,7 +46,8 @@ export class CustomerSalesComponent {
       durationOfSaleId: ['', Validators.required],
       productId: ['', Validators.required],
       remark: ['', Validators.required],
-      comment: ['']
+      comment: [''],
+      selectedFileName:['']
       })
   }
 
@@ -58,6 +62,8 @@ export class CustomerSalesComponent {
   addCustomerSales(_customerSales: CustomerSales) {
     _customerSales.createdBy = this.createdBy;
     _customerSales.mobileNumber = _customerSales.mobileNumber.toString();
+    _customerSales.fileName = this.fileName;
+    _customerSales.quatationPath = this.filePath;
 
     if (this.customerSalesForm.invalid) {
       this.submitted = false
@@ -81,6 +87,26 @@ export class CustomerSalesComponent {
       });
       }
     }
+  }
+
+  selectedFile: any = null;
+  onFileSelected(event: any): void {
+    if(event == null) return;
+    
+    this.selectedFile = event.target.files[0] ?? null;
+    const file =  event.target.files[0] ?? null;
+    const formData = new FormData();
+    formData.append('file', file);
+    this.salesService.uploadSalesQuation(formData).subscribe(data =>{
+      this.fileName = data[0].fileName;
+      this.filePath = data[0].sourcePath;
+
+      // console.log("File Name :-" + this.fileName + "  FIle Path : -" + this.filePath);
+    })
+    
+    this.customerSalesForm.patchValue({
+      selectedFileName:this.selectedFile.name
+    })
   }
 
   resetForm(){

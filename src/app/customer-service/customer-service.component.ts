@@ -7,6 +7,7 @@ import { CustomerServiceService } from '../services/customer-service.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ServicePersonList, ServiceChargeList, CurrentStatusList, CustomerService } from '../models/customer-service'
 import { MatSelectChange } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { CommonService } from '../services/common.service';
 import { DepartmentMaster } from '../models/departmentMaster';
 
@@ -18,6 +19,7 @@ import { DepartmentMaster } from '../models/departmentMaster';
 export class CustomerServiceComponent {
   customerServiceForm!: FormGroup;
   submitted = false;
+  isReadonly = true;
 
   selectedCustomerId = new FormControl(0);
   options: string[] = ['One', 'Two', 'Three'];
@@ -39,10 +41,17 @@ export class CustomerServiceComponent {
   department:any
   userName:any
   userMoblieNo:any;
+  fileName:any;
+  filePath:any;
+  isPartReplaced:boolean=false;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
+  checked: any;
   constructor(private formBuilder: FormBuilder, private customerService: CustomerServiceService, private commonService:CommonService) {
-    this.createdBy = Number(localStorage.getItem('userId'));
+    if(typeof localStorage !== 'undefined'){
+      this.createdBy = Number(localStorage.getItem('userId'));
+    }
+   
     this.customerServiceForm = this.formBuilder.group({
       customerName: ['', Validators.required],
       mobileNumber: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
@@ -54,14 +63,50 @@ export class CustomerServiceComponent {
       serviceCharge: ['', Validators.required],
       currentStatusId: ['', Validators.required],
       // otherStatus:['',Validators.required],
+      selectedFileName:[''],
       serviceChargeCost: [''],
-      otherStatus: ['']
+      otherStatus: [''],
+      partDetails:[''],
+      partCost:['']
       })
   }
 
-
+  checkState(){
+    this.checked = !this.checked;
+    if(this.checked){
+      this.isPartReplaced = true;
+       this.customerServiceForm.get('partDetails')?.setValidators(Validators.required);
+       this.customerServiceForm.get('partCost')?.setValidators(Validators.required);
+    }
+    else{
+      this.isPartReplaced = false;
+      this.customerServiceForm.get('partDetails')?.clearValidators();
+      this.customerServiceForm.get('partCost')?.clearValidators();
+    }
+    this.customerServiceForm.get('partDetails')?.updateValueAndValidity();
+    this.customerServiceForm.get('partCost')?.updateValueAndValidity();
+  }
+  
   ngOnInit(): void {
     this.loadDropdowns();
+  }
+
+  selectedFile: any = null;
+  onFileSelected(event: any): void {
+    if(event == null) return;
+    
+    this.selectedFile = event.target.files[0] ?? null;
+    const file =  event.target.files[0] ?? null;
+    const formData = new FormData();
+    formData.append('file', file);
+    this.customerService.uploadServiceQuation(formData).subscribe(data =>{
+      this.fileName = data[0].fileName;
+      this.filePath = data[0].sourcePath;
+    })
+    
+    this.customerServiceForm.patchValue({
+      selectedFileName:this.selectedFile.name
+    })
   }
 
   get valid() {
@@ -82,11 +127,26 @@ export class CustomerServiceComponent {
       this.allCustomerNames = data;
     })
   }
+
   addCustomerService(_customerService: CustomerService) {
     _customerService.createdBy = this.createdBy;
     _customerService.serviceChargeId = this.serviceChargeId;
     _customerService.mobileNumber = _customerService.mobileNumber.toString();
-  
+    _customerService.fileName = this.fileName;
+    _customerService.quatationPath = this.filePath;
+    _customerService.isPartReplaced = this.isPartReplaced;
+
+    if(this.isPartReplaced){
+     _customerService.otherCharge =this.customerServiceForm.controls['serviceChargeCost'].value;
+     this.serviceCostAmount = _customerService.otherCharge.toString();
+    }
+    else{
+      _customerService.partCost = 0;
+    }
+    
+    if(_customerService.serviceChargeId != 599){
+      _customerService.otherCharge = 0;
+    }
 
     if (this.customerServiceForm.invalid) {
       this.submitted = false
@@ -112,11 +172,19 @@ export class CustomerServiceComponent {
   }
 
   selectedCharge(value: ServiceChargeList) {
+    this.isReadonly = true;
     this.serviceChargeId = value.id;
     this.serviceCostAmount = value.cost.toString();
-    this.customerServiceForm.patchValue({
-      serviceChargeCost: value.cost.toString()
-    });
+      this.customerServiceForm.patchValue({
+        serviceChargeCost: value.cost.toString()
+      });
+
+    if(this.serviceChargeId == 599){
+      this.isReadonly = false;
+    }
+    else{
+      this.isReadonly = true;
+    }
   }
 
   private names_filter(value: string): CustomerNames[] {

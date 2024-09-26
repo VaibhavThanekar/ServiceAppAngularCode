@@ -95,15 +95,30 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>Complaint</mat-label>
-                                        <input matInput aria-label="Complaint" formControlName="customerComplaint" >
+                            <div class="form-group row">
+                                    <div class="col-md-8">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Complaint</mat-label>
+                                            <input matInput aria-label="Complaint" formControlName="customerComplaint" >
 
-                                        <mat-error class="text-danger" *ngIf="valid.customerComplaint.errors?.required">
-                                            Enter complaint
-                                        </mat-error>
-                                    </mat-form-field>
+                                            <mat-error class="text-danger" *ngIf="valid.customerComplaint.errors?.required">
+                                                Enter complaint
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field  class="example-full-width">
+                                            <mat-label >Select Quatation</mat-label>
+                                            <input matInput aria-label="Select Quatation"  formControlName="selectedFileName" readonly>
+                                            <!-- {{selectedFile?.name}} -->
+    
+                                            
+                                            <button type="button" mat-raised-button class="button_bg" matSuffix  (click)="fileInput.click()">
+                                                <i class="fa fa-file"></i>                                        
+                                            </button>
+                                            <input hidden  (change)="onFileSelected($event)" #fileInput type="file" accept="application/pdf">
+                                        </mat-form-field>
+                                    </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-4">
@@ -120,8 +135,11 @@
 
                                 <div class="col-md-2">
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Charge</mat-label>
-                                        <input matInput aria-label="Charge" formControlName="serviceChargeCost" readonly>
+                                        <mat-label>&nbsp;Charge</mat-label>
+                                        <input matInput type="number" aria-label="Charge" formControlName="serviceChargeCost" [readonly]="isReadonly"
+                                         onKeyPress="if(this.value.length==6) return false;" class="example-right-align" placeholder="0">
+                                        <span matTextPrefix>&#8377;&nbsp;</span>
+                                        <!-- <span matTextSuffix>.00</span> -->
                                     </mat-form-field>
                                 </div>
                                 
@@ -146,6 +164,35 @@
                                 </mat-form-field>
                             </div>
 
+                            <div class="form-group row">
+                                <div class="col-md-2 p-2">
+                                    <section class="example-full-width">
+                                        <mat-checkbox #cbIsPartChanged class="example-margin" 
+                                         (click)="checkState()"></mat-checkbox> <mat-label>Part Replaced</mat-label>
+                                    </section>
+                                </div>
+
+                                <div class="col-md-8" *ngIf="cbIsPartChanged.checked">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Part Details</mat-label>
+                                        <input matInput aria-label="Part Details" formControlName="partDetails">
+                                    
+                                        <mat-error class="text-danger" *ngIf="valid.partDetails.errors?.required">
+                                           Enter Part Details 
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-2" *ngIf="cbIsPartChanged.checked">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>&nbsp;Part Cost</mat-label>
+                                        <input matInput type="number" aria-label="Part Cost" formControlName="partCost" 
+                                        onKeyPress="if(this.value.length==6) return false;" class="example-right-align" placeholder="0">
+                                        <span matTextPrefix>&#8377;&nbsp;</span>
+                                        <!-- <span matTextSuffix>.00</span> -->
+                                    </mat-form-field>
+                                </div>
+                            </div>
                             <div class="form-group row justify-content-md-center pt-4">
                                 <div class="col-md-2 mb-3 mb-md-0">
                                     <button class="btn btn-primary btn-user btn-block" type="button" [disabled]="!customerService.valid" id="btnSave" (click)="addCustomerService(customerService.value)" >Save</button>

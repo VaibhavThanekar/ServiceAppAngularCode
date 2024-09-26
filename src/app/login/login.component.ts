@@ -16,6 +16,7 @@ export class LoginComponent {
   submitted = false;
   _emailID:string;
   _password:string;
+  login=true;
 
   constructor(private formBuilder: FormBuilder, private loginService:LoginService, private router: Router,private spinner: NgxSpinnerService){
     this.loginForm = this.formBuilder.group({
@@ -78,6 +79,7 @@ export class LoginComponent {
           }
           else{
             sessionStorage.setItem('login', 'Fail');
+            this.login = false;
             alert('User does not exist')
           }
       }

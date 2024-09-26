@@ -30,6 +30,12 @@
     isProductInWarranty:boolean;
     customerComplaint:string;
     serviceChargeId:number;
+    otherCharge:number;
+    fileName:string;
+    quatationPath:string;
+    isPartReplaced:boolean;
+    partDetails:string;
+    partCost:number;
     isSMSSentToCustomer:boolean;
     isSMSSentToManager:boolean;
     currentStatusId:number;
@@ -53,6 +59,12 @@
     customerComplaint:string;
     serviceLocation:string;
     serviceCost:string;
+    otherCharge:number;
+    fileName:string;
+    quatationPath:string;
+    isPartReplaced:boolean;
+    partDetails:string;
+    partCost:number;
     isSMSSentToCustomer:boolean;
     isSMSSentToManager:boolean;
     currentStatus:string;
@@ -70,6 +82,12 @@
     servicePersonId:number;
   }
 
+  export interface CustomerServiceQutationUpload
+  {
+      id:number;
+      fileName:string;
+      sourcePath:string;
+  }
 
 
   

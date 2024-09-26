@@ -47,6 +47,7 @@ import { UserComponent } from './user/user.component';
 // import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UserSettingComponent } from './user/user-setting.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 // import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -97,7 +98,7 @@ import { UserSettingComponent } from './user/user-setting.component';
     NgxSpinnerModule,
     NativeDateModule,
     MatNativeDateModule,
-    
+    MatCheckboxModule
   ],
   providers: [
     provideClientHydration(),

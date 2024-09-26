@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import {Customer, CustomerNames} from '../models/customer'
 import {Constants} from '../models/commonMaster'
-import {ServicePersonList, ServiceChargeList, CurrentStatusList, CustomerService, CustomerServiceDetails} from '../models/customer-service'
+import {ServicePersonList, ServiceChargeList, CurrentStatusList, CustomerService, CustomerServiceDetails, CustomerServiceQutationUpload} from '../models/customer-service'
 import { json } from 'stream/consumers';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -32,6 +32,10 @@ export class CustomerServiceService {
 
   getCurrentStatus(){
     return this.http.get<CurrentStatusList[]>(this.customerServiceApiURL+"GetCurrentStatus");
+  }
+
+  uploadServiceQuation(formData:any){
+    return this.http.post<CustomerServiceQutationUpload[]>(this.customerServiceApiURL+"UploadServiceQuation", formData);
   }
 
   getAllCustomerServiceDetails(department:any, userId:number){

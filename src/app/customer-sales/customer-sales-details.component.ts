@@ -22,7 +22,7 @@ export class CustomerSalesDetailsComponent {
 
   public displayedColumns: string[] = ['actions', 'customerName', 'mobileNumber', 'customerAddress', 'salesPerson',
     'visitedDate', 'timeOfVisit', 'durationOfSale', 'reminderDate', 'product',
-    'remark', 'createdBy', 'createdDate'
+    'remark', 'fileName','createdBy', 'createdDate'
   ];
 
   posts: any;
@@ -45,6 +45,7 @@ export class CustomerSalesDetailsComponent {
       product: [''],
       remark: [''],
       comment: [''],
+      fileName: [''],
       createdBy: [''],
       createdDate: [''],
     })
@@ -59,7 +60,7 @@ export class CustomerSalesDetailsComponent {
   }
 
   currentDate = formatDate(this.myDate, 'yyyy-MM-dd', 'en-US').toString();
-  fileName = "CustomerSalesDetails_"+ this.currentDate +".xlsx"
+  excelFileName = "CustomerSalesDetails_"+ this.currentDate +".xlsx"
   exportAsExcel()
   {
     let data = document.getElementById("tblCustomerDetails");
@@ -74,7 +75,7 @@ export class CustomerSalesDetailsComponent {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
     /* save to file */
-    XLSX.writeFile(wb, this.fileName);
+    XLSX.writeFile(wb, this.excelFileName);
 
   }
 
@@ -110,7 +111,8 @@ export class CustomerSalesDetailsComponent {
       reminderDate: selectedCustomer?.reminderDate,
       product: selectedCustomer?.product,
       remark: selectedCustomer?.remark,
-      comment: selectedCustomer?.comment
+      comment: selectedCustomer?.comment,
+      fileName: selectedCustomer?.fileName
     })
     // console.log(selectedCustomer);
   }

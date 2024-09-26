@@ -115,11 +115,26 @@
                                 </div> 
                             </div>
 
-                            <div class="form-group">
-                                <mat-form-field class="example-full-width">
-                                    <mat-label>Customer Visit Comment</mat-label>
-                                    <input matInput aria-label="Customer Visit Comment" formControlName="comment">
-                                </mat-form-field>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Customer Visit Comment</mat-label>
+                                        <input matInput aria-label="Customer Visit Comment" formControlName="comment">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field  class="example-full-width">
+                                        <mat-label >Select Quatation</mat-label>
+                                        <input matInput aria-label="Select Quatation"  formControlName="selectedFileName" readonly>
+                                        <!-- {{selectedFile?.name}} -->
+
+                                        
+                                        <button type="button" mat-raised-button class="button_bg" matSuffix  (click)="fileInput.click()">
+                                            <i class="fa fa-file"></i>                                        
+                                        </button>
+                                        <input hidden  (change)="onFileSelected($event)" #fileInput type="file" accept="application/pdf">
+                                    </mat-form-field>
+                                </div>
                             </div>
 
                             <div class="form-group row justify-content-md-center pt-4">

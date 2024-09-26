@@ -113,7 +113,6 @@
                 <a class="collapse-item"  routerLink="/Reminder" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Sales' || department == 'IT' || department == 'Administration')">Reminder</a>
                 <a class="collapse-item"  routerLink="/ServiceCharge" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">Service Charge</a>
                 <a class="collapse-item"  routerLink="/User" *ngIf="userRole =='ITAdmin' || userRole =='Admin'">User</a>
-                <a class="collapse-item"  routerLink="/Settings" *ngIf="userRole =='ITAdmin'">Settings</a>
             </div>
         </div>
     </li>

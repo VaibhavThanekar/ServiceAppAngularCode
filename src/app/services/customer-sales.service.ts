@@ -9,7 +9,7 @@ import {DurationList, Constants} from '../models/commonMaster'
 import { json } from 'stream/consumers';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import { CustomerSales, CustomerSalesDetails, CustomerSalesDetailsReportParm } from '../models/customer-sales';
+import { CustomerQutationUpload, CustomerSales, CustomerSalesDetails, CustomerSalesDetailsReportParm } from '../models/customer-sales';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,10 @@ export class CustomerSalesService {
 
    saveCustomerSales(customerSales:CustomerSales){
     return this.http.post(this.customerSalesApiURL+"AddCustomerSales", customerSales);
+  }
+
+  uploadSalesQuation(formData:any){
+    return this.http.post<CustomerQutationUpload[]>(this.customerSalesApiURL+"UploadSalesQuation", formData);
   }
 
   getAllCustomerSaleDetails(department:any, userId:number){

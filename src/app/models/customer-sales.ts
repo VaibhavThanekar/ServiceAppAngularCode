@@ -12,6 +12,8 @@ export interface CustomerSales
     productId:number;
     remark:string;
     comment:string;
+    fileName:string;
+    quatationPath:string;
     isSMSSentToCustomer:boolean;
     isSMSSentToManager:boolean;
     createdDate:string;
@@ -34,6 +36,8 @@ export interface CustomerSales
     product:string
     remark:string;
     comment:string;
+    fileName:string;
+    quatationPath:string;
     isSMSSentToCustomer:boolean;
     isSMSSentToManager:boolean;
     createdDate:string;
@@ -50,3 +54,9 @@ export interface CustomerSales
     productId:number
   }
 
+  export interface CustomerQutationUpload
+  {
+      id:number;
+      fileName:string;
+      sourcePath:string;
+  }
