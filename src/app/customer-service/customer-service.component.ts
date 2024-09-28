@@ -36,7 +36,7 @@ export class CustomerServiceComponent {
   public serviceChargeId: number;
   createdBy:number = 0;
   customerID:number = 0;
-  serviceCostAmount:string;
+  serviceCostAmount:number;
   userId:any;
   department:any
   userName:any
@@ -44,9 +44,10 @@ export class CustomerServiceComponent {
   fileName:any;
   filePath:any;
   isPartReplaced:boolean=false;
+  checked:boolean=false;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  checked: any;
+  
   constructor(private formBuilder: FormBuilder, private customerService: CustomerServiceService, private commonService:CommonService) {
     if(typeof localStorage !== 'undefined'){
       this.createdBy = Number(localStorage.getItem('userId'));
@@ -71,8 +72,8 @@ export class CustomerServiceComponent {
       })
   }
 
-  checkState(){
-    this.checked = !this.checked;
+  checkState(event:boolean){
+    this.checked = !event;
     if(this.checked){
       this.isPartReplaced = true;
        this.customerServiceForm.get('partDetails')?.setValidators(Validators.required);
@@ -137,8 +138,9 @@ export class CustomerServiceComponent {
     _customerService.isPartReplaced = this.isPartReplaced;
 
     if(this.isPartReplaced){
-     _customerService.otherCharge =this.customerServiceForm.controls['serviceChargeCost'].value;
-     this.serviceCostAmount = _customerService.otherCharge.toString();
+     _customerService.otherCharge = Number(this.customerServiceForm.controls['serviceChargeCost'].value);
+     var totalAmount =  _customerService.otherCharge + _customerService.partCost;
+     this.serviceCostAmount = totalAmount;
     }
     else{
       _customerService.partCost = 0;
@@ -160,10 +162,11 @@ export class CustomerServiceComponent {
         var resultData = splitResult[0];
         this.customerID = splitResult[1];
         if (resultData = 'Service Information Saved Successfully !') {
-          this.commonService.SendMessageToCustomer('Service',this.customerID, _customerService.customerName, _customerService.mobileNumber, this.serviceCostAmount, this.userMoblieNo).subscribe(result =>{
+          this.commonService.SendMessageToCustomer('Service',this.customerID, _customerService.customerName, _customerService.mobileNumber, this.serviceCostAmount.toString(), this.userMoblieNo).subscribe(result =>{
             alert(resultData);
             setTimeout(() => 
             this.formGroupDirective.resetForm(), 0)
+            this.checked = false;
           });
         }
       });
@@ -174,7 +177,7 @@ export class CustomerServiceComponent {
   selectedCharge(value: ServiceChargeList) {
     this.isReadonly = true;
     this.serviceChargeId = value.id;
-    this.serviceCostAmount = value.cost.toString();
+    this.serviceCostAmount = value.cost;
       this.customerServiceForm.patchValue({
         serviceChargeCost: value.cost.toString()
       });
@@ -196,6 +199,7 @@ export class CustomerServiceComponent {
 
   resetForm(){
     this.customerServiceForm.reset();
+    this.checked = false;
   } 
 
   private loadDropdowns() {
