@@ -55,8 +55,9 @@
     servicePersonName:string;
     visitedDate:string;
     timeOfVisit:string;
-    isProductInWarranty:boolean;
+    isProductInWarranty:string;
     customerComplaint:string;
+    serviceChargeId:number;
     serviceLocation:string;
     serviceCost:string;
     otherCharge:number;
@@ -67,6 +68,7 @@
     partCost:number;
     isSMSSentToCustomer:boolean;
     isSMSSentToManager:boolean;
+    currentStatusId:number;
     currentStatus:string;
     otherStatus:string;
     createdDate:string;

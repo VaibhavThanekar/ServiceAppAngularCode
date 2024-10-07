@@ -223,3 +223,13 @@ form.user .btn-user {
     display: block!important;
     border-radius: 2px!important;
 }
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+    z-index: 99999 !important;
+ }
+
+ .cdk-global-overlay-wrapper, 
+.cdk-overlay-container, 
+.cdk-overlay-connected-position-bounding-box {
+    z-index: 9999!important;
+}

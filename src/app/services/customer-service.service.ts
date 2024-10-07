@@ -56,6 +56,9 @@ export class CustomerServiceService {
     '&ToDate='+ toDate +'&ServicePersonId='+ servicePersonId);
   }
 
+  updateCustomerService(customerService:CustomerService){
+    return this.http.post(this.customerServiceApiURL+"UpdateCustomerService", customerService);
+  }
   
   // getAllCustomerNames():Observable<CustomerNames[]>{
   //   return this.http.get<CustomerNames[]>(this.apiURL+"GetAllCustomerNames");

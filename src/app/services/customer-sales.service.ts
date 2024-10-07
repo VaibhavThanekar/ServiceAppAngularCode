@@ -66,4 +66,9 @@ export class CustomerSalesService {
     return this.http.get<CustomerSalesDetails[]>(this.customerSalesApiURL+"GetCustomerSaleDetailsReport?FromDate=" + fromDate +
     '&ToDate='+ toDate +'&SalesPersonId='+ salesPersonId + '&ProductId=' + productId);
   }
+
+  updateCustomerSales(customerSales:CustomerSales){
+    return this.http.post(this.customerSalesApiURL+"UpdateCustomerSales", customerSales);
+  }
+
 }

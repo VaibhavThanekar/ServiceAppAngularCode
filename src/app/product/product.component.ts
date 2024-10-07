@@ -111,7 +111,7 @@ export class ProductComponent implements AfterViewInit {
         product.id = this.selectedProductId;
         this.productService.updateProduct(product).subscribe(result =>{
           var resultData = Object.values(result)[0];
-          if(resultData = 'Product Updated Successfully !'){
+          if(resultData == 'Product Updated Successfully !'){
             alert(resultData);
           
             this.prdouctForm.reset();

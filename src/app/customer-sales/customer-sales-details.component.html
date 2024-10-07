@@ -20,7 +20,7 @@
                             <div>Customer Sales Details</div>
                         </div>
                         <!-- [formGroup]="customerServiceDetailsForm" -->
-                        <form  #customerSaleseDetails="ngForm" class="user p-5 ">
+                        <form [formGroup]="customerSalesDetailsForm" #customerSaleseDetails="ngForm" class="user p-5 ">
                             <div class="mat-elevation-z8">
                                 <mat-form-field class="mt-2 col-md-4">
                                     <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Search">
@@ -142,7 +142,7 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form [formGroup]="customerSalesForm" #customerService="ngForm" class="user pt-3 pb-3 pl-5 pr-5" 
+                            <form [formGroup]="customerSalesDetailsForm" #customerService="ngForm" class="user pt-3 pb-3 pl-5 pr-5" 
                                #formDirective="ngForm">
                             <div class="form-group row">
                                 <div class="col-md-8 mb-3 mb-sm-0">
@@ -207,16 +207,36 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
-                                  <mat-form-field class="example-full-width">
-                                      <mat-label>Product</mat-label>
-                                      <input matInput aria-label="Product" formControlName="product" readonly>
-                                    </mat-form-field>
-                              </div>
+                                  <mat-form-field class="example-full-width" >
+                                    
+                                    <mat-label>Select Product</mat-label>
+                                    
+                                    <mat-select  formControlName="productId" >
+                                      <mat-option *ngFor="let productNames of productNameList" [value]="productNames.id">{{productNames.productName}}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                             </div>
                               <div class="col-md-4">
-                                <mat-form-field class="example-full-width">
+                                <!-- <mat-form-field class="example-full-width">
                                     <mat-label>Quotation Name</mat-label>
                                     <input matInput aria-label="Quotation Name" formControlName="fileName" readonly>
-                                  </mat-form-field>
+                                  </mat-form-field> -->
+
+                                  <mat-form-field  class="example-full-width">
+                                    <mat-label >Quotation Name</mat-label>
+                                    <input matInput aria-label="Select Quatation"  formControlName="fileName" readonly>
+                                    <!-- {{selectedFile?.name}} -->
+
+                                    
+                                    <button type="button" mat-raised-button class="button_bg" matSuffix  (click)="fileInput.click()" [disabled]="isReadonly">
+                                        <i class="fa fa-file"></i>                                        
+                                    </button>
+                                    <input hidden  (change)="onFileSelected($event)" #fileInput type="file" accept="application/pdf">
+
+                                    <mat-error class="text-danger" *ngIf="valid.fileName.errors?.required">
+                                      Select quotation file
+                                    </mat-error>
+                                </mat-form-field>
                              </div>
                             </div>
 
@@ -224,22 +244,32 @@
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Remark</mat-label>
-                                        <input matInput aria-label="Remark" formControlName="remark" readonly>
+                                        <input matInput aria-label="Remark" formControlName="remark" [readonly]="isReadonly">
                                     </mat-form-field>
-                                   
+                                    <mat-error class="text-danger" *ngIf="valid.remark.errors?.required">
+                                      Enter remak
+                                    </mat-error>
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Comment</mat-label>
-                                        <input matInput aria-label="Comment" formControlName="comment" readonly> 
+                                        <input matInput aria-label="Comment" formControlName="comment" [readonly]="isReadonly"> 
                                       </mat-form-field>
                                 </div>
                             </div>
                         </form>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-user btn-block col-sm-2" data-dismiss="modal">Close</button>
+                          <div class="modal-footer form-group row justify-content-end">
+                            <div class="col-sm-2 mb-3 mb-md-0">
+                              <button class="btn btn-primary btn-user btn-block" type="submit" id="btnSave" [disabled]="!customerSalesDetailsForm.valid"
+                              (click)="updateCustomerDetails(customerSaleseDetails.value, editMode? 'Save' : 'Edit')">{{editMode? 'Save' : 'Edit'}}</button>
+                          </div>
+                          <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary btn-user btn-block" data-dismiss="modal" (click)="onCloseHandled()">Close</button>
+                          </div>
+
+                            
                           </div>
                         </div>
                       </div>

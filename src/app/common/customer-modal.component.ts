@@ -45,6 +45,7 @@ export class CustomerModalComponent {
     if (typeof localStorage !== 'undefined') {
       this.selectedID = Number(localStorage.getItem('reminderId'))
       this.selectedDept = localStorage.getItem('deptModal')
+      
       if(Number(localStorage.getItem('isNoted')) == 0){
         this.isNoted = false;
       }

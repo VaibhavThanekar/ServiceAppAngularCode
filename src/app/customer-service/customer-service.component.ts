@@ -65,7 +65,7 @@ export class CustomerServiceComponent {
       currentStatusId: ['', Validators.required],
       // otherStatus:['',Validators.required],
       selectedFileName:[''],
-      serviceChargeCost: [''],
+      serviceChargeCost: ['', Validators.required],
       otherStatus: [''],
       partDetails:[''],
       partCost:['']

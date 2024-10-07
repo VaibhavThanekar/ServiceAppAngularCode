@@ -19,8 +19,8 @@
                         <div class="card-header card-header-c">
                             <div>Customer Service Details</div>
                         </div>
-                        <!-- [formGroup]="customerServiceDetailsForm" -->
-                        <form  #customerServiceDetails="ngForm" class="user p-5">
+                        <!-- [formGroup]="customerServiceForm" -->
+                        <form  #customerServiceDetails="ngForm" [formGroup]="customerServiceForm" class="user p-5">
                             <div class="mat-elevation-z8">
                                 <mat-form-field class="mt-2 col-md-4">
                                     <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Search">
@@ -152,32 +152,6 @@
                         </form>
                     </div>
 
-                    <!-- <button type="button" class="btn btn-info btn-lg" (click)="openModal()">click to open</button>
-                   
-                    <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}"
-                    data-toggle="modal" data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                    <div class="modal-header">
-                                          <h4 class="modal-title">Model Title</h4>
-                                          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                <div class="modal-body">
-                                          <p>Model body text</p>
-                                        </div>
-                                    <div class="modal-footer">
-                                          <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
-                                        </div>
-                            </div>
-                          
-                    </div>
-                    </div> -->
-
-
-                    <!-- Button trigger modal -->
-                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                      Launch demo modal
-                    </button> -->
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -248,48 +222,120 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group row">
+                                  <div class="col-md-8">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Complaint</mat-label>
                                         <input matInput aria-label="Complaint" formControlName="customerComplaint" readonly> 
                                     </mat-form-field>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <mat-form-field  class="example-full-width">
+                                      <mat-label >Select Quatation</mat-label>
+                                      <input matInput aria-label="Select Quatation"  formControlName="fileName" readonly>
+                                      
+                                      <button type="button" mat-raised-button class="button_bg" matSuffix  (click)="fileInput.click()" [disabled]="isReadonly">
+                                          <i class="fa fa-file"></i>                                        
+                                      </button>
+                                      <input hidden  (change)="onFileSelected($event)" #fileInput type="file" accept="application/pdf">
+                                  </mat-form-field>
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
+                                    <!-- <mat-form-field class="example-full-width">
                                         <mat-label>Chagers as per location</mat-label>
                                         <input matInput aria-label="Chagers as per location" formControlName="serviceChargeLocation" readonly>
-                                      </mat-form-field>
+                                      </mat-form-field> -->
+
+                                      <mat-form-field class="example-full-width">
+                                        <mat-label>Chagers as per location</mat-label>
+                                        <mat-select formControlName="serviceChargeId" (selectionChange)="selectedCharge($event.value)">
+                                          <mat-option *ngFor="let serviceCharges of serviceChargesList" [value]="serviceCharges.id">{{serviceCharges.location}}</mat-option>
+                                        </mat-select>
+                                        <mat-error class="text-danger" *ngIf="valid.serviceChargeId.errors?.required">
+                                          Select service charge
+                                      </mat-error>
+                                      </mat-form-field> 
                                     
                                 </div>
 
                                 <div class="col-md-2">
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Charge</mat-label>
-                                        <input matInput aria-label="Charge" formControlName="serviceChargeCost" readonly>
-                                    </mat-form-field>
-                                   
+                                      <mat-label>&nbsp;Charge</mat-label>
+                                      <input matInput type="number" aria-label="Charge" formControlName="serviceChargeCost" [readonly]="isReadonlyCost"
+                                       onKeyPress="if(this.value.length==6) return false;" class="example-right-align" placeholder="0">
+                                      <span matTextPrefix>&#8377;&nbsp;</span>
+
+                                      <mat-error class="text-danger" *ngIf="valid.serviceChargeCost.errors?.required">
+                                        Enter charge
+                                      </mat-error>
+                                      <!-- <span matTextSuffix>.00</span> -->
+                                  </mat-form-field>
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
+                                      <mat-form-field class="example-full-width">
                                         <mat-label>Current Status</mat-label>
-                                        <input matInput aria-label="Current Status" formControlName="currentStatus"  [(ngModel)]="selectedStatus" readonly> 
+                                        <mat-select  formControlName="currentStatusId" [(ngModel)]="selectedStatus" >
+                                          <mat-option *ngFor="let currentStatus of currentStatusList" [value]="currentStatus.id">{{currentStatus.status}}</mat-option>
+                                        </mat-select>
+                                        <mat-error class="text-danger" *ngIf="valid.currentStatusId.errors?.required">
+                                          Select current status
+                                      </mat-error>
                                       </mat-form-field>
                                 </div>
                             </div>
-                            <!-- *ngIf="selectedStatus == 4" -->
-                            <div class="form-group" *ngIf="selectedStatus == 'Other'"  >
+                            <!-- *ngIf="selectedStatus == 4" *ngIf="selectedStatus == 'Other'"  -->
+                            <div class="form-group"  *ngIf="selectedStatus == 4" >
                                 <mat-form-field class="example-full-width">
                                     <mat-label>Other Status</mat-label>
-                                    <input matInput aria-label="Other Status" formControlName="otherStatus" readonly> 
+                                    <input matInput aria-label="Other Status" formControlName="otherStatus" [readonly]="isReadonly"> 
                                 </mat-form-field>
                             </div>
+
+                            <div class="form-group row">
+                              <div class="col-md-2 p-2">
+                                  <section class="example-full-width">
+                                      <mat-checkbox #cbIsPartChanged class="example-margin" [disabled]="isReadonly"
+                                       (click)="checkState(checked)" [checked]="checked"></mat-checkbox> <mat-label>Part Replaced</mat-label>
+                                  </section>
+                              </div>
+
+                              <div class="col-md-8" *ngIf="cbIsPartChanged.checked">
+                                  <mat-form-field class="example-full-width">
+                                      <mat-label>Part Details</mat-label>
+                                      <input matInput aria-label="Part Details" formControlName="partDetails" [readonly]="isReadonly">
+                                  
+                                      <mat-error class="text-danger" *ngIf="valid.partDetails.errors?.required">
+                                         Enter Part Details 
+                                      </mat-error>
+                                  </mat-form-field>
+                              </div>
+
+                              <div class="col-md-2" *ngIf="cbIsPartChanged.checked">
+                                  <mat-form-field class="example-full-width">
+                                      <mat-label>&nbsp;Part Cost</mat-label>
+                                      <input matInput type="number" aria-label="Part Cost" formControlName="partCost" 
+                                      onKeyPress="if(this.value.length==6) return false;" class="example-right-align" placeholder="0" [readonly]="isReadonly">
+                                      <span matTextPrefix>&#8377;&nbsp;</span>
+                                      <!-- <span matTextSuffix>.00</span> -->
+                                  </mat-form-field>
+                              </div>
+                          </div>
    
                         </form>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-user btn-block col-sm-2" data-dismiss="modal">Close</button>
+                            <div class="modal-footer form-group row justify-content-end">
+                              <div class="col-sm-2 mb-3 mb-md-0">
+                                <button class="btn btn-primary btn-user btn-block" type="submit" id="btnSave" [disabled]="!customerServiceForm.valid"
+                                (click)="updateCustomerDetails(customerServiceForm.value, editMode? 'Save' : 'Edit')">{{editMode? 'Save' : 'Edit'}}</button>
+                            </div>
+                            <div class="col-sm-2">
+                              <button type="button" class="btn btn-primary btn-user btn-block" data-dismiss="modal" (click)="onCloseHandled()">Close</button>
+                            </div>
+  
+                              
                           </div>
                         </div>
                       </div>

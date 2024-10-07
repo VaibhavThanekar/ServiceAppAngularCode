@@ -33,6 +33,7 @@ export interface CustomerSales
     timeOfVisit:string;
     durationOfSale:string;
     reminderDate:string;
+    productId:number;
     product:string
     remark:string;
     comment:string;

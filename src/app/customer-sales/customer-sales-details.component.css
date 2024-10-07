@@ -66,3 +66,9 @@ table{
   max-width: 60px !important;
   min-width: 150px !important;
 }
+
+.mat-column-fileName{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}

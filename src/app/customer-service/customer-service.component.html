@@ -139,6 +139,10 @@
                                         <input matInput type="number" aria-label="Charge" formControlName="serviceChargeCost" [readonly]="isReadonly"
                                          onKeyPress="if(this.value.length==6) return false;" class="example-right-align" placeholder="0">
                                         <span matTextPrefix>&#8377;&nbsp;</span>
+
+                                        <mat-error class="text-danger" *ngIf="valid.serviceChargeCost.errors?.required">
+                                            Enter charge
+                                          </mat-error>
                                         <!-- <span matTextSuffix>.00</span> -->
                                     </mat-form-field>
                                 </div>
