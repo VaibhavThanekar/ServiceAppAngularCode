@@ -233,3 +233,12 @@ form.user .btn-user {
 .cdk-overlay-connected-position-bounding-box {
     z-index: 9999!important;
 }
+
+.modalPopupTitle{
+    background-color: #26A69A;
+    color: white!important;
+}
+
+.popupButtonWidth{
+    width: 100px;
+}

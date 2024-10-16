@@ -39,6 +39,12 @@ export class CommonService {
     return this.http.post(this.apiWAURL+"SendMessageToCustomer?department="+department+"&id="+id+"&name="+name+"&mobile="+mobile+"&amount="+amount+"&userMobileNo="+userMobileNo, headers);
   }
 
+  orderCloseSendMessageToCustomer(name:string, mobile:string, userMobileNo:string){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.post(this.apiWAURL+"OrderCloseSendMessageToCustomer?name="+name+"&mobile="+mobile+"&userMobileNo="+userMobileNo, headers);
+  }
+
   getAllSettingDetails(){
     return this.http.get<SettingsDetails[]>(this.settingsURL + "GetAllSettingDetails");
    }

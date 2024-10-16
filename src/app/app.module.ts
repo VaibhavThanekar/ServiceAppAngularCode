@@ -48,6 +48,9 @@ import { UserComponent } from './user/user.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UserSettingComponent } from './user/user-setting.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DialogYesNoComponent } from './common/dialog-yes-no.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 // import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -72,6 +75,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     // HomeComponent,
     SettingsComponent,
     UserSettingComponent,
+    DialogYesNoComponent,
     // HomeComponent,
     
   ],
@@ -98,7 +102,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NgxSpinnerModule,
     NativeDateModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [
     provideClientHydration(),

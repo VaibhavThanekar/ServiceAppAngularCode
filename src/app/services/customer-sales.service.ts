@@ -71,4 +71,9 @@ export class CustomerSalesService {
     return this.http.post(this.customerSalesApiURL+"UpdateCustomerSales", customerSales);
   }
 
+  updateOrderClose(id:number, customerName:string){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return  this.http.post(this.customerSalesApiURL+"UpdateOrderClose?id="+ id +"&customerName="+customerName,  headers);
+  }
 }

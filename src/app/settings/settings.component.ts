@@ -28,7 +28,7 @@ export class SettingsComponent implements AfterViewInit{
   dataSource!: MatTableDataSource<SettingsDetails>;
   posts:any;
   public displayedColumns: string[] =['actions', 'waapiToken', 'waMessageURI', 'managerMobile', 
-  'serviceTemplateName', 'salesTemplateName','createdBy', 'createdDate', 'modifiedBy', 
+  'serviceTemplateName', 'salesTemplateName', 'salesOrderCloseTemplateName','createdBy', 'createdDate', 'modifiedBy', 
   'modifiedDate', ];
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
@@ -45,7 +45,8 @@ export class SettingsComponent implements AfterViewInit{
       waMessageURI:['',Validators.required],
       managerMobile:['',[Validators.required, Validators.maxLength(10)]],
       serviceTemplateName:['',Validators.required],
-      salesTemplateName:['',Validators.required]
+      salesTemplateName:['',Validators.required],
+      salesOrderCloseTemplateName:['', Validators.required]
     })
   }
   
@@ -76,6 +77,7 @@ export class SettingsComponent implements AfterViewInit{
       managerMobile:selectedSettings?.managerMobile,
       serviceTemplateName:selectedSettings?.serviceTemplateName,
       salesTemplateName:selectedSettings?.salesTemplateName,
+      salesOrderCloseTemplateName:selectedSettings?.salesOrderCloseTemplateName,
     });
   }
 
@@ -86,6 +88,7 @@ export class SettingsComponent implements AfterViewInit{
     settings.managerMobile = settings.managerMobile.toString();
     settings.salesTemplateName = settings.salesTemplateName;
     settings.serviceTemplateName = settings.serviceTemplateName;
+    settings.salesOrderCloseTemplateName = settings.salesOrderCloseTemplateName;
     if(this.settingsForm.invalid){
       return;
     }
@@ -119,7 +122,7 @@ export class SettingsComponent implements AfterViewInit{
   
   getAllSettings(){
     this.commonService.getAllSettingDetails().subscribe(data =>{
-       console.table(data);
+        // console.table(data);
       this.allSettings = data;
       this.posts = data;
       this.dataSource = new MatTableDataSource(this.posts);

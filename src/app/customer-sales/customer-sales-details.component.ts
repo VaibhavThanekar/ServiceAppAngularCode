@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild} from '@angular/core';
 import {FormControl, FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,6 +11,8 @@ import { formatDate } from '@angular/common';
 import { DepartmentMaster } from '../models/departmentMaster';
 import { ProductNameList } from '../models/product';
 import { CommonService } from '../services/common.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogYesNoComponent } from '../common/dialog-yes-no.component';
 
 @Component({
   selector: 'app-customer-sales-details',
@@ -25,7 +27,7 @@ export class CustomerSalesDetailsComponent {
 
   public displayedColumns: string[] = ['actions', 'customerName', 'mobileNumber', 'customerAddress', 'salesPerson',
     'visitedDate', 'timeOfVisit', 'durationOfSale', 'reminderDate', 'product',
-    'remark', 'fileName','createdBy', 'createdDate'
+    'remark', 'fileName','createdBy', 'createdDate', 'isOrderClosed', 'orderCloseDate'
   ];
 
   posts: any;
@@ -43,16 +45,22 @@ export class CustomerSalesDetailsComponent {
   isReadonly:boolean= true;
   submitted = false;
   selectedCustomerId:number=0; 
+  selectedCustomeName:string;
   modifiedBy:number = 0;
   createdBy:number = 0;
   createdDate:any;
+  orderClosed:string;
+  customerMobile:any;
+  userMoblieNo:any;
   
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private customereSalesService: CustomerSalesService, private formBuilder: FormBuilder, private commonService:CommonService) {
+  constructor(private customereSalesService: CustomerSalesService, private formBuilder: FormBuilder, 
+    private commonService:CommonService) {
     if (typeof localStorage !== 'undefined')
       {
         this.modifiedBy = Number(localStorage.getItem('userId'));
         this.createdBy = Number(localStorage.getItem('userId'));
+        this.userMoblieNo = localStorage.getItem('mobileNumber');
       }
 
     this.customerSalesDetailsForm = this.formBuilder.group({
@@ -69,8 +77,9 @@ export class CustomerSalesDetailsComponent {
       remark: ['', Validators.required],
       comment: [''],
       fileName: [''],
-      createdBy: ['']
-      // ,createdDate: ['']
+      createdBy: [''],
+      isOrderClosed: [''],
+      orderCloseDate:['']
       
     })
 
@@ -137,7 +146,38 @@ export class CustomerSalesDetailsComponent {
     }
    
   }
+  
+  public dialogRef: MatDialogRef<DialogYesNoComponent>
+  readonly dialogs = inject(MatDialog);
+   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+     this.dialogRef =  this.dialogs.open(DialogYesNoComponent, {
+      width: '550px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
 
+    this.dialogRef.componentInstance.confirmMessage = 'Are you sure to close this order..?';
+    this.dialogRef.componentInstance.dialogTitle = 'Order Close Confirmation';
+    this.dialogRef.disableClose = true;
+
+    this.dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes') {
+        this.customereSalesService.updateOrderClose(this.selectedCustomerId, this.selectedCustomeName).subscribe(result =>{
+          var resultData = Object.values(result)[0];
+          if(resultData == 'Order Closed Successfully..!'){
+            this.commonService.orderCloseSendMessageToCustomer(this.selectedCustomeName, this.customerMobile,this.userMoblieNo).subscribe(result =>{
+              alert(resultData);
+              setTimeout(() => 
+              location.reload(), 0)
+            });
+          }
+        });
+      }
+    });
+
+
+  }
+  
   disabledControls(){
     this.customerSalesDetailsForm.get('productId')?.disable();
     this.isReadonly=true;
@@ -223,14 +263,15 @@ export class CustomerSalesDetailsComponent {
       filePath: selectedCustomer?.quatationPath,
       createdby:selectedCustomer?.createdby,
       createdDate:selectedCustomer?.createdDate,
-    
-
       // ,isSelectProduct:true
     })
       
       this.fileName = selectedCustomer?.fileName;
       this.filePath = selectedCustomer?.quatationPath;
       this.createdDate =selectedCustomer?.createdDate;
+      this.selectedCustomeName = selectedCustomer?.customerName;
+      this.orderClosed = selectedCustomer?.isOrderClosed;
+      this.customerMobile = selectedCustomer?.mobileNumber;
   }
 
   getAllCustomerSalesDetails(department:any, userId:number) {

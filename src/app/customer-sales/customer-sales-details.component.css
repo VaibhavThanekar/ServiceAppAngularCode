@@ -72,3 +72,15 @@ table{
   max-width: 60px !important;
   min-width: 150px !important;
 }
+
+.mat-column-isOrderClosed{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}
+
+.mat-column-orderCloseDate{
+  width: 150px !important;
+  max-width: 60px !important;
+  min-width: 150px !important;
+}

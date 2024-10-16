@@ -5,6 +5,7 @@ export interface Settings {
     managerMobile: string;
     serviceTemplateName:string;
     salesTemplateName:string;
+    salesOrderCloseTemplateName:string;
     createdBy:number;
     createdDate: string;
     modifiedBy:number;
@@ -18,6 +19,7 @@ export interface Settings {
     managerMobile: string;
     serviceTemplateName:string;
     salesTemplateName:string;
+    salesOrderCloseTemplateName:string;
     createdBy:string;
     createdDate: string;
     modifiedBy:string;

@@ -20,6 +20,8 @@ export interface CustomerSales
     createdBy:number;
     modifiedBy:number;
     modifiedDate:string;
+    isOrderClosed:boolean;
+    orderCloseDate:string;
   }
 
   export interface CustomerSalesDetails
@@ -45,6 +47,8 @@ export interface CustomerSales
     createdBy:number;
     modifiedBy:number;
     modifiedDate:string;
+    isOrderClosed:string;
+    orderCloseDate:string;
   }
 
   export interface CustomerSalesDetailsReportParm
