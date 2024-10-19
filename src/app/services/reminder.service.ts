@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserMaster } from '../models/user';
-import { ReminderMaster, ReminderMasterList } from '../models/reminder';
+import { AdditionalReminder, ReminderMaster, ReminderMasterList } from '../models/reminder';
 import { Constants } from '../models/commonMaster';
 
 @Injectable({
@@ -28,5 +28,9 @@ export class ReminderService {
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     let options = {  headers: headers }
     return  this.http.post(this.apiURL+"DeActivateReminderFromId?id="+ id +"&modifiedBy="+modifiedBy,  headers);
+  }
+
+  updateAdditionalReminderDetailsFromCustomerId(additionalReminder: AdditionalReminder){
+    return this.http.post(this.apiURL+"UpdateAdditionalReminderFromCustomerId", additionalReminder);
   }
 }

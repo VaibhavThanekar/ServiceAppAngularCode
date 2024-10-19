@@ -17,6 +17,7 @@ userName:any;
 public todaysReminder:ReminderMaster[] = [];
 reminderCount:number=0;
 showChild=false;
+showAdditionalReminderChild = false;
 showMyClass = false;
 userId:any;
 userRole:any;
@@ -29,6 +30,10 @@ constructor(private formBuilder: FormBuilder, private reminderService:ReminderSe
     // this.commonService.btnToggle.next(false);
   this.commonService.isModalClosed$.subscribe(data => {
     this.showChild = data;
+  })
+
+  this.commonService.isAdditionalReminderModalClosed$.subscribe(data => {
+    this.showAdditionalReminderChild = data;
   })
   
   if(typeof localStorage !== 'undefined') 

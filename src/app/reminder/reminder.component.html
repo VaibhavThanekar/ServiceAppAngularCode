@@ -30,12 +30,19 @@
                               <ng-container matColumnDef="actions">
                                 <th mat-header-cell *matHeaderCellDef> Action </th>   
                                 <td mat-cell *matCellDef="let element"> 
-                                  <div>
+                                  <div class="row">
+                                    <div class="col-sm-6">
                                     <button mat-button class="button_bg" data-toggle="modal" data-target="#salesModal" *ngIf="element.department == 'Sales'"
                                       (click)="selectedItem(element.id, element.department, element.isActive)"><i class="fa fa-edit"></i></button>
-
+                                    
                                       <button mat-button class="button_bg" *ngIf="element.department == 'Service'"
                                       (click)="selectedItem(element.id, element.department, element.isActive)"><i class="fa fa-edit"></i></button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                      <button mat-button class="button_bg" data-toggle="modal" data-target="#salesAdditionalReminderModal"*ngIf="element.department == 'Sales'"
+                                      (click)="selectedAdditionalReminderItem(element.id, element.department, element.isActive)"><i class="fa fa-bell"></i></button>
+                                      </div>
+                                     
                                   </div>
                                 </td>
                               </ng-container>
@@ -109,4 +116,5 @@
     
 </div>
 <app-customer-modal *ngIf="showChild"></app-customer-modal>
+<app-customer-additional-reminder-modal *ngIf="showAdditionalReminderChild"></app-customer-additional-reminder-modal>
  

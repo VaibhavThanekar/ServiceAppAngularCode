@@ -19,6 +19,7 @@ export class ReminderComponent {
   allReminders: any = [];
   posts: any;
   showChild=false;
+  showAdditionalReminderChild=false;
   userRole:any;
   department:any;
   userName:any;
@@ -44,6 +45,10 @@ export class ReminderComponent {
       this.showChild = data;
     })
 
+    this.commonService.isAdditionalReminderModalClosed$.subscribe(data => {
+      this.showAdditionalReminderChild=data;
+    })
+
     this.getAllRemindersForToday(this.department, this.userId);
   }
 
@@ -53,7 +58,14 @@ export class ReminderComponent {
     localStorage.setItem('isNoted',isNoted)
     // console.log('isNoted', isNoted)
     this.showChild = true;
+  }
 
+  selectedAdditionalReminderItem(id: any, dept:string, isNoted:any) {
+    localStorage.setItem('reminderIdAdditional',id)
+    localStorage.setItem('deptModalAdditional',dept)
+    // localStorage.setItem('isNoted',isNoted)
+   
+     this.showAdditionalReminderChild=true;
   }
 
   getAllRemindersForToday(department:any, userId:number){

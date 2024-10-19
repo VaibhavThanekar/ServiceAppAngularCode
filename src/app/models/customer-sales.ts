@@ -34,6 +34,7 @@ export interface CustomerSales
     visitedDate:string;
     timeOfVisit:string;
     durationOfSale:string;
+    reminderId:number;
     reminderDate:string;
     productId:number;
     product:string

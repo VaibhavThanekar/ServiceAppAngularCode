@@ -1,18 +1,18 @@
 <!-- <button type="button" class="btn btn-primary btn-user btn-block col-sm-2" data-toggle="modal" data-target="#salesModal" (click)="openSalesModal(1)">Open</button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="salesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-data-backdrop="static" data-keyboard="false" [ngStyle]="{'display':salesDisplay}">
+<div class="modal fade" id="salesAdditionalReminderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelAdditional" aria-hidden="true"
+data-backdrop="static" data-keyboard="false" [ngStyle]="{'display':salesAdditonalReminderDisplay}">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header card-header-c">
-        <h5 class="modal-title" id="exampleModalLabel">Customer Sales Reminder</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onCloseHandled()">
+        <h5 class="modal-title" id="exampleModalLabelAdditional">Customer Sales Additional Reminder</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onCloseHandledAdditional()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="customerSalesForm" #customerService="ngForm" class="user p-3" 
+        <form [formGroup]="customerSalesFormAdditional" #customerSalesAdditional="ngForm" class="user p-3" 
            #formDirective="ngForm">
         <div class="form-group row">
             <div class="col-md-8 mb-3 mb-sm-0">
@@ -39,43 +39,43 @@ data-backdrop="static" data-keyboard="false" [ngStyle]="{'display':salesDisplay}
         </div>
 
         <div class="form-group row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <mat-form-field class="example-full-width">
                     <mat-label>Sales Person</mat-label>
                     <input matInput aria-label="Sales Person" formControlName="salesPerson"  id="txtsalesPerson" readonly>   
                 </mat-form-field>
             
-            </div>
+            </div> -->
             
-            <div class="col-md-3">
+            <div class="col-md-6">
               <mat-form-field>
                   <mat-label>Visited Date</mat-label>
                   <input matInput aria-label="Visited Date" formControlName="visitedDate" readonly>  
               </mat-form-field>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-6">
               <mat-form-field>
                 <mat-label>Time Of Visit</mat-label>
-                <input matInput aria-label="Time Of Visit" formControlName="timeOfVisit" readonly>  
+                <input matInput aria-label="Time of Visit" formControlName="timeOfVisit" readonly>  
               </mat-form-field>
             </div>
         </div>
 
         <div class="form-group row">
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <mat-form-field class="example-full-width">
                 <mat-label>Duration Of Sale</mat-label>
                 <input matInput aria-label="Duration Of Sale" formControlName="durationOfSale" readonly>  
               </mat-form-field> 
-          </div>
-          <div class="col-md-4">
+          </div> -->
+          <div class="col-md-6">
                 <mat-form-field class="example-full-width">
-                    <mat-label>Reminder Date</mat-label>
+                    <mat-label>Previous Reminder Date</mat-label>
                     <input matInput aria-label="Reminder Date" formControlName="reminderDate" readonly> 
                 </mat-form-field>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-6">
             <mat-form-field class="example-full-width">
                 <mat-label>Product</mat-label>
                 <input matInput aria-label="Product" formControlName="product" readonly>
@@ -84,8 +84,29 @@ data-backdrop="static" data-keyboard="false" [ngStyle]="{'display':salesDisplay}
         </div>
         </div>
         <div class="form-group row">
-          
-            <div class="col-md-6">
+          <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Extend To Days</mat-label>
+              <mat-select formControlName="extendToDays">
+                  <mat-option *ngFor="let day of days" [value]="day"> {{day}}</mat-option>
+              </mat-select>
+              <mat-error class="text-danger" *ngIf="valid.extendToDays.errors?.required">
+                Select Extend To Days
+              </mat-error>
+          </mat-form-field>
+        </div>
+
+      <div class="col-md-9">
+        <mat-form-field class="example-full-width">
+            <mat-label>Reminder Remark</mat-label>
+            <input matInput aria-label="Extended Reminder Remark" formControlName="extendedReminderRemark">
+            <mat-error class="text-danger" *ngIf="valid.extendedReminderRemark.errors?.required">
+              Enter Reminder Remark
+            </mat-error>
+          </mat-form-field>
+               
+      </div>
+            <!-- <div class="col-md-6">
                 <mat-form-field class="example-full-width">
                     <mat-label>Remark</mat-label>
                     <input matInput aria-label="Remark" formControlName="remark" readonly>
@@ -98,13 +119,13 @@ data-backdrop="static" data-keyboard="false" [ngStyle]="{'display':salesDisplay}
                     <mat-label>Comment</mat-label>
                     <input matInput aria-label="Comment" formControlName="comment" readonly> 
                   </mat-form-field>
-            </div>
+            </div> -->
         </div>
     </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-user btn-block col-sm-2 mt-2"  [disabled]="!isNoted" (click)="deactivateReminder()">Noted</button>
-        <button type="button" class="btn btn-primary btn-user btn-block col-sm-2" data-dismiss="modal" (click)="onCloseHandled()">Close</button>
+        <button type="button" class="btn btn-primary btn-user btn-block col-sm-2 mt-2"  [disabled]="!customerSalesAdditional.valid" (click)="updateAdditionalReminder(customerSalesFormAdditional.value)">Update</button>
+        <button type="button" class="btn btn-primary btn-user btn-block col-sm-2" data-dismiss="modal" (click)="onCloseHandledAdditional()">Close</button>
       </div>
     </div>
   </div>

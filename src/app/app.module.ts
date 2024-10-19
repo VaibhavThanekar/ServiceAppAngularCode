@@ -50,6 +50,7 @@ import { UserSettingComponent } from './user/user-setting.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DialogYesNoComponent } from './common/dialog-yes-no.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CustomerAdditionalReminderModalComponent } from './common/customer-additional-reminder-modal.component';
 
 // import { HomeComponent } from './home/home.component';
 
@@ -76,6 +77,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     SettingsComponent,
     UserSettingComponent,
     DialogYesNoComponent,
+    CustomerAdditionalReminderModalComponent,
     // HomeComponent,
     
   ],

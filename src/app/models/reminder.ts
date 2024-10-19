@@ -23,3 +23,13 @@ export interface ReminderMaster {
     modifiedBy:string;
     modifiedDate:string;
   }
+
+  export interface AdditionalReminder {
+    customerId:number;
+    reminderId:number;
+    department:string;
+    additionalDays:number;
+    additionalRemark: string;
+    isActive:boolean;
+    createdBy:number;
+  }

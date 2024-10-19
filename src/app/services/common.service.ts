@@ -12,6 +12,10 @@ export class CommonService {
   token:any;
   closeModal = new BehaviorSubject<boolean>(false);
   isModalClosed$ =this.closeModal.asObservable()
+
+  additionalReminderCloseModal = new BehaviorSubject<boolean>(false);
+  isAdditionalReminderModalClosed$ =this.additionalReminderCloseModal.asObservable()
+  
   btnToggle = new BehaviorSubject<boolean>(false);
   isEditable= new BehaviorSubject<boolean>(false);
 
@@ -23,6 +27,12 @@ export class CommonService {
   {
     this.closeModal.next(isClose);
   }
+
+  updateAdditionalReminderModal(isClose:boolean)
+  {
+    this.additionalReminderCloseModal.next(isClose);
+  }
+
 
   getToken(){
     if(typeof localStorage !== 'undefined'  && localStorage.getItem('login') == 'Success'){
