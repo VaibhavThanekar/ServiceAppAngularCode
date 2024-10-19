@@ -8,6 +8,7 @@ import {ProductMaster, ProductMasterDetails} from '../models/product'
 import { ProductService } from '../services/product.service'
 import { MatInput } from '@angular/material/input';
 import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
+import { MessageboxYesNoComponent } from '../messagebox/messagebox-yes-no.component';
 
 @Component({
   selector: 'app-product',
@@ -30,7 +31,8 @@ export class ProductComponent implements AfterViewInit {
   public displayedColumns: string[] =['actions', 'productName', 'productPrice', 'productDescription', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate', ];
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private productService:ProductService, private formBuilder:FormBuilder, private messageboxOk:MessageboxOkComponent ){
+  constructor(private productService:ProductService, private formBuilder:FormBuilder, 
+    private messageboxOk:MessageboxOkComponent, private confirmMessagebox:MessageboxYesNoComponent  ){
     if (typeof localStorage !== 'undefined')
     {
       this.createdBy = Number(localStorage.getItem('userId'));
@@ -64,7 +66,11 @@ export class ProductComponent implements AfterViewInit {
   } 
 
   deleteProduct(id:number){
-      if(confirm('Are you sure to delete this product..?')){
+    this.confirmMessagebox.openDialog('0ms', '0ms', 'Are you sure to delete this product..?', 'Confirmation');
+
+    this.confirmMessagebox.dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes')
+      {
         this.productService.deleteProduct(id, this.modifiedBy).subscribe(result =>{
           var resultData = Object.values(result)[0];
           if(resultData == 'Product Deleted Successfully !')
@@ -88,7 +94,8 @@ export class ProductComponent implements AfterViewInit {
             // this.getAllProducts();
           }
         });
-    }
+      }
+      });
   }
 
   updateProduct(id:number){

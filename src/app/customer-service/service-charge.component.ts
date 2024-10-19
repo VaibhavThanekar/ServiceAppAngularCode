@@ -8,6 +8,7 @@ import {ServiceCharge, ServiceChargeDetails} from '../models/service-charge'
 import { ProductService } from '../services/product.service'
 import { ServiceChargeService } from '../services/service-charge.service';
 import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
+import { MessageboxYesNoComponent } from '../messagebox/messagebox-yes-no.component';
 
 @Component({
   selector: 'app-service-charge',
@@ -29,7 +30,8 @@ export class ServiceChargeComponent implements AfterViewInit{
   public displayedColumns: string[] =['actions', 'serviceLocation', 'serviceCharges', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate', ];
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private serviceChargeService:ServiceChargeService, private formBuilder:FormBuilder, private messageboxOk:MessageboxOkComponent ){
+  constructor(private serviceChargeService:ServiceChargeService, private formBuilder:FormBuilder, 
+    private messageboxOk:MessageboxOkComponent, private confirmMessagebox:MessageboxYesNoComponent  ){
     
     if (typeof localStorage !== 'undefined')
     {
@@ -56,7 +58,11 @@ export class ServiceChargeComponent implements AfterViewInit{
   } 
 
   deleteServiceCharge(id:number){
-      if(confirm('Are you sure to delete this service charge..?')){
+    this.confirmMessagebox.openDialog('0ms', '0ms', 'Are you sure to delete this service charge..?', 'Confirmation');
+
+    this.confirmMessagebox.dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes')
+      {
         this.serviceChargeService.deleteServiceCharge(id, this.modifiedBy).subscribe(result =>{
           var resultData = Object.values(result)[0];
           if(resultData == 'Service Charge Deleted Successfully !')
@@ -80,7 +86,8 @@ export class ServiceChargeComponent implements AfterViewInit{
             // this.getAllServiceCharges();
           }
         });
-    }
+      }
+      });
   }
 
   updateServiceCharge(id:number){

@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {UserDepartment, UserMaster, UserMasterDetails, UserRole} from '../models/user'
 import { UserService } from '../services/user.service'
 import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
+import { MessageboxYesNoComponent } from '../messagebox/messagebox-yes-no.component';
 
 @Component({
   selector: 'app-user',
@@ -34,7 +35,8 @@ export class UserComponent {
   'role', 'remarks',  'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate', ];
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private userService:UserService, private formBuilder:FormBuilder, private messageboxOk:MessageboxOkComponent ){
+  constructor(private userService:UserService, private formBuilder:FormBuilder, 
+    private messageboxOk:MessageboxOkComponent, private confirmMessagebox:MessageboxYesNoComponent ){
     
     if (typeof localStorage !== 'undefined')
     {
@@ -66,30 +68,35 @@ export class UserComponent {
   } 
 
   deleteUser(id:number){
-      if(confirm('Are you sure to delete this user..?')){
-        this.userService.deleteUser(id, this.modifiedBy).subscribe(result =>{
-          var resultData = Object.values(result)[0];
-          if(resultData == 'User Deleted Successfully !')
-          {
-            this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+      this.confirmMessagebox.openDialog('0ms', '0ms', 'Are you sure to delete this user..?', 'Confirmation');
+
+      this.confirmMessagebox.dialogRef.afterClosed().subscribe(result => {
+        if(result == 'Yes')
+        {
+            this.userService.deleteUser(id, this.modifiedBy).subscribe(result =>{
+              var resultData = Object.values(result)[0];
+              if(resultData == 'User Deleted Successfully !')
+              {
+                this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+        
+                this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+                  if(result == 'Ok'){
+                      this.userForm.reset();
+                      setTimeout(() => this.formGroupDirective.resetForm(), 0)
+                      this.getAllUserDetails();
+                  }
+                });
     
-            this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
-              if(result == 'Ok'){
-                  this.userForm.reset();
-                  setTimeout(() => this.formGroupDirective.resetForm(), 0)
-                  this.getAllUserDetails();
+                // alert(resultData);
+                // this.userForm.reset();
+                // setTimeout(() => 
+                // this.formGroupDirective.resetForm(), 0)
+    
+                // this.getAllUserDetails();
               }
             });
-
-            // alert(resultData);
-            // this.userForm.reset();
-            // setTimeout(() => 
-            // this.formGroupDirective.resetForm(), 0)
-
-            // this.getAllUserDetails();
-          }
-        });
-    }
+        }
+      });
   }
 
   updateUser(id:number){

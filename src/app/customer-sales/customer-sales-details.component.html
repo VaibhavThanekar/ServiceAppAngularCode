@@ -261,7 +261,7 @@
                         </form>
                             <div class="modal-footer form-group row justify-content-end">
                             <div class="col-sm-2 mb-3 mb-md-0">
-                                <button type="button" class="btn btn-primary btn-user btn-block" id="btnCLoseOrder" (click)="openDialog('0ms', '0ms')" [disabled]="orderClosed == 'Order Closed'">Close Order</button>
+                                <button type="button" class="btn btn-primary btn-user btn-block" id="btnCLoseOrder" (click)="closeOrder()" [disabled]="orderClosed == 'Order Closed' || editMode == true">Close Order</button>
                             </div>
                             <div class="col-sm-2">
                                 <button class="btn btn-primary btn-user btn-block" type="submit" id="btnSave" [disabled]="!customerSalesDetailsForm.valid || orderClosed == 'Order Closed'"

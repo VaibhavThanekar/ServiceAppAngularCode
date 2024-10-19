@@ -52,6 +52,7 @@ import { DialogYesNoComponent } from './common/dialog-yes-no.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CustomerAdditionalReminderModalComponent } from './common/customer-additional-reminder-modal.component';
 import { MessageboxOkComponent } from './messagebox/messagebox-ok.component';
+import { MessageboxYesNoComponent } from './messagebox/messagebox-yes-no.component';
 
 // import { HomeComponent } from './home/home.component';
 
@@ -80,6 +81,7 @@ import { MessageboxOkComponent } from './messagebox/messagebox-ok.component';
     DialogYesNoComponent,
     CustomerAdditionalReminderModalComponent,
     MessageboxOkComponent,
+    MessageboxYesNoComponent,
     // HomeComponent,
     
   ],

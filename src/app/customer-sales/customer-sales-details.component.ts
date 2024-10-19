@@ -14,6 +14,7 @@ import { CommonService } from '../services/common.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogYesNoComponent } from '../common/dialog-yes-no.component';
 import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
+import { MessageboxYesNoComponent } from '../messagebox/messagebox-yes-no.component';
 
 @Component({
   selector: 'app-customer-sales-details',
@@ -56,7 +57,7 @@ export class CustomerSalesDetailsComponent {
   
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private customereSalesService: CustomerSalesService, private formBuilder: FormBuilder, 
-    private commonService:CommonService, private messageboxOk:MessageboxOkComponent ) {
+    private commonService:CommonService, private messageboxOk:MessageboxOkComponent, private confirmMessagebox:MessageboxYesNoComponent  ) {
     if (typeof localStorage !== 'undefined')
       {
         this.modifiedBy = Number(localStorage.getItem('userId'));
@@ -154,21 +155,12 @@ export class CustomerSalesDetailsComponent {
    
   }
   
-  public dialogRef: MatDialogRef<DialogYesNoComponent>
-  readonly dialogs = inject(MatDialog);
-   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-     this.dialogRef =  this.dialogs.open(DialogYesNoComponent, {
-      width: '550px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
+  closeOrder(){
+    this.confirmMessagebox.openDialog('0ms', '0ms', 'Are you sure to close this order..?', 'Confirmation');
 
-    this.dialogRef.componentInstance.confirmMessage = 'Are you sure to close this order..?';
-    this.dialogRef.componentInstance.dialogTitle = 'Order Close Confirmation';
-    this.dialogRef.disableClose = true;
-
-    this.dialogRef.afterClosed().subscribe(result => {
-      if(result == 'Yes') {
+    this.confirmMessagebox.dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes')
+      {
         this.customereSalesService.updateOrderClose(this.selectedCustomerId, this.selectedCustomeName).subscribe(result =>{
           var resultData = Object.values(result)[0];
           if(resultData == 'Order Closed Successfully..!'){
@@ -185,10 +177,43 @@ export class CustomerSalesDetailsComponent {
           }
         });
       }
-    });
-
-
+      });
   }
+
+
+  // public dialogRef: MatDialogRef<DialogYesNoComponent>
+  // readonly dialogs = inject(MatDialog);
+  //  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  //    this.dialogRef =  this.dialogs.open(DialogYesNoComponent, {
+  //     width: '550px',
+  //     enterAnimationDuration,
+  //     exitAnimationDuration,
+  //   });
+
+  //   this.dialogRef.componentInstance.confirmMessage = 'Are you sure to close this order..?';
+  //   this.dialogRef.componentInstance.dialogTitle = 'Order Close Confirmation';
+  //   this.dialogRef.disableClose = true;
+
+  //   this.dialogRef.afterClosed().subscribe(result => {
+  //     if(result == 'Yes') {
+  //       this.customereSalesService.updateOrderClose(this.selectedCustomerId, this.selectedCustomeName).subscribe(result =>{
+  //         var resultData = Object.values(result)[0];
+  //         if(resultData == 'Order Closed Successfully..!'){
+  //           this.commonService.orderCloseSendMessageToCustomer(this.selectedCustomeName, this.customerMobile,this.userMoblieNo).subscribe(result =>{
+  //             this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+  //             this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+  //               if(result == 'Ok'){
+  //                 setTimeout(() => 
+  //                   location.reload(), 0)
+  //               }
+  //             });
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
   
   disabledControls(){
     this.customerSalesDetailsForm.get('productId')?.disable();
