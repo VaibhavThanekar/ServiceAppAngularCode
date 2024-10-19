@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {ServiceCharge, ServiceChargeDetails} from '../models/service-charge'
 import { ProductService } from '../services/product.service'
 import { ServiceChargeService } from '../services/service-charge.service';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-service-charge',
@@ -28,7 +29,7 @@ export class ServiceChargeComponent implements AfterViewInit{
   public displayedColumns: string[] =['actions', 'serviceLocation', 'serviceCharges', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate', ];
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private serviceChargeService:ServiceChargeService, private formBuilder:FormBuilder){
+  constructor(private serviceChargeService:ServiceChargeService, private formBuilder:FormBuilder, private messageboxOk:MessageboxOkComponent ){
     
     if (typeof localStorage !== 'undefined')
     {
@@ -58,14 +59,25 @@ export class ServiceChargeComponent implements AfterViewInit{
       if(confirm('Are you sure to delete this service charge..?')){
         this.serviceChargeService.deleteServiceCharge(id, this.modifiedBy).subscribe(result =>{
           var resultData = Object.values(result)[0];
-          if(resultData = 'Service Charge Deleted Successfully !')
+          if(resultData == 'Service Charge Deleted Successfully !')
           {
-            alert(resultData);
-            this.serviceChargeForm.reset();
-            setTimeout(() => 
-            this.formGroupDirective.resetForm(), 0)
+            this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+            this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+              if(result == 'Ok'){
+                this.serviceChargeForm.reset();
+                setTimeout(() => this.formGroupDirective.resetForm(), 0)
 
-            this.getAllServiceCharges();
+                this.getAllServiceCharges();
+              }
+            });
+
+            // alert(resultData);
+            // this.serviceChargeForm.reset();
+            // setTimeout(() => 
+            // this.formGroupDirective.resetForm(), 0)
+
+            // this.getAllServiceCharges();
           }
         });
     }
@@ -101,14 +113,26 @@ export class ServiceChargeComponent implements AfterViewInit{
         charge.id = this.selectedServiceChargeId;
         this.serviceChargeService.updateServiceCharge(charge).subscribe(result =>{
           var resultData = Object.values(result)[0];
-          if(resultData = 'Service Charge Updated Successfully !'){
-            alert(resultData);
-          
-            this.serviceChargeForm.reset();
-            setTimeout(() => 
-            this.formGroupDirective.resetForm(), 0)
+          if(resultData == 'Service Charge Updated Successfully !'){
 
-            this.getAllServiceCharges();
+            this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+            this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+              if(result == 'Ok'){
+                this.serviceChargeForm.reset();
+                setTimeout(() => this.formGroupDirective.resetForm(), 0)
+
+                this.getAllServiceCharges();
+              }
+            });
+
+            // alert(resultData);
+          
+            // this.serviceChargeForm.reset();
+            // setTimeout(() => 
+            // this.formGroupDirective.resetForm(), 0)
+
+            // this.getAllServiceCharges();
           }
         });
       }
@@ -116,18 +140,29 @@ export class ServiceChargeComponent implements AfterViewInit{
       {
             if(this.allServiceCharges.some(x => x.location.toLowerCase() === charge.location.toLowerCase()))
             {
-              alert("Location charge already exist");
+              // alert("Location charge already exist");
+              this.messageboxOk.openDialog('0ms', '0ms', 'Location charge already exist', 'Information');
               return;
             }
                 this.serviceChargeService.saveServiceCharge(charge).subscribe(result =>{
                 var resultData = Object.values(result)[0];
-                if(resultData = 'Service Charge Saved Successfully !')
+                if(resultData == 'Service Charge Saved Successfully !')
                 {
-                  alert(resultData);
-                  this.getAllServiceCharges();
-                this.serviceChargeForm.reset();
-                setTimeout(() => 
-                this.formGroupDirective.resetForm(), 0)
+                  this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+                  this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+                    if(result == 'Ok'){
+                      this.getAllServiceCharges();
+                      this.serviceChargeForm.reset();
+                      setTimeout(() => this.formGroupDirective.resetForm(), 0)
+                    }
+                  });
+
+                  // alert(resultData);
+                  // this.getAllServiceCharges();
+                  // this.serviceChargeForm.reset();
+                  // setTimeout(() => 
+                  // this.formGroupDirective.resetForm(), 0)
                 }
               });
         }

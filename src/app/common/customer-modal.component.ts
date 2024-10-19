@@ -5,6 +5,7 @@ import { AfterViewInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../services/common.service';
 import { ReminderService } from '../services/reminder.service';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-customer-modal',
@@ -21,7 +22,7 @@ export class CustomerModalComponent {
   modifiedBy:number = 0;
 
   constructor(private customereSalesService: CustomerSalesService, private formBuilder: FormBuilder,
-    private reminderService: ReminderService, private commonService:CommonService) {
+    private reminderService: ReminderService, private commonService:CommonService, private messageboxOk:MessageboxOkComponent) {
 
     this.modifiedBy = Number(localStorage.getItem('userId'));
     
@@ -99,14 +100,16 @@ export class CustomerModalComponent {
       var resultData = Object.values(data)[0];
       if(resultData = 'Reminder Updated Successfully !')
       {
-        alert("Reminder disabled successfully..!");
-
-      //  setTimeout(() => {
-        localStorage.removeItem('reminderId');
-        localStorage.removeItem('deptModal');
-        localStorage.removeItem('isNoted');
-        window.location.reload();
-      // }, 1000);
+        this.messageboxOk.openDialog('0ms', '0ms', "Reminder disabled successfully..!", 'Information');
+       
+        this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+          if(result == 'Ok'){
+            localStorage.removeItem('reminderId');
+            localStorage.removeItem('deptModal');
+            localStorage.removeItem('isNoted');
+            window.location.reload();
+          }
+        });
       }
     })
   }

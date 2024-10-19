@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CustomerSalesService } from '../services/customer-sales.service'
 import { CustomerSalesDetails } from '../models/customer-sales';
 import { AfterViewInit, ViewChild } from '@angular/core';
@@ -7,6 +7,9 @@ import { CommonService } from '../services/common.service';
 import { ReminderService } from '../services/reminder.service';
 import { AdditionalReminder, ReminderMaster, ReminderMasterList } from '../models/reminder';
 import { DepartmentMaster } from '../models/departmentMaster';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-customer-additional-reminder-modal',
@@ -27,7 +30,7 @@ export class CustomerAdditionalReminderModalComponent {
   public days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
   
   constructor(private customereSalesService: CustomerSalesService, private formBuilder: FormBuilder,
-    private reminderService: ReminderService, private commonService:CommonService) {
+    private reminderService: ReminderService, private commonService:CommonService, private messageboxOk:MessageboxOkComponent) {
       this.createdBy = Number(localStorage.getItem('userId'));
       this.customerSalesFormAdditional = this.formBuilder.group({
       customerName: [''],
@@ -116,14 +119,17 @@ export class CustomerAdditionalReminderModalComponent {
       var resultData = Object.values(data)[0];
       if(resultData == 'Additional Reminder Updated Successfully !')
       {
-        alert(resultData);
-
-      //  setTimeout(() => {
-        localStorage.removeItem('reminderIdAdditional');
-        localStorage.removeItem('deptModalAdditional');
-        // localStorage.removeItem('isNoted')
-        window.location.reload();
-      // }, 1000);
+        this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+        this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+          if(result == 'Ok'){
+            localStorage.removeItem('reminderIdAdditional');
+            localStorage.removeItem('deptModalAdditional');
+            window.location.reload();
+          }
+        });
+        
+        // alert(resultData);
       }
     })
   }

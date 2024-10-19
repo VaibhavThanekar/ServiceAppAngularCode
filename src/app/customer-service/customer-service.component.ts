@@ -10,6 +10,7 @@ import { MatSelectChange } from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { CommonService } from '../services/common.service';
 import { DepartmentMaster } from '../models/departmentMaster';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-customer-service',
@@ -48,7 +49,7 @@ export class CustomerServiceComponent {
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerServiceService, private commonService:CommonService) {
+  constructor(private formBuilder: FormBuilder, private customerService: CustomerServiceService, private commonService:CommonService, private messageboxOk:MessageboxOkComponent) {
     if(typeof localStorage !== 'undefined'){
       this.createdBy = Number(localStorage.getItem('userId'));
     }
@@ -161,12 +162,22 @@ export class CustomerServiceComponent {
         var splitResult = Object.values(result)[0].split(',');
         var resultData = splitResult[0];
         this.customerID = splitResult[1];
-        if (resultData = 'Service Information Saved Successfully !') {
+        if (resultData == 'Service Information Saved Successfully !') {
           this.commonService.SendMessageToCustomer('Service',this.customerID, _customerService.customerName, _customerService.mobileNumber, this.serviceCostAmount.toString(), this.userMoblieNo).subscribe(result =>{
-            alert(resultData);
-            setTimeout(() => 
-            this.formGroupDirective.resetForm(), 0)
-            this.checked = false;
+          
+            this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+            this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+              if(result == 'Ok'){
+                setTimeout(() => this.formGroupDirective.resetForm(), 0)
+                this.checked = false;
+              }
+            });
+            
+            // alert(resultData);
+            // setTimeout(() => 
+            // this.formGroupDirective.resetForm(), 0)
+            // this.checked = false;
           });
         }
       });

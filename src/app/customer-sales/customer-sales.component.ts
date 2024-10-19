@@ -8,6 +8,7 @@ import { DurationList } from '../models/commonMaster';
 import { CustomerSales } from '../models/customer-sales';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { CommonService } from '../services/common.service';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 @Component({
   selector: 'app-customer-sales',
   templateUrl: './customer-sales.component.html',
@@ -31,7 +32,7 @@ export class CustomerSalesComponent {
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   srcResult: any;
-  constructor(private formBuilder: FormBuilder, private salesService:CustomerSalesService, private commonService:CommonService){
+  constructor(private formBuilder: FormBuilder, private salesService:CustomerSalesService, private commonService:CommonService, private messageboxOk:MessageboxOkComponent ){
     
     if (typeof localStorage !== 'undefined') {
       this.createdBy = Number(localStorage.getItem('userId'));
@@ -76,12 +77,18 @@ export class CustomerSalesComponent {
         var splitResult = Object.values(result)[0].split(',');
         var resultData = splitResult[0];
         this.customerID = splitResult[1];
-        if (resultData = 'Sales Information Saved Successfully !') {
+        if (resultData == 'Sales Information Saved Successfully !') {
           this.commonService.SendMessageToCustomer('Sales',this.customerID, _customerSales.customerName, _customerSales.mobileNumber, '0', this.userMoblieNo).subscribe(result =>{
-            alert(resultData);
-            setTimeout(() => 
-            this.formGroupDirective.resetForm(), 0)
-            window.location.reload();
+           
+            this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+            this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+              if(result == 'Ok'){
+                setTimeout(() => 
+                  this.formGroupDirective.resetForm(), 0)
+                  window.location.reload();
+              }
+            });
           });
         }
       });

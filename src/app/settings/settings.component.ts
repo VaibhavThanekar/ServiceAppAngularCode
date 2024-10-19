@@ -9,6 +9,7 @@ import { ProductService } from '../services/product.service'
 import { ServiceChargeService } from '../services/service-charge.service';
 import { Settings, SettingsDetails } from '../models/settings';
 import { CommonService } from '../services/common.service';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-settings',
@@ -32,7 +33,7 @@ export class SettingsComponent implements AfterViewInit{
   'modifiedDate', ];
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private commonService:CommonService, private formBuilder:FormBuilder){
+  constructor(private commonService:CommonService, private formBuilder:FormBuilder, private messageboxOk:MessageboxOkComponent ){
     
     if (typeof localStorage !== 'undefined')
     {
@@ -98,14 +99,26 @@ export class SettingsComponent implements AfterViewInit{
         settings.id = this.selectedSettingsId;
         this.commonService.updateSetting(settings).subscribe(result =>{
           var resultData = Object.values(result)[0];
-          if(resultData = 'Settings Updated Successfully !'){
-            alert(resultData);
-          
-            this.settingsForm.reset();
-            setTimeout(() => 
-            this.formGroupDirective.resetForm(), 0)
+          if(resultData == 'Settings Updated Successfully !'){
 
-            this.getAllSettings();
+            this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+            this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+              if(result == 'Ok'){
+                this.settingsForm.reset();
+                setTimeout(() => this.formGroupDirective.resetForm(), 0)
+                this.getAllSettings();
+              }
+            });
+
+
+            // alert(resultData);
+          
+            // this.settingsForm.reset();
+            // setTimeout(() => 
+            // this.formGroupDirective.resetForm(), 0)
+
+            // this.getAllSettings();
           }
         });
       }

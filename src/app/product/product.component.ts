@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {ProductMaster, ProductMasterDetails} from '../models/product'
 import { ProductService } from '../services/product.service'
 import { MatInput } from '@angular/material/input';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-product',
@@ -29,7 +30,7 @@ export class ProductComponent implements AfterViewInit {
   public displayedColumns: string[] =['actions', 'productName', 'productPrice', 'productDescription', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate', ];
    
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private productService:ProductService, private formBuilder:FormBuilder){
+  constructor(private productService:ProductService, private formBuilder:FormBuilder, private messageboxOk:MessageboxOkComponent ){
     if (typeof localStorage !== 'undefined')
     {
       this.createdBy = Number(localStorage.getItem('userId'));
@@ -66,14 +67,25 @@ export class ProductComponent implements AfterViewInit {
       if(confirm('Are you sure to delete this product..?')){
         this.productService.deleteProduct(id, this.modifiedBy).subscribe(result =>{
           var resultData = Object.values(result)[0];
-          if(resultData = 'Product Deleted Successfully !')
+          if(resultData == 'Product Deleted Successfully !')
           {
-            alert(resultData);
-            this.prdouctForm.reset();
-            setTimeout(() => 
-            this.formGroupDirective.resetForm(), 0)
+            this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+            this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+              if(result == 'Ok'){
+                this.prdouctForm.reset();
+                setTimeout(() => this.formGroupDirective.resetForm(), 0)
 
-            this.getAllProducts();
+                this.getAllProducts();
+              }
+            });
+
+            // alert(resultData);
+            // this.prdouctForm.reset();
+            // setTimeout(() => 
+            // this.formGroupDirective.resetForm(), 0)
+
+            // this.getAllProducts();
           }
         });
     }
@@ -112,13 +124,24 @@ export class ProductComponent implements AfterViewInit {
         this.productService.updateProduct(product).subscribe(result =>{
           var resultData = Object.values(result)[0];
           if(resultData == 'Product Updated Successfully !'){
-            alert(resultData);
-          
-            this.prdouctForm.reset();
-            setTimeout(() => 
-            this.formGroupDirective.resetForm(), 0)
 
-            this.getAllProducts();
+            this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+            this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+              if(result == 'Ok'){
+                  this.prdouctForm.reset();
+                  setTimeout(() => this.formGroupDirective.resetForm(), 0)
+                  this.getAllProducts();
+              }
+            });
+
+            // alert(resultData);
+          
+            // this.prdouctForm.reset();
+            // setTimeout(() => 
+            // this.formGroupDirective.resetForm(), 0)
+
+            // this.getAllProducts();
           }
         });
       }
@@ -126,19 +149,31 @@ export class ProductComponent implements AfterViewInit {
       {
               if(this.allProducts.some(x => x.productName.toLowerCase() === product.productName.toLowerCase()))
               {
-                alert("Product name already exist");
+                // alert("Product name already exist");
+                this.messageboxOk.openDialog('0ms', '0ms', 'Product name already exist', 'Information');
                 return;
               }
               
                 product.createdBy = this.createdBy;
                 this.productService.saveProduct(product).subscribe(result =>{
                   var resultData = Object.values(result)[0];
-                  if(resultData = 'Product Saved Successfully !'){
-                    alert(resultData);
-                    this.getAllProducts();
-                  this.prdouctForm.reset();
-                  setTimeout(() => 
-                  this.formGroupDirective.resetForm(), 0)
+                  if(resultData == 'Product Saved Successfully !'){
+
+                    this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+                    this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+                      if(result == 'Ok'){
+                          this.getAllProducts();
+                          this.prdouctForm.reset();
+                          setTimeout(() => this.formGroupDirective.resetForm(), 0)
+                      }
+                    });
+
+                  //   alert(resultData);
+                  //   this.getAllProducts();
+                  // this.prdouctForm.reset();
+                  // setTimeout(() => 
+                  // this.formGroupDirective.resetForm(), 0)
                   }
                 });
         }

@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {UserDepartment, UserMaster, UserMasterDetails, UserRole} from '../models/user'
 import { UserService } from '../services/user.service'
 import { Router } from '@angular/router';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-user-setting',
@@ -26,7 +27,7 @@ export class UserSettingComponent {
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
 
-  constructor(private userService:UserService, private formBuilder:FormBuilder, private router:Router){
+  constructor(private userService:UserService, private formBuilder:FormBuilder, private router:Router, private messageboxOk:MessageboxOkComponent ){
     
     if (typeof localStorage !== 'undefined')
     {
@@ -64,21 +65,29 @@ export class UserSettingComponent {
       if(this.selectedUserId > 0){
 
       if(user.password != this.currentPassword){
-        alert('Old password is incorrect');
+        // alert('Old password is incorrect');
+        this.messageboxOk.openDialog('0ms', '0ms', 'Old password is incorrect', 'Information');
         return;
       }
 
       if(user.newPassword != user.confirmPassword){
-        alert('Confirm password is not matching with new password');
+        // alert('Confirm password is not matching with new password');
+        this.messageboxOk.openDialog('0ms', '0ms', 'Confirm password is not matching with new password', 'Information');
         return;
       }
 
         user.id = this.selectedUserId;
         this.userService.updateUserPassword(user.id, user.newPassword, user.modifiedBy).subscribe(result =>{
           var resultData = Object.values(result)[0];
-          if(resultData = 'User Password Updated Successfully !'){
+          if(resultData == 'User Password Updated Successfully !'){
             var msg = 'Password updated successfully. please login with new password.';
-            alert(msg);
+            // alert(msg);
+
+            this.messageboxOk.openDialog('0ms', '0ms', msg, 'Information');
+            this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+              if(result == 'Ok'){
+              }
+            });
           
             if (typeof localStorage !== 'undefined') {
               this.router.navigateByUrl('/Login');

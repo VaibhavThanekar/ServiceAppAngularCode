@@ -13,6 +13,7 @@ import { UserName } from '../models/user';
 import { DepartmentMaster } from '../models/departmentMaster';
 import moment from 'moment';
 import { NgxSpinnerService } from "ngx-spinner";
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-customer-sales-report',
@@ -44,7 +45,7 @@ export class CustomerSalesReportComponent {
   userName:any
 
   constructor(private formBuilder: FormBuilder,private salesService:CustomerSalesService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService, private messageboxOk:MessageboxOkComponent ) {
     this.customerSalesReportForm = this.formBuilder.group({
       fromDate:['', Validators.required],
       toDate:['', Validators.required],
@@ -129,7 +130,8 @@ export class CustomerSalesReportComponent {
           }
           else{
             this.isShow = false;
-            alert('No records found for this filter');
+            this.messageboxOk.openDialog('0ms', '0ms', 'No records found for this filter', 'Information');
+            // alert('No records found for this filter');
           }
         })
       }, 2000);

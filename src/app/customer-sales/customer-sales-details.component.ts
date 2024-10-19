@@ -13,6 +13,7 @@ import { ProductNameList } from '../models/product';
 import { CommonService } from '../services/common.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogYesNoComponent } from '../common/dialog-yes-no.component';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-customer-sales-details',
@@ -55,7 +56,7 @@ export class CustomerSalesDetailsComponent {
   
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private customereSalesService: CustomerSalesService, private formBuilder: FormBuilder, 
-    private commonService:CommonService) {
+    private commonService:CommonService, private messageboxOk:MessageboxOkComponent ) {
     if (typeof localStorage !== 'undefined')
       {
         this.modifiedBy = Number(localStorage.getItem('userId'));
@@ -78,8 +79,8 @@ export class CustomerSalesDetailsComponent {
       comment: [''],
       fileName: [''],
       createdBy: [''],
-      isOrderClosed: [''],
-      orderCloseDate:['']
+      // isOrderClosed: [''],
+      // orderCloseDate:['']
       
     })
 
@@ -124,14 +125,20 @@ export class CustomerSalesDetailsComponent {
             customerSales.modifiedBy = this.modifiedBy;
             customerSales.id = this.selectedCustomerId;
             customerSales.quatationPath = this.filePath;
+            // customerSales.isOrderClosed = false;
 
             this.customereSalesService.updateCustomerSales(customerSales).subscribe(result =>{
               var resultData = Object.values(result)[0];
               if(resultData == 'Customer Sales Information Updated Successfully !'){
-                alert(resultData);
-                setTimeout(() => 
-                  location.reload(), 0)
-                // location.reload();
+                
+                this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+                this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+                  if(result == 'Ok'){
+                    setTimeout(() => 
+                      location.reload(), 0)
+                  }
+                });
               }
             });
           }
@@ -166,9 +173,14 @@ export class CustomerSalesDetailsComponent {
           var resultData = Object.values(result)[0];
           if(resultData == 'Order Closed Successfully..!'){
             this.commonService.orderCloseSendMessageToCustomer(this.selectedCustomeName, this.customerMobile,this.userMoblieNo).subscribe(result =>{
-              alert(resultData);
-              setTimeout(() => 
-              location.reload(), 0)
+              this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+              this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+                if(result == 'Ok'){
+                  setTimeout(() => 
+                    location.reload(), 0)
+                }
+              });
             });
           }
         });

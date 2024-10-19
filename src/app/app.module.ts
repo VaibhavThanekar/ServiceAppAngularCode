@@ -51,6 +51,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DialogYesNoComponent } from './common/dialog-yes-no.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CustomerAdditionalReminderModalComponent } from './common/customer-additional-reminder-modal.component';
+import { MessageboxOkComponent } from './messagebox/messagebox-ok.component';
 
 // import { HomeComponent } from './home/home.component';
 
@@ -78,6 +79,7 @@ import { CustomerAdditionalReminderModalComponent } from './common/customer-addi
     UserSettingComponent,
     DialogYesNoComponent,
     CustomerAdditionalReminderModalComponent,
+    MessageboxOkComponent,
     // HomeComponent,
     
   ],

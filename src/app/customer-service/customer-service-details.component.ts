@@ -8,6 +8,7 @@ import { CustomerServiceService } from '../services/customer-service.service'
 import { CurrentStatusList, CustomerService, CustomerServiceDetails, ServiceChargeList } from '../models/customer-service';
 import * as XLSX from 'xlsx';
 import { formatDate } from '@angular/common';
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-customer-service-details',
@@ -56,7 +57,9 @@ export class CustomerServiceDetailsComponent {
   
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  constructor(private customereDetailsService: CustomerServiceService, private formBuilder: FormBuilder, private customerService:CustomerServiceService) {
+  constructor(private customereDetailsService: CustomerServiceService, 
+    private formBuilder: FormBuilder, private customerService:CustomerServiceService,
+    private messageboxOk:MessageboxOkComponent) {
     if (typeof localStorage !== 'undefined')
       {
         this.modifiedBy = Number(localStorage.getItem('userId'));
@@ -183,10 +186,17 @@ export class CustomerServiceDetailsComponent {
             this.customereDetailsService.updateCustomerService(customerService).subscribe(result =>{
               var resultData = Object.values(result)[0];
               if(resultData == 'Customer Service Information Updated Successfully !'){
-                alert(resultData);
-                setTimeout(() => 
-                  location.reload(), 0)
-                // location.reload();
+                this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+                this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+                  if(result == 'Ok'){
+                    setTimeout(() => location.reload(), 0)
+                  }
+                });
+
+                // alert(resultData);
+                // setTimeout(() => 
+                //   location.reload(), 0)
               }
             });
           }
