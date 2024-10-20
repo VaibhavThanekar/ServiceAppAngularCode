@@ -16,6 +16,7 @@ import { UserComponent } from './user/user.component';
 // import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UserSettingComponent } from './user/user-setting.component';
+import { PreviousReminderReportComponent } from './reports/previous-reminder-report.component';
 
 const routes: Routes = [
 // {path:'', redirectTo: '/Home', pathMatch: 'full'},
@@ -35,6 +36,7 @@ const routes: Routes = [
 {path:'CustomerServiceReport', component:CustomerServiceReportComponent},
 {path:'Settings', component:SettingsComponent},
 {path:'UserSettings', component:UserSettingComponent},
+{path:'PreviousReminderReport', component:PreviousReminderReportComponent},
 ];
 
 @NgModule({

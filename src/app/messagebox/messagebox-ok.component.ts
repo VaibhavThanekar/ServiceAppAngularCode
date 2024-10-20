@@ -32,8 +32,8 @@ export class MessageboxOkComponent {
   public openDialog(enterAnimationDuration: string, exitAnimationDuration: string, message:string, dialogTitle:string): void {
     this.dialogRef =  this.dialogs.open(MessageboxOkComponent, {
      width: '550px',
-     enterAnimationDuration,
-     exitAnimationDuration,
+     enterAnimationDuration:'300ms',
+     exitAnimationDuration:'10ms',
      
    }); 
    this.dialogRef.componentInstance.message = message;

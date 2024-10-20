@@ -31,8 +31,8 @@ export class MessageboxYesNoComponent {
   public openDialog(enterAnimationDuration: string, exitAnimationDuration: string, message:string, dialogTitle:string): void {
     this.dialogRef =  this.dialogs.open(MessageboxYesNoComponent, {
      width: '550px',
-     enterAnimationDuration,
-     exitAnimationDuration,
+     enterAnimationDuration:'300ms',
+     exitAnimationDuration:'10ms',
      
    }); 
    this.dialogRef.componentInstance.confirmMessage = message;

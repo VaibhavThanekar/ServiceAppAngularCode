@@ -84,6 +84,15 @@
     servicePersonId:number;
   }
 
+  export interface PreviousReminderDetailsReportParm
+  {
+    fromDate:string;
+    toDate:string;
+    cutomerId:number;
+    userId:number;
+    department:number;
+  }
+
   export interface CustomerServiceQutationUpload
   {
       id:number;

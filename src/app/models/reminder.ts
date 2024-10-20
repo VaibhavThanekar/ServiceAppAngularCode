@@ -33,3 +33,18 @@ export interface ReminderMaster {
     isActive:boolean;
     createdBy:number;
   }
+
+  export interface PreviousReminderDetails {
+    ID:number;
+    customerId:number;
+    description:string;
+    department:string;
+    reminderDateTime:string;
+    isActive:string;
+    createdBy:string;
+    createdDate: string;
+    modifiedBy:string;
+    modifiedDate: string;
+  }
+
+ 

@@ -1,0 +1,42 @@
+.mat-column-description{
+    width: 200px !important;
+    max-width: 60px !important;
+    min-width: 200px !important;
+ }
+
+ .mat-column-reminderDateTime{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ .mat-column-isActive{
+    width: 120px !important;
+    max-width: 60px !important;
+    min-width: 120px !important;
+ }
+
+ .mat-column-createdBy{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ .mat-column-createdDate{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ 
+ .mat-column-modifiedBy{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }
+
+ .mat-column-modifiedDate{
+    width: 150px !important;
+    max-width: 60px !important;
+    min-width: 150px !important;
+ }

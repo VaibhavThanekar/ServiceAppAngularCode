@@ -4,6 +4,7 @@ import { LoginService } from '../services/login.service';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
+import { MessageboxOkComponent } from '../messagebox/messagebox-ok.component';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent {
   _password:string;
   login=true;
 
-  constructor(private formBuilder: FormBuilder, private loginService:LoginService, private router: Router,private spinner: NgxSpinnerService){
+  constructor(private formBuilder: FormBuilder, private loginService:LoginService, private router: Router,private spinner: NgxSpinnerService, private messageboxOk:MessageboxOkComponent ){
     this.loginForm = this.formBuilder.group({
       emailId: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -80,12 +81,14 @@ export class LoginComponent {
           else{
             sessionStorage.setItem('login', 'Fail');
             this.login = false;
-            alert('User does not exist')
+            // alert('User does not exist')
+            this.messageboxOk.openDialog('300ms', '100ms', 'User does not exist', 'Information');
           }
       }
       else{
         sessionStorage.setItem('login', 'Fail');
-        alert('Invalid EmailId or Password')
+        // alert('Invalid EmailId or Password')
+        this.messageboxOk.openDialog('300ms', '100ms', 'Invalid EmailId or Password', 'Information');
       }
       })
     } 

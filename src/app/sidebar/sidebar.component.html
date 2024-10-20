@@ -85,7 +85,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item"  routerLink="/CustomerSalesReport" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Sales' || department == 'IT' || department == 'Administration')">Customer Sales </a>
                 <a class="collapse-item"  routerLink="/CustomerServiceReport" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Service' || department == 'IT' || department == 'Administration')">Customer Service</a>
-                
+                <a class="collapse-item"  routerLink="/PreviousReminderReport" *ngIf="(userRole =='ITAdmin' || userRole =='Admin' || userRole =='NormalUser'  || userRole =='SuperUser') && (department == 'Service' || department == 'IT' || department == 'Administration')">Previous Reminders</a>
             </div>
         </div>
     </li>

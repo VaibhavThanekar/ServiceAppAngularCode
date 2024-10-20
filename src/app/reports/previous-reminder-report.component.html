@@ -1,0 +1,170 @@
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="medium" color="white"
+type="ball-atom" [fullScreen] = "true" >
+
+<p style="font-size: 20px; color: white">Finding...</p>
+</ngx-spinner>
+
+<div id="wrapper">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <app-header></app-header>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid" >
+                <div class="row mat-elevation-z8">
+                    <div class="card col-lg-12 pl-0 pr-0">
+                        <div class="card-header card-header-c">
+                            <div>Customer Previous Reminder Details Report</div>
+                        </div>
+                        <form  [formGroup]="previousRemindersReportForm" #previousRemindersDetails="ngForm"  class="user p-5">
+
+                            <div class="row form-group pb-2">
+                              <!-- <mat-form-field class="col-md-2">
+                                <mat-label>From Date</mat-label>
+                                <input matInput [matDatepicker]="pickerFrom" placeholder="From Date" 
+                                 data-date-format ='YYYY-MM-DD' formControlName="fromDate" [(ngModel)]="fromDate">
+                                <mat-hint>YYYY-MM-DD</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerFrom></mat-datepicker>
+                                <mat-error *ngIf="valid.fromDate.errors?.required">
+                                  <span class="text-danger">Enter From Date</span>
+                              </mat-error>
+                              </mat-form-field>
+
+                              <mat-form-field class="col-md-2" >
+                                <mat-label>To Date</mat-label>
+                                <input matInput [matDatepicker]="pickerTo" placeholder="To Date"  data-date-format ='YYYY-MM-DD'
+                                formControlName="toDate" [(ngModel)]="toDate">
+                                <mat-hint>YYYY-MM-DD</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerTo></mat-datepicker>
+                                <mat-error *ngIf="valid.toDate.errors?.required">
+                                  <span class="text-danger">Enter To Date</span>
+                              </mat-error>
+                              </mat-form-field> -->
+
+                              <div class="col-md-4 ">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Customer Name</mat-label>
+                                    <mat-select formControlName="customerId" >
+                                        <mat-option *ngFor="let customer of allCustomerNames" [value]="customer.id"> {{customer.customerName}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="valid.customerId.errors?.required">
+                                        <span class="text-danger">Select Customer Name</span>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <!-- <mat-form-field class="example-full-width">
+                                  <mat-label>Service Person</mat-label>
+                                  <mat-select formControlName="ServicePersonId">
+                                      <mat-option *ngFor="let ServicePerson of ServicePersonList" [value]="ServicePerson.id"> {{ServicePerson.name}}</mat-option>
+                                  </mat-select>
+                              </mat-form-field> -->
+                              </div>
+
+                              <div class="col-md-4 ">
+                                <!-- <mat-form-field class="example-full-width">
+                                  <mat-label>Select Product</mat-label>
+                                  <mat-select formControlName="productId"  >
+                                    <mat-option *ngFor="let productNames of productNameList" [value]="productNames.id">{{productNames.productName}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field> -->
+                              </div>
+                            </div>
+
+                            <div class="row form-group justify-content-end">
+                              <div class="col-md-2  mb-3 mb-md-0">
+                                <button class="btn btn-primary btn-user btn-block" type="button"  id="btnClear" (click)="clearFields()">Clear</button>
+                              </div>
+                              <div class="col-md-2">
+                                <button class="btn btn-primary btn-user btn-block" type="button" [disabled]="!previousRemindersReportForm.valid" id="btnSearch" (click)="searchReport()">Search</button>
+                              </div>
+                            </div>
+
+                        <div class="mat-elevation-z8" *ngIf="isShow" >
+                        <mat-form-field class="mt-2 col-md-4">
+                            <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Search">
+                        </mat-form-field>
+                        <div class="table-responsive">
+                            <table mat-table matSort #table [dataSource]="dataSource" id="tblCustomerDetails">
+                                <ng-container matColumnDef="sn">
+                                    <th mat-header-cell *matHeaderCellDef> Sn. </th>
+                                    <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+                                </ng-container>
+                              
+                                <ng-container matColumnDef="description">
+                                    <th mat-header-cell *matHeaderCellDef> Description </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                                  </ng-container>
+
+                                  <!-- <ng-container matColumnDef="department">
+                                    <th mat-header-cell *matHeaderCellDef> Department </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+                                  </ng-container> -->
+
+                                  <ng-container matColumnDef="reminderDateTime">
+                                    <th mat-header-cell *matHeaderCellDef>Reminder DateTime </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.reminderDateTime}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="isActive">
+                                    <th mat-header-cell *matHeaderCellDef> Is Active </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.isActive}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="createdBy">
+                                    <th mat-header-cell *matHeaderCellDef> Created By </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="createdDate">
+                                    <th mat-header-cell *matHeaderCellDef> Created Date</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="modifiedBy">
+                                    <th mat-header-cell *matHeaderCellDef>  Modified By </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.modifiedBy}} </td>
+                                  </ng-container>
+
+                                  <ng-container matColumnDef="modifiedDate">
+                                    <th mat-header-cell *matHeaderCellDef> Modified Date </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.modifiedDate}} </td>
+                                  </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                              </table>
+                            </div>
+                            <div class="row pl-2 pt-2">
+                              <div class="col-md-2 ">
+                                 <button class="btn btn-primary btn-user btn-block button_excel" type="button"  id="btnExcel" (click)="exportAsExcel()" *ngIf="isShow">Export To Excel</button>
+                              </div>
+                              <div class="col-md-10">
+                                 <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+                              </div>
+                            </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+          </div>
+        </div>
+         <!-- Footer -->
+        <app-footer></app-footer>
+
+     </div>
+    
+</div>
+
+ 
