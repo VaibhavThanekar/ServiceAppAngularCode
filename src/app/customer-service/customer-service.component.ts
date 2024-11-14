@@ -138,19 +138,25 @@ export class CustomerServiceComponent {
     _customerService.quatationPath = this.filePath;
     _customerService.isPartReplaced = this.isPartReplaced;
 
+    if(_customerService.serviceChargeId != 599){
+      _customerService.otherCharge = 0;
+    }
+    else{
+      _customerService.otherCharge = Number(this.customerServiceForm.controls['serviceChargeCost'].value);
+    }
+
     if(this.isPartReplaced){
-     _customerService.otherCharge = Number(this.customerServiceForm.controls['serviceChargeCost'].value);
-     var totalAmount =  _customerService.otherCharge + _customerService.partCost;
+    //  _customerService.otherCharge = Number(this.customerServiceForm.controls['serviceChargeCost'].value);
+    
+    var selectedServiceCost = Number(this.customerServiceForm.controls['serviceChargeCost'].value);
+    var totalAmount =  selectedServiceCost + _customerService.partCost;
      this.serviceCostAmount = totalAmount;
     }
     else{
       _customerService.partCost = 0;
     }
     
-    if(_customerService.serviceChargeId != 599){
-      _customerService.otherCharge = 0;
-    }
-
+    
     if (this.customerServiceForm.invalid) {
       this.submitted = false
       return;
