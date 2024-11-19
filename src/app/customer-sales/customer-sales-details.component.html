@@ -261,6 +261,9 @@
                         </form>
                             <div class="modal-footer form-group row justify-content-end">
                             <div class="col-sm-2 mb-3 mb-md-0">
+                                <button type="button" class="btn btn-primary btn-user btn-block" id="btnDownloadQuotation" (click)="downloadQuotation()" [disabled]="editMode == true || fileName == ' ' || fileName == null">Quot Download</button>
+                            </div>
+                            <div class="col-sm-2 mb-3 mb-md-0">
                                 <button type="button" class="btn btn-primary btn-user btn-block" id="btnCLoseOrder" (click)="closeOrder()" [disabled]="orderClosed == 'Order Closed' || editMode == true">Close Order</button>
                             </div>
                             <div class="col-sm-2">

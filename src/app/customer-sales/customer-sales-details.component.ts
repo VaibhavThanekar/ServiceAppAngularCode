@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomerSalesService } from '../services/customer-sales.service'
-import { CustomerSales, CustomerSalesDetails } from '../models/customer-sales';
+import { CustomerQutationUpload, CustomerSales, CustomerSalesDetails } from '../models/customer-sales';
 import * as XLSX from 'xlsx';
 import { formatDate } from '@angular/common';
 import { DepartmentMaster } from '../models/departmentMaster';
@@ -26,6 +26,7 @@ export class CustomerSalesDetailsComponent {
   dataSource!: MatTableDataSource<CustomerSalesDetails>;
   allCustomers: any = []
   public productNameList: ProductNameList[];
+  public quotationDetails:CustomerQutationUpload;
 
   public displayedColumns: string[] = ['actions', 'customerName', 'mobileNumber', 'customerAddress', 'salesPerson',
     'visitedDate', 'timeOfVisit', 'durationOfSale', 'reminderDate', 'product',
@@ -54,6 +55,7 @@ export class CustomerSalesDetailsComponent {
   orderClosed:string;
   customerMobile:any;
   userMoblieNo:any;
+ 
   
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private customereSalesService: CustomerSalesService, private formBuilder: FormBuilder, 
@@ -96,6 +98,21 @@ export class CustomerSalesDetailsComponent {
     this.customereSalesService.getAllProductNames().subscribe(data =>{
        this.productNameList = data;
      })
+  }
+
+  downloadQuotation(){
+    this.customereSalesService.downloadSalesQuation(this.selectedCustomeName, this.fileName, this.filePath).subscribe(resultData =>{
+      if(resultData == "File downloaded successfully !"){
+        this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+                this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+                  if(result == 'Ok'){
+                    setTimeout(() => 
+                      location.reload(), 0)
+                  }
+                });
+      }
+    })
   }
 
   openModal() {
@@ -302,13 +319,19 @@ export class CustomerSalesDetailsComponent {
       createdDate:selectedCustomer?.createdDate,
       // ,isSelectProduct:true
     })
-      
+
       this.fileName = selectedCustomer?.fileName;
       this.filePath = selectedCustomer?.quatationPath;
       this.createdDate =selectedCustomer?.createdDate;
       this.selectedCustomeName = selectedCustomer?.customerName;
       this.orderClosed = selectedCustomer?.isOrderClosed;
       this.customerMobile = selectedCustomer?.mobileNumber;
+
+      // this.quotationDetails = new CustomerQutationUpload({
+      //   id:this.selectedCustomerId,
+      //   fileName:selectedCustomer?.fileName,
+      //   sourcePath: selectedCustomer?.quatationPath
+      // });
   }
 
   getAllCustomerSalesDetails(department:any, userId:number) {

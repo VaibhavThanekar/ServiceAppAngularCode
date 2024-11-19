@@ -38,6 +38,12 @@ export class CustomerServiceService {
     return this.http.post<CustomerServiceQutationUpload[]>(this.customerServiceApiURL+"UploadServiceQuation", formData);
   }
 
+  downloadServiceQuation(customerName:string, fileName:string, sourcePath:string){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.get<string>(this.customerServiceApiURL+"DownloadServiceQuation?customerName="+customerName+"&fileName="+fileName+"&sourcePath="+sourcePath);
+  }
+
   getAllCustomerServiceDetails(department:any, userId:number){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     let options = {  headers: headers }

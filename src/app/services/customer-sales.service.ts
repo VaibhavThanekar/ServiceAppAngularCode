@@ -42,6 +42,32 @@ export class CustomerSalesService {
     return this.http.post<CustomerQutationUpload[]>(this.customerSalesApiURL+"UploadSalesQuation", formData);
   }
 
+  downloadSalesQuation(customerName:string, fileName:string, sourcePath:string){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let options = {  headers: headers }
+    return this.http.get<string>(this.customerSalesApiURL+"DownloadSalesQuation?customerName="+customerName+"&fileName="+fileName+"&sourcePath="+sourcePath);
+  }
+
+  //   downloadSalesQuation(quationDetails:CustomerQutationUpload){
+  //   let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+  //   let options = {  headers: headers }
+  //   return this.http.get<string>(this.customerSalesApiURL+"DownloadSalesQuation"+JSON.stringify(quationDetails));
+  // }
+
+  // http://localhost:5153/api/CustomerSales/DownloadSalesQuation?id=4036&fileName=AVAPT0061F_2024-25.pdf&sourcePath=Resources%5CQutations%5CSales%5CAVAPT0061F_2024-25.pdf
+
+  //   let paramsd: URLSearchParams = new URLSearchParams();
+  //     paramsd.set('id', (quationDetails.id).toString());
+  //     paramsd.set('fileName', quationDetails.fileName);
+  //     paramsd.set('sourcePath', quationDetails.sourcePath);
+  //     return this.http.get<string>(this.customerSalesApiURL+"DownloadSalesQuation",{
+  // params:paramsd
+  //     });
+
+  // downloadSalesQuation(quationDetails:CustomerQutationUpload){
+  //   return this.http.get<string>(this.customerSalesApiURL+"DownloadSalesQuation"+ JSON.stringify(quationDetails));
+  // }
+
   getAllCustomerSaleDetails(department:any, userId:number){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     let options = {  headers: headers }

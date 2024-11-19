@@ -54,7 +54,7 @@ export class CustomerServiceDetailsComponent {
   editMode:boolean= false;
   modifiedBy:number = 0;
   createdDate:any;
-  
+  selectedCustomeName:string;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   constructor(private customereDetailsService: CustomerServiceService, 
@@ -148,6 +148,21 @@ export class CustomerServiceDetailsComponent {
     
     this.customerServiceForm.patchValue({
       fileName:this.selectedFile.name
+    })
+  }
+
+  downloadQuotation(){
+    this.customereDetailsService.downloadServiceQuation(this.selectedCustomeName, this.fileName, this.filePath).subscribe(resultData =>{
+      if(resultData == "File downloaded successfully !"){
+        this.messageboxOk.openDialog('0ms', '0ms', resultData, 'Information');
+    
+                this.messageboxOk.dialogRef.afterClosed().subscribe(result => {
+                  if(result == 'Ok'){
+                    setTimeout(() => 
+                      location.reload(), 0)
+                  }
+                });
+      }
     })
   }
 
@@ -288,7 +303,7 @@ export class CustomerServiceDetailsComponent {
       createdDate:selectedCustomer?.createdDate,
       
     })
-
+    this.selectedCustomeName = selectedCustomer?.customerName;
     this.checked = selectedCustomer.isPartReplaced;
     this.serviceChargeId = selectedCustomer.serviceChargeId;
 

@@ -66,3 +66,15 @@ export interface CustomerSales
       fileName:string;
       sourcePath:string;
   }
+
+  
+  export class CustomerQutationUpload
+  {
+      id:number;
+      fileName:string;
+      sourcePath:string;
+
+      constructor(data: Partial<CustomerQutationUpload>) {
+        Object.assign(this, data);
+    }
+  }
